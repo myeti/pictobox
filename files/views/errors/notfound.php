@@ -1,0 +1,3 @@
+<?php self::layout('front'); ?>
+
+I'm lost...

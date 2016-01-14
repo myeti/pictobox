@@ -1,0 +1,481 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "3089bb1c214e00754ed35780dade4f09",
+    "content-hash": "06507def73834aba4d89b22b08007a8c",
+    "packages": [
+        {
+            "name": "colorium/app",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/app.git",
+                "reference": "491b4bbdecd419e7a0fb449417c671c0f113d40f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/app/zipball/491b4bbdecd419e7a0fb449417c671c0f113d40f",
+                "reference": "491b4bbdecd419e7a0fb449417c671c0f113d40f",
+                "shasum": ""
+            },
+            "require": {
+                "colorium/http": "dev-master",
+                "colorium/routing": "dev-master",
+                "colorium/runtime": "dev-master",
+                "colorium/stateful": "dev-master",
+                "colorium/templating": "dev-master",
+                "php": ">=5.6",
+                "psr/log": ">=1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colorium\\App\\": "/src/Colorium/App/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Colorium Application Component",
+            "homepage": "https://github.com/colorium/app",
+            "time": "2016-01-14 12:35:22"
+        },
+        {
+            "name": "colorium/arraydot",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/arraydot.git",
+                "reference": "0751aba4e1e1993bc276b842696ef77e5dca2ec4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/arraydot/zipball/0751aba4e1e1993bc276b842696ef77e5dca2ec4",
+                "reference": "0751aba4e1e1993bc276b842696ef77e5dca2ec4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colorium\\Tools\\": "/src/Colorium/Tools/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Traversable array with dot notation",
+            "homepage": "https://github.com/colorium/arraydot",
+            "time": "2016-01-14 12:33:40"
+        },
+        {
+            "name": "colorium/framework",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/framework.git",
+                "reference": "5b498a019c78d067e8750344ede84ee2761aaf6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/framework/zipball/5b498a019c78d067e8750344ede84ee2761aaf6e",
+                "reference": "5b498a019c78d067e8750344ede84ee2761aaf6e",
+                "shasum": ""
+            },
+            "require": {
+                "colorium/app": "dev-master",
+                "colorium/arraydot": "dev-master",
+                "colorium/http": "dev-master",
+                "colorium/orm": "dev-master",
+                "colorium/routing": "dev-master",
+                "colorium/runtime": "dev-master",
+                "colorium/stateful": "dev-master",
+                "colorium/templating": "dev-master",
+                "php": ">=5.6"
+            },
+            "type": "metapackage",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Colorium components aggregator",
+            "homepage": "https://github.com/colorium/framework",
+            "time": "2016-01-14 12:33:23"
+        },
+        {
+            "name": "colorium/http",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/http.git",
+                "reference": "1009e7fbb1a44b86194792b638b897b2a4cf794a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/http/zipball/1009e7fbb1a44b86194792b638b897b2a4cf794a",
+                "reference": "1009e7fbb1a44b86194792b638b897b2a4cf794a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colorium\\Http\\": "/src/Colorium/Http/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "HTTP Request/Response Implementation",
+            "homepage": "https://github.com/colorium/http",
+            "time": "2016-01-14 12:32:59"
+        },
+        {
+            "name": "colorium/orm",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/orm.git",
+                "reference": "30581d1c4af709768c3e2be938124fa6445af87f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/orm/zipball/30581d1c4af709768c3e2be938124fa6445af87f",
+                "reference": "30581d1c4af709768c3e2be938124fa6445af87f",
+                "shasum": ""
+            },
+            "require": {
+                "colorium/runtime": "dev-master",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colorium\\Orm\\": "/src/Colorium/Orm/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple ORM Library",
+            "homepage": "https://github.com/colorium/orm",
+            "time": "2016-01-14 12:32:48"
+        },
+        {
+            "name": "colorium/routing",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/routing.git",
+                "reference": "0ef0793166d13576eec5fb9e4fc2ec43f57a95d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/routing/zipball/0ef0793166d13576eec5fb9e4fc2ec43f57a95d8",
+                "reference": "0ef0793166d13576eec5fb9e4fc2ec43f57a95d8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colorium\\Routing\\": "/src/Colorium/Routing/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Colorium Routing Component",
+            "homepage": "https://github.com/colorium/routing",
+            "time": "2016-01-14 12:35:47"
+        },
+        {
+            "name": "colorium/runtime",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/runtime.git",
+                "reference": "466ed32aca9131c6e0d44d17e5e9e3e867a3fba0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/runtime/zipball/466ed32aca9131c6e0d44d17e5e9e3e867a3fba0",
+                "reference": "466ed32aca9131c6e0d44d17e5e9e3e867a3fba0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colorium\\Runtime\\": "/src/Colorium/Runtime/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Runtime Resolver, Annotation and Injector",
+            "homepage": "https://github.com/colorium/runtime",
+            "time": "2016-01-14 12:32:36"
+        },
+        {
+            "name": "colorium/stateful",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/stateful.git",
+                "reference": "e858c2d673a101d0528550205089b551545cf586"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/stateful/zipball/e858c2d673a101d0528550205089b551545cf586",
+                "reference": "e858c2d673a101d0528550205089b551545cf586",
+                "shasum": ""
+            },
+            "require": {
+                "colorium/arraydot": "dev-master",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colorium\\Stateful\\": "/src/Colorium/Stateful/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Stateful Session Component",
+            "homepage": "https://github.com/colorium/stateful",
+            "time": "2016-01-14 12:36:27"
+        },
+        {
+            "name": "colorium/templating",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/colorium/templating.git",
+                "reference": "b66a6877c756c20626dd2a1fa0d80059c23c2486"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/colorium/templating/zipball/b66a6877c756c20626dd2a1fa0d80059c23c2486",
+                "reference": "b66a6877c756c20626dd2a1fa0d80059c23c2486",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Colorium\\Templating\\": "/src/Colorium/Templating/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aymeric Assier",
+                    "email": "aymeric.assier@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Colorium Templating Component",
+            "homepage": "https://github.com/colorium/templating",
+            "time": "2016-01-14 12:35:37"
+        },
+        {
+            "name": "filp/whoops",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "72538eeb70bbfb11964412a3d098d109efd012f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/72538eeb70bbfb11964412a3d098d109efd012f7",
+                "reference": "72538eeb70bbfb11964412a3d098d109efd012f7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Whoops": "src/"
+                },
+                "classmap": [
+                    "src/deprecated"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://github.com/filp/whoops",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "silex-provider",
+                "whoops",
+                "zf2"
+            ],
+            "time": "2015-06-29 05:42:04"
+        },
+        {
+            "name": "psr/log",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2016-01-06 21:40:42"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "colorium/framework": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.6"
+    },
+    "platform-dev": []
+}

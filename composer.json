@@ -1,0 +1,25 @@
+{
+  "name": "myeti/pictobox",
+  "type": "project",
+  "description": "PictoBox Application",
+  "homepage": "https://github.com/myeti/pictobox",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Aymeric Assier",
+      "email": "aymeric.assier@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.6",
+    "filp/whoops": "1.*",
+    "colorium/framework": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  }
+}
