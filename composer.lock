@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3089bb1c214e00754ed35780dade4f09",
-    "content-hash": "06507def73834aba4d89b22b08007a8c",
+    "hash": "3bb186d58c793b6c613059007e0ed025",
+    "content-hash": "1335c79e71feb0ec5df3a7854ed8d872",
     "packages": [
         {
             "name": "colorium/app",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/app.git",
-                "reference": "491b4bbdecd419e7a0fb449417c671c0f113d40f"
+                "reference": "9c858cc2080c1feebc62585bfdf14c0c1daae450"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/app/zipball/491b4bbdecd419e7a0fb449417c671c0f113d40f",
-                "reference": "491b4bbdecd419e7a0fb449417c671c0f113d40f",
+                "url": "https://api.github.com/repos/colorium/app/zipball/9c858cc2080c1feebc62585bfdf14c0c1daae450",
+                "reference": "9c858cc2080c1feebc62585bfdf14c0c1daae450",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
             ],
             "description": "Colorium Application Component",
             "homepage": "https://github.com/colorium/app",
-            "time": "2016-01-14 12:35:22"
+            "time": "2016-01-14 13:47:04"
         },
         {
             "name": "colorium/arraydot",
@@ -213,12 +213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/routing.git",
-                "reference": "0ef0793166d13576eec5fb9e4fc2ec43f57a95d8"
+                "reference": "4fb69d885deac8e8d96c3893e1286e12295f12eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/routing/zipball/0ef0793166d13576eec5fb9e4fc2ec43f57a95d8",
-                "reference": "0ef0793166d13576eec5fb9e4fc2ec43f57a95d8",
+                "url": "https://api.github.com/repos/colorium/routing/zipball/4fb69d885deac8e8d96c3893e1286e12295f12eb",
+                "reference": "4fb69d885deac8e8d96c3893e1286e12295f12eb",
                 "shasum": ""
             },
             "require": {
@@ -243,7 +243,7 @@
             ],
             "description": "Colorium Routing Component",
             "homepage": "https://github.com/colorium/routing",
-            "time": "2016-01-14 12:35:47"
+            "time": "2016-01-14 14:16:00"
         },
         {
             "name": "colorium/runtime",

@@ -41,8 +41,7 @@ class Users
 
         $user = User::one(['username' => $username, 'password' => $password]);
         if($user) {
-            $user->password = null;
-            Auth::login($user->rank, $user);
+            Auth::login($user->rank, $user->id);
             return $self::redirect('/');
         }
 

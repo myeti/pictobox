@@ -13,12 +13,6 @@ class User
     const NORMAL = 1;
     const ADMIN = 9;
 
-    /**
-     * @id
-     * @var int
-     */
-    public $id;
-
     /** @var string */
     public $username;
 

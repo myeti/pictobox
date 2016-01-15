@@ -4,11 +4,12 @@
  * Config setup
  */
 
-define('PICS_DIR', __DIR__ . '/public/pics/');
-define('CACHE_DIR', __DIR__ . '/public/cache/');
+define('__ROOT__', dirname(__DIR__));
+define('PICS_DIR', __ROOT__ . '/public/pics/');
+define('CACHE_DIR', __ROOT__ . '/public/cache/');
 
 function vd($param, ...$params) { var_dump($param, ...$params); }
-function dd($param, ...$params) { die(var_dump($param, ...$params)); }
+function dd($param, ...$params) { var_dump($param, ...$params); exit; }
 
 
 /**
@@ -17,16 +18,20 @@ function dd($param, ...$params) { die(var_dump($param, ...$params)); }
 
 use App\Model\User;
 
-$sqlite = Colorium\Orm\Mapper::SQLite(__DIR__ . '/files/pictobox.db');
+$sqlite = Colorium\Orm\Mapper::SQLite(__DIR__ . '/pictobox.db');
 $sqlite->map('user', User::class);
-$sqlite->builder('user')->create();
 
 
 /**
- * Auto login
+ * Fixture
  */
 
 use Colorium\Stateful\Auth;
+
+Auth::factory(function($ref)
+{
+    //return User::one(['id' => $ref]);
+});
 
 $admin = new User('Admin', null, User::ADMIN);
 Auth::login($admin->rank, $admin);
@@ -39,7 +44,7 @@ Auth::login($admin->rank, $admin);
 $app = new Colorium\App\Front;
 
 // template definition
-$app->templater->root = __DIR__ . '/files/views/';
+$app->templater->root = __DIR__ . '/views/';
 
 // routes definition
 $app->on('GET /login',         'App\Logic\Users::login');
@@ -55,9 +60,9 @@ $app->on('POST /:y/:m/:d/:album/create',   'App\Logic\Albums::create');
 $app->on('POST /:y/:m/:d/:album/upload',   'App\Logic\Albums::upload');
 
 // events definition
-$app->when(401, 'App\Logic\Errors::unauthorized');
-$app->when(404, 'App\Logic\Errors::notfound');
-$app->when(\Exception::class, 'App\Logic\Errors::error');
+$app->when(401,                 'App\Logic\Errors::unauthorized');
+$app->when(404,                 'App\Logic\Errors::notfound');
+$app->when(\Exception::class,   'App\Logic\Errors::error');
 
 
 /**
@@ -78,4 +83,4 @@ if(!$app->prod) {
  * Finally, run app
  */
 
-$app->run();
+$app->run()->end();
