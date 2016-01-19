@@ -31,12 +31,14 @@ class User
      *
      * @param string $username
      * @param string $password
+     * @param string $email
      * @param int $rank
      */
-    public function __construct($username = null, $password = null, $rank = 1)
+    public function __construct($username = null, $password = null, $email = null, $rank = 1)
     {
         $this->username = $username;
         $this->password = $password;
+        $this->email = $email;
         $this->rank = $rank;
     }
 

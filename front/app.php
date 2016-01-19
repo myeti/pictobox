@@ -1,55 +1,69 @@
 <?php
 
 /**
- * Config setup
+ * Config definitions
+ * Be careful when changing it
  */
 
 define('__ROOT__', dirname(__DIR__));
+
 define('PICS_DIR', __ROOT__ . '/public/pics/');
 define('CACHE_DIR', __ROOT__ . '/public/cache/');
 
-function vd($param, ...$params) { var_dump($param, ...$params); }
-function dd($param, ...$params) { var_dump($param, ...$params); exit; }
 
 
 /**
- * Orm setup
+ * Database setup
+ * Define drive connector and model classes
  */
 
+use Colorium\Orm;
 use App\Model\User;
 
-$sqlite = Colorium\Orm\Mapper::SQLite(__DIR__ . '/pictobox.db');
-$sqlite->map('user', User::class);
+$sqlite = new Orm\SQLite(__DIR__ . '/orm/pictobox.db', [
+    'user' => User::class
+]);
+
+Orm\Hub::source($sqlite);
+
 
 
 /**
- * Fixture
+ * Authentication setup
+ * Define user factory when login in
  */
 
 use Colorium\Stateful\Auth;
 
-Auth::factory(function($ref)
-{
-    //return User::one(['id' => $ref]);
+Auth::factory(function($ref) {
+    return User::one(['id' => $ref]);
 });
 
-$admin = new User('Admin', null, User::ADMIN);
-Auth::login($admin->rank, $admin);
 
 
 /**
- * App setup
+ * App instance setup
  */
 
 $app = new Colorium\App\Front;
 
-// template definition
-$app->templater->root = __DIR__ . '/views/';
 
-// routes definition
-$app->on('GET /login',         'App\Logic\Users::login');
-$app->on('POST /authenticate', 'App\Logic\Users::authenticate');
-$app->on('GET /logout',        'App\Logic\Users::logout');
+
+/**
+ * Template setup
+ */
+
+$app->templater->directory = __DIR__ . '/views/';
+
+
+
+/**
+ * Routes setup
+ */
+
+$app->on('GET /login',                      'App\Logic\Users::login');
+$app->on('POST /authenticate',              'App\Logic\Users::authenticate');
+$app->on('GET /logout',                     'App\Logic\Users::logout');
 
 $app->on('GET /',                          'App\Logic\Albums::all');
 $app->on('GET /:y',                        'App\Logic\Albums::year');
@@ -59,24 +73,14 @@ $app->on('GET /:y/:m/:d/:album',           'App\Logic\Albums::one');
 $app->on('POST /:y/:m/:d/:album/create',   'App\Logic\Albums::create');
 $app->on('POST /:y/:m/:d/:album/upload',   'App\Logic\Albums::upload');
 
-// events definition
-$app->when(401,                 'App\Logic\Errors::unauthorized');
-$app->when(404,                 'App\Logic\Errors::notfound');
-$app->when(\Exception::class,   'App\Logic\Errors::error');
-
 
 /**
- * Debug setup
+ * Env mode
  */
 
-$app->prod = false;
-if(!$app->prod) {
-    $handler = new Whoops\Handler\PrettyPageHandler;
-    $handler->addDataTableCallback('App Request', function() use ($app) {
-        return (array)$app->context->request;
-    });
-    (new Whoops\Run)->pushHandler($handler)->register();
-}
+$app->context->request->local[] = '10.0.2.2';
+$env = $app->context->request->local() ? 'development.php' : 'production.php';
+require $env;
 
 
 /**
