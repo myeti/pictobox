@@ -29,7 +29,7 @@ class Errors
     /**
      * Fatal error
      */
-    public function error()
+    public function fatal()
     {
         die('error');
     }

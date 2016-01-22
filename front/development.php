@@ -18,9 +18,12 @@ $admin = new User('Admin', 'Admin', 'admin@yourbox.io', User::ADMIN);
 $admin->save();
 
 
+
 /**
- * Debug stacktrace setup
+ * Debug stacktrace using WHOOPS
  */
+
+$app->config->catch = false;
 
 $handler = new Whoops\Handler\PrettyPageHandler;
 $handler->addDataTableCallback('App Uri', function() use ($app) {
@@ -45,6 +48,7 @@ $whoops = new Whoops\Run;
 $whoops->pushHandler($handler)->register();
 
 
+
 /**
  * Vardump
  *
@@ -55,6 +59,7 @@ function vd($param, ...$params)
 {
     var_dump($param, ...$params);
 }
+
 
 
 /**

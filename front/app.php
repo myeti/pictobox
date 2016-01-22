@@ -2,7 +2,6 @@
 
 /**
  * Config definitions
- * Be careful when changing it
  */
 
 define('__ROOT__', dirname(__DIR__));
@@ -42,45 +41,64 @@ Auth::factory(function($ref) {
 
 
 /**
- * App instance setup
- */
-
-$app = new Colorium\App\Front;
-
-
-
-/**
  * Template setup
  */
 
-$app->templater->directory = __DIR__ . '/views/';
+use Colorium\Templating\Templater;
+
+$templater = new Templater(__DIR__ . '/views/');
 
 
 
 /**
- * Routes setup
+ * Router setup
  */
 
-$app->on('GET /login',                      'App\Logic\Users::login');
-$app->on('POST /authenticate',              'App\Logic\Users::authenticate');
-$app->on('GET /logout',                     'App\Logic\Users::logout');
+use Colorium\Routing\Router;
 
-$app->on('GET /',                          'App\Logic\Albums::all');
-$app->on('GET /:y',                        'App\Logic\Albums::year');
-$app->on('GET /:y/:m',                     'App\Logic\Albums::month');
-$app->on('GET /:y/:m/:d',                  'App\Logic\Albums::day');
-$app->on('GET /:y/:m/:d/:album',           'App\Logic\Albums::one');
-$app->on('POST /:y/:m/:d/:album/create',   'App\Logic\Albums::create');
-$app->on('POST /:y/:m/:d/:album/upload',   'App\Logic\Albums::upload');
+$router = new Router([
+    'GET  /login'                   => 'App\Logic\Users::login',
+    'POST /authenticate'            => 'App\Logic\Users::authenticate',
+    'GET  /logout'                  => 'App\Logic\Users::logout',
+    'GET  /'                        => 'App\Logic\Albums::all',
+    'GET  /:y'                      => 'App\Logic\Albums::year',
+    'GET  /:y/:m'                   => 'App\Logic\Albums::month',
+    'GET  /:y/:m/:d'                => 'App\Logic\Albums::day',
+    'GET  /:y/:m/:d/:album'         => 'App\Logic\Albums::one',
+    'POST /:y/:m/:d/:album/create'  => 'App\Logic\Albums::create',
+    'POST /:y/:m/:d/:album/upload'  => 'App\Logic\Albums::upload',
+]);
+
 
 
 /**
- * Env mode
+ * App instance
  */
 
-$app->context->request->local[] = '10.0.2.2';
-$env = $app->context->request->local() ? 'development.php' : 'production.php';
-require $env;
+$app = new Colorium\App\Front($router, $templater);
+
+
+
+/**
+ * Http event
+ */
+
+$app->events([
+    401 => 'App\Logic\Errors::unauthorized',
+    404 => 'App\Logic\Errors::notfound',
+    Exception::class => 'App\Logic\Errors::fatal'
+]);
+
+
+
+/**
+ * Dev mode
+ */
+
+$trusted = ['127.0.0.1', '::1', '10.0.2.2'];
+if(in_array($app->context->request->ip, $trusted)) {
+    require 'development.php';
+}
 
 
 /**
