@@ -62,7 +62,7 @@ ul.grid li {
 }
 
 .grid.albums .album {
-    height: 250px;
+    padding-top: 50%;
     position: relative;
     overflow: hidden;
 }
@@ -97,7 +97,7 @@ ul.grid li {
 }
 
 .grid.pictures .picture {
-    height: 250px;
+    padding-top: 100%;
     position: relative;
 }
 .grid.pictures .picture .bg {
