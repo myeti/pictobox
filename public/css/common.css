@@ -2,7 +2,7 @@
  * Fonts
  */
 
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic,700);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic);
 @import url(https://fonts.googleapis.com/css?family=Righteous);
 
 
@@ -19,10 +19,8 @@ body {
     background: #1f2224;
     color: #fff;
 }
-a {
+
+a, a:hover, a:visited, a:active {
     color: inherit;
-}
-a:hover {
-    color: #F77049;
     text-decoration: none;
 }

@@ -22,6 +22,7 @@ header nav a {
 }
 header nav a#logo {
     font-family: Righteous, Helvetica, Arial, sans-serif;
+    font-size: 13px;
 }
 header nav a#logo,
 header nav a.album {
@@ -63,35 +64,52 @@ ul.grid li {
 .grid.albums .album {
     height: 250px;
     position: relative;
-    background-color: #666;
+    overflow: hidden;
+}
+.grid.albums .album .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-position: center center;
     background-size: cover;
+    opacity: 0.6;
+    transition: transform 0.2s;
 }
-.grid.albums .album:hover {
-    background-size: 110%;
+.grid.albums .album:hover .bg {
+    opacity: 1;
+    transform: scale(1.1);
 }
 .grid.albums .album .title,
 .grid.albums .album .date {
     position: absolute;
     bottom: 15px;
-    left: 15px;
+    left: 20px;
     text-transform: uppercase;
     font-weight: normal;
-    font-size: 11px;
+    font-size: 12px;
 }
 .grid.albums .album .title {
     bottom: 25px;
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 1px;
 }
 
 .grid.pictures .picture {
     height: 250px;
     position: relative;
-    background-color: #666;
+}
+.grid.pictures .picture .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-position: center center;
     background-size: cover;
+    opacity: 0.8;
 }
-.grid.pictures .picture:hover {
-    background-size: 110%;
+.grid.pictures .picture:hover .bg {
+    opacity: 1;
 }

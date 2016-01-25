@@ -36,8 +36,8 @@ class Picture
         $this->author = basename(dirname($path));
         $this->album = basename(dirname(dirname($path)));
 
-        $this->url = ALBUMS_URL . '/' . $this->album . '/' . $this->author . '/' . $this->name;
-        $this->cache = CACHE_URL . '/' . $this->album . '/' . $this->author . '/' . $this->name;
+        $this->url = ALBUMS_URL . $this->album . '/' . $this->author . '/' . $this->name;
+        $this->cache = CACHE_URL . $this->album . '/' . $this->author . '/' . $this->name;
     }
 
 }

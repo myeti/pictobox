@@ -90,7 +90,7 @@ class Album
             foreach(glob($this->path . '/*') as $folder) {
                 $sub = basename($folder);
                 foreach(glob($this->path . '/' . $sub . '/*') as $picture) {
-                    $this->pics[$sub] = new Picture($picture);
+                    $this->pics[$sub][] = new Picture($picture);
                 }
             }
         }
@@ -116,13 +116,9 @@ class Album
     {
         $authors = $this->pics();
         if($authors) {
-            $pics = array_rand($authors);
-            if($pics) {
-                $pic = array_rand($pics);
-                if($pic) {
-                    return $pic->name;
-                }
-            }
+            $author = array_rand($authors);
+            $rand = array_rand($authors[$author]);
+            return $authors[$author][$rand];
         }
     }
 

@@ -6,8 +6,8 @@
         <?php foreach($pics as $pic): ?>
         <li class="col-xs-6 col-sm-3 col-md-2">
             <a href="<?= self::url($pic->url) ?>">
-                <div class="picture" style="background-image: url(<?= self::url($pic->cache()) ?>)">
-                    <img src="<?= self::url($pic->cache) ?>" alt="">
+                <div class="picture">
+                    <div class="bg" style="background-image: url('<?= self::url($album->thumbnail()->url) ?>')"></div>
                 </div>
             </a>
         </li>
