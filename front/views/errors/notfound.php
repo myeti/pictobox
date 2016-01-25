@@ -1,3 +1,3 @@
-<?php self::layout('front'); ?>
+<?php self::layout('public') ?>
 
-I'm lost...
+<h1 class="error">La page que vous recherchez n'existe pas.</h1>

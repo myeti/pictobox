@@ -6,8 +6,13 @@
 
 define('__ROOT__', dirname(__DIR__));
 
-define('PICS_DIR', __ROOT__ . '/public/pics/');
-define('CACHE_DIR', __ROOT__ . '/public/cache/');
+define('APP_NAME', 'Pictobox');
+
+define('ALBUMS_DIR', __ROOT__ . '/public/img/albums/');
+define('ALBUMS_URL', '/img/albums/');
+
+define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
+define('CACHE_URL', '/img/cache/');
 
 
 
@@ -57,9 +62,12 @@ $templater = new Templater(__DIR__ . '/views/');
 use Colorium\Routing\Router;
 
 $router = new Router([
+
     'GET  /login'                   => 'App\Logic\Users::login',
-    'POST /authenticate'            => 'App\Logic\Users::authenticate',
+    'POST /login/auth'              => 'App\Logic\Users::auth',
+    'POST /profile'                 => 'App\Logic\Users::edit',
     'GET  /logout'                  => 'App\Logic\Users::logout',
+
     'GET  /'                        => 'App\Logic\Albums::all',
     'GET  /:y'                      => 'App\Logic\Albums::year',
     'GET  /:y/:m'                   => 'App\Logic\Albums::month',

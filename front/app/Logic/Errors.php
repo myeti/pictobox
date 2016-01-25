@@ -22,7 +22,7 @@ class Errors
      */
     public function unauthorized(Context $self)
     {
-        return $self::redirect('/login');
+        return $self::redirect('/login?from=' . $self->request->uri->path);
     }
 
 

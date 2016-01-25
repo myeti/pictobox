@@ -10,12 +10,16 @@
  */
 
 use App\Model\User;
+use Colorium\Stateful\Auth;
 
 User::builder()->wipe();
 User::builder()->create();
 
-$admin = new User('Admin', 'Admin', 'admin@yourbox.io', User::ADMIN);
+$admin = new User('Admin', sha1('EfiM$&5/*.w64$yPM3dadmin'), 'admin@yourbox.io', User::ADMIN);
 $admin->save();
+
+
+Auth::login($admin->rank, $admin->id);
 
 
 

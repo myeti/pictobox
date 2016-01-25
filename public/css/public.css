@@ -1,0 +1,57 @@
+/**
+ * Login
+ */
+
+body {
+    background: url(../img/login-bg.jpg);
+    background-size: cover;
+}
+
+header {
+    text-align: center;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: Righteous, Helvetica, Arial, sans-serif;
+}
+
+#login {
+    position: relative;
+    margin: auto;
+    margin-top: calc(50vh - 100px);
+    width: 200px;
+}
+#login .bg-danger {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -40px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 2px;
+}
+#login input,
+#login button {
+    border: none;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    outline: none;
+}
+#login input {
+    background: rgba(255, 255, 255, 0.6);
+    color: #444;
+}
+#login input:focus {
+    background: rgba(255, 255, 255, 0.8);
+}
+#login button {
+    background: #F77049;
+    color: #fff;
+}
+
+.error {
+    text-align: center;
+    margin-top: calc(50vh - 100px);
+}

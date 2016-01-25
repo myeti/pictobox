@@ -1,0 +1,97 @@
+/**
+ * Header
+ */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(31, 34, 36, .9);
+    padding: 16px 20px;
+}
+
+header nav a {
+    font-size: 14px;
+    color: #aaa;
+    display: inline-block;
+    padding: 0 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+header nav a#logo {
+    font-family: Righteous, Helvetica, Arial, sans-serif;
+}
+header nav a#logo,
+header nav a.album {
+    color: #fff;
+}
+header nav span {
+    font-size: 17px;
+    color: #777;
+    padding: 0 5px;
+}
+
+header #user {
+    float: right;
+}
+
+
+/**
+ * Main
+ */
+
+main {
+    padding-top: 60px;
+}
+
+
+/**
+ * Grid
+ */
+
+ul.grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul.grid li {
+    padding: 0;
+}
+
+.grid.albums .album {
+    height: 250px;
+    position: relative;
+    background-color: #666;
+    background-position: center center;
+    background-size: cover;
+}
+.grid.albums .album:hover {
+    background-size: 110%;
+}
+.grid.albums .album .title,
+.grid.albums .album .date {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 11px;
+}
+.grid.albums .album .title {
+    bottom: 25px;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.grid.pictures .picture {
+    height: 250px;
+    position: relative;
+    background-color: #666;
+    background-position: center center;
+    background-size: cover;
+}
+.grid.pictures .picture:hover {
+    background-size: 110%;
+}

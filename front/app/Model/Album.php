@@ -11,6 +11,9 @@ class Album
     public $name;
 
     /** @var string */
+    public $flatname;
+
+    /** @var string */
     public $path;
 
     /** @var int */
@@ -20,22 +23,22 @@ class Album
     public $month;
 
     /** @var string */
-    public $monthName;
+    public $monthname;
 
     /** @var int */
     public $day;
 
-    /** @var array */
-    protected $authors = [];
+    /** @var string */
+    public $date;
+
+    /** @var string */
+    public $url;
 
     /** @var array */
     protected $pics = [];
 
-    /** @var string */
-    protected $url;
-
     /** @var array */
-    protected $monthNames = [
+    public static $months = [
         1 => 'Janvier',
         2 => 'Février',
         3 => 'Mars',
@@ -61,14 +64,16 @@ class Album
         $this->path = $path;
         if(preg_match('/([0-9]{4})([0-9]{2})([0-9]{2}) - (.+)/', $path, $extracted)) {
             list(, $year, $month, $day, $name) = $extracted;
+
             $this->year = $year;
             $this->month = $month;
             $this->day = $day;
             $this->name = $name;
 
-            if($month) {
-                $this->monthName = $this->monthNames[(int)$month];
-            }
+            $this->flatname = Uri::sanitize($name);
+            $this->monthname = static::$months[(int)$month];
+            $this->date = ltrim($this->day, 0) . ' ' . $this->monthname . ' ' . $this->year;
+            $this->url = '/' . $this->year . '/' . $this->month . '/' . $this->day . '/' . $this->flatname;
         }
     }
 
@@ -76,45 +81,49 @@ class Album
     /**
      * Get author list
      *
+     * @param string $author
      * @return array
      */
-    public function authors()
+    public function pics($author = null)
     {
-        if(!$this->authors) {
+        if(!$this->pics) {
             foreach(glob($this->path . '/*') as $folder) {
-                $this->authors[] = dirname($folder);
+                $sub = basename($folder);
+                foreach(glob($this->path . '/' . $sub . '/*') as $picture) {
+                    $this->pics[$sub] = new Picture($picture);
+                }
             }
         }
 
-        return $this->authors;
+        if($author) {
+            $author = ucfirst(strtolower($author));
+            return isset($this->pics[$author])
+                ? $this->pics[$author]
+                : null;
+        }
+
+        return $this->pics;
     }
 
 
     /**
-     * Fetch album pics
+     * Get thumbnail of album
+     * Currently random, need proper system (TODO)
      *
-     * @param string $author
-     * @return Picture[]
+     * @return Picture
      */
-    public function pics($author = null)
+    public function thumbnail()
     {
-        if($author = ucfirst(strtolower($author))) {
-            if(empty($this->pics[$author])) {
-                foreach(glob($this->path . '/' . $author . '/*') as $file) {
-                    $this->pics[$author][] = basename($file);
+        $authors = $this->pics();
+        if($authors) {
+            $pics = array_rand($authors);
+            if($pics) {
+                $pic = array_rand($pics);
+                if($pic) {
+                    return $pic->name;
                 }
             }
-
-            return $this->pics[$author];
         }
-
-        if(empty($this->pics)) {
-            foreach(glob($this->path . '/*') as $author) {
-                $this->pics(basename($author));
-            }
-        }
-
-        return $this->pics;
     }
 
 
@@ -127,28 +136,6 @@ class Album
     public function count($author = null)
     {
         return count($this->pics($author));
-    }
-
-
-    /**
-     * Generate flat name
-     *
-     * #return string
-     */
-    public function flatname()
-    {
-        return Uri::sanitize($this->name);
-    }
-
-
-    /**
-     * Generate url
-     *
-     * @return string
-     */
-    public function url()
-    {
-        return '/' . $this->year . '/' . $this->month . '/' . $this->day . '/' . $this->flatname();
     }
 
 }

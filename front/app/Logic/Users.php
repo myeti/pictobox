@@ -21,8 +21,19 @@ class Users
      * Login form
      *
      * @html users/login
+     * @param Context $self
+     * @return array
      */
-    public function login() {}
+    public function login(Context $self)
+    {
+        // from redirection
+        $referer = $self->request->uri->param('from');
+
+        return [
+            'referer' => $referer,
+            'error' => Flash::get('login.error')
+        ];
+    }
 
 
     /**
@@ -31,58 +42,48 @@ class Users
      * @param Context $self
      * @return \Colorium\Http\Response\Redirect
      */
-    public function authenticate(Context $self)
+    public function auth(Context $self)
     {
-        $username = $self->post('username');
+        list($username, $password, $referer) = $self->post('username','password', 'referer');
         $username = ucfirst(strtolower($username));
-
-        $password = $self->post('password');
         $password = sha1($this->salt . $password);
 
         $user = User::one(['username' => $username, 'password' => $password]);
-        if($user) {
-            Auth::login($user->rank, $user->id);
-            return $self::redirect('/');
+        if(!$user) {
+            Flash::set('login.error', 'Identifiants incorrects');
+            return $self::redirect('/login?from=' . $referer);
         }
 
-        Flash::set('login.error', 'Identifiants incorrects');
-        return $self::redirect('/login');
+        Auth::login($user->rank, $user->id);
+        return $self::redirect($referer ?: '/');
     }
 
 
     /**
-     * Password reset form
-     *
-     * @access 1
-     * @html users/reset-password
-     */
-    public function resetPassword() {}
-
-
-    /**
-     * Attempt password reset
+     * Edit user details
      *
      * @access 1
      *
      * @param Context $self
      * @return \Colorium\Http\Response\Redirect
      */
-    public function submitNewPassword(Context $self)
+    public function edit(Context $self)
     {
-        $password = $self->post('password');
-        if(strlen($password) < $this->minLength) {
-            Flash::set('reset.error', 'Mot de passe trop court (min. 6 caractères)');
-            return $self::redirect('/pwd-reset');
+        // get post data
+        list($email, $password) = $self->post('email', 'password');
+
+        // edit email
+        if($email != $self->user->email and filter_var($email, FILTER_SANITIZE_EMAIL)) {
+            $self->user->email = $email;
         }
 
-        $password = sha1($this->salt . $password);
-        $edited = User::edit(['password' => $password], ['id' => Auth::user()->id]);
-        if(!$edited) {
-            Flash::set('reset.error', 'Mot de passe incorrect (erreur inconnue)');
-            return $self::redirect('/pwd-reset');
+        // edit password
+        if($password and strlen($password) < $this->minLength) {
+            $self->user->password = sha1($this->salt . $password);
         }
 
-        Flash::set('success', 'Mot de passe modifié avec succès');
+        // save user
+        $self->user->save();
         return $self::redirect('/');
     }
 

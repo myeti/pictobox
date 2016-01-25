@@ -2,8 +2,9 @@
 
 namespace App\Logic;
 
-use App\Model\Collection;
-use Colorium\Http\Error\NotFound;
+use App\Model\Album;
+use App\Model\Library;
+use Colorium\Http\Error\NotFoundException;
 
 /**
  * @access 1
@@ -11,84 +12,106 @@ use Colorium\Http\Error\NotFound;
 class Albums
 {
 
+
     /**
      * Render all albums, sorted by year
      *
-     * @html albums/all
+     * @html albums/list
      *
      * @return array
      */
     public function all()
     {
-        $collection = Collection::albums();
+        $albums = Library::albums();
 
-        return ['collection' => $collection];
+        return [
+            'albums' => $albums,
+            'ariane' => []
+        ];
     }
 
 
     /**
      * Render albums of specified year
      *
-     * @html albums/year
+     * @html albums/list
      *
      * @param int $year
      * @return array
      *
-     * @throws NotFound
+     * @throws NotFoundException
      */
     public function year($year)
     {
-        $collection = Collection::albums($year);
-        if(!$collection->albums) {
-            throw new NotFound;
+        $albums = Library::albums($year);
+        if(!$albums) {
+            throw new NotFoundException;
         }
 
-        return ['collection' => $collection];
+        return [
+            'albums' => $albums,
+            'ariane' => [
+                $year => $year
+            ]
+        ];
     }
 
 
     /**
      * Render albums of specified month
      *
-     * @html albums/month
+     * @html albums/list
      *
      * @param int $year
      * @param int $month
      * @return array
      *
-     * @throws NotFound
+     * @throws NotFoundException
      */
     public function month($year, $month)
     {
-        $collection = Collection::albums($year, $month);
-        if(!$collection->albums) {
-            throw new NotFound;
+        $albums = Library::albums($year, $month);
+        if(!$albums) {
+            throw new NotFoundException;
         }
 
-        return ['collection' => $collection];
+        return [
+            'albums' => $albums,
+            'ariane' => [
+                Album::$months[(int)$month] => $year . '/' . $month,
+                $year => $year
+            ]
+        ];
     }
 
 
     /**
      * Render albums of specified day
      *
-     * @html albums/day
+     * @html albums/list
      *
      * @param int $year
      * @param int $month
      * @param int $day
      * @return array
      *
-     * @throws NotFound
+     * @throws NotFoundException
      */
     public function day($year, $month, $day)
     {
-        $collection = Collection::albums($year, $month, $day);
-        if(!$collection->albums) {
-            throw new NotFound;
+        $albums = Library::albums($year, $month, $day);
+        if(!$albums) {
+            throw new NotFoundException;
         }
 
-        return ['collection' => $collection];
+        return [
+            'albums' => $albums,
+            'ariane' => [
+                $day => $year . '/' . $month . '/' . $day,
+                Album::$months[(int)$month] => $year . '/' . $month,
+                $year => $year
+            ]
+        ];
     }
 
 
@@ -100,19 +123,26 @@ class Albums
      * @param int $year
      * @param int $month
      * @param int $day
-     * @param string$name
+     * @param string $flatname
      * @return array
      *
-     * @throws NotFound
+     * @throws NotFoundException
      */
-    public function one($year, $month, $day, $name)
+    public function one($year, $month, $day, $flatname)
     {
-        $album = Collection::album($year, $month, $day, $name);
+        $album = Library::album($year, $month, $day, $flatname);
         if(!$album) {
-            throw new NotFound;
+            throw new NotFoundException;
         }
 
-        return ['album' => $album];
+        return [
+            'album' => $album,
+            'ariane' => [
+                $day => $year . '/' . $month . '/' . $day,
+                Album::$months[(int)$month] => $year . '/' . $month,
+                $year => $year
+            ]
+        ];
     }
 
 }
