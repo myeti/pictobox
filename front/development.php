@@ -6,6 +6,32 @@
 
 
 /**
+ * Vardump
+ *
+ * @param $param
+ * @param $params
+ */
+function vd($param, ...$params)
+{
+    var_dump($param, ...$params);
+}
+
+
+
+/**
+ * Vardump and die
+ *
+ * @param $param
+ * @param ...$params
+ */
+function dd($param, ...$params)
+{
+    var_dump($param, ...$params);
+    exit;
+}
+
+
+/**
  * Orm fake data
  */
 
@@ -15,11 +41,8 @@ use Colorium\Stateful\Auth;
 User::builder()->wipe();
 User::builder()->create();
 
-$admin = new User('Admin', sha1('EfiM$&5/*.w64$yPM3dadmin'), 'admin@yourbox.io', User::ADMIN);
+$admin = new User('Admin', sha1('EfiM$&5/*.w64$yPM3dadmin'), 'you@pictobox.io', User::ADMIN);
 $admin->save();
-
-
-Auth::login($admin->rank, $admin->id);
 
 
 
@@ -50,30 +73,3 @@ $handler->addDataTableCallback('App Response', function() use ($app) {
 
 $whoops = new Whoops\Run;
 $whoops->pushHandler($handler)->register();
-
-
-
-/**
- * Vardump
- *
- * @param $param
- * @param $params
- */
-function vd($param, ...$params)
-{
-    var_dump($param, ...$params);
-}
-
-
-
-/**
- * Vardump and die
- *
- * @param $param
- * @param ...$params
- */
-function dd($param, ...$params)
-{
-    var_dump($param, ...$params);
-    exit;
-}

@@ -28,10 +28,9 @@ class Errors
 
     /**
      * Fatal error
+     *
+     * @html errors/fatal
      */
-    public function fatal()
-    {
-        die('error');
-    }
+    public function fatal() {}
 
 }

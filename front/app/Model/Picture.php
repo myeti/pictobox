@@ -9,6 +9,9 @@ class Picture
     public $path;
 
     /** @var string */
+    public $cachepath;
+
+    /** @var string */
     public $name;
 
     /** @var string */
@@ -21,7 +24,7 @@ class Picture
     public $url;
 
     /** @var string */
-    public $cache;
+    public $cacheurl;
 
 
     /**
@@ -36,8 +39,14 @@ class Picture
         $this->author = basename(dirname($path));
         $this->album = basename(dirname(dirname($path)));
 
-        $this->url = ALBUMS_URL . $this->album . '/' . $this->author . '/' . $this->name;
-        $this->cache = CACHE_URL . $this->album . '/' . $this->author . '/' . $this->name;
+        $file = $this->album . '/' . $this->author . '/' . $this->name;
+        $this->url = ALBUMS_URL . $file;
+        $this->cacheurl = $this->url;
+
+        $this->cachepath = CACHE_DIR . $file;
+        if(file_exists($this->cachepath)) {
+            $this->cacheurl = CACHE_URL . $file;
+        }
     }
 
 }

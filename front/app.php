@@ -62,19 +62,21 @@ $templater = new Templater(__DIR__ . '/views/');
 use Colorium\Routing\Router;
 
 $router = new Router([
+    'GET  /cc'                      => 'App\Logic\Crons::cache',
 
     'GET  /login'                   => 'App\Logic\Users::login',
     'POST /login/auth'              => 'App\Logic\Users::auth',
-    'POST /profile'                 => 'App\Logic\Users::edit',
+    'POST /login/edit'              => 'App\Logic\Users::edit',
     'GET  /logout'                  => 'App\Logic\Users::logout',
 
+    'POST /new'                     => 'App\Logic\Albums::create',
     'GET  /'                        => 'App\Logic\Albums::all',
     'GET  /:y'                      => 'App\Logic\Albums::year',
     'GET  /:y/:m'                   => 'App\Logic\Albums::month',
     'GET  /:y/:m/:d'                => 'App\Logic\Albums::day',
     'GET  /:y/:m/:d/:album'         => 'App\Logic\Albums::one',
-    'POST /:y/:m/:d/:album/create'  => 'App\Logic\Albums::create',
     'POST /:y/:m/:d/:album/upload'  => 'App\Logic\Albums::upload',
+    'GET  /:y/:m/:d/:album/download'=> 'App\Logic\Albums::download',
 ]);
 
 

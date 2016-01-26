@@ -15,7 +15,8 @@
   "require": {
     "php": ">=5.6",
     "filp/whoops": "1.*",
-    "colorium/framework": "dev-master"
+    "colorium/framework": "dev-master",
+    "intervention/image": "^2.3"
   },
   "autoload": {
     "psr-4": {

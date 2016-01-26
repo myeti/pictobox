@@ -26,7 +26,12 @@ class Users
      */
     public function login(Context $self)
     {
-        // from redirection
+        // already logged in
+        if($self->auth->rank) {
+            return $self::redirect('/');
+        }
+
+        // keep previous location
         $referer = $self->request->uri->param('from');
 
         return [
@@ -44,16 +49,22 @@ class Users
      */
     public function auth(Context $self)
     {
-        list($username, $password, $referer) = $self->post('username','password', 'referer');
+        // get form data
+        list($username, $password, $referer) = $self->post('username', 'password', 'referer');
         $username = ucfirst(strtolower($username));
         $password = sha1($this->salt . $password);
 
+        // look user up
         $user = User::one(['username' => $username, 'password' => $password]);
         if(!$user) {
             Flash::set('login.error', 'Identifiants incorrects');
-            return $self::redirect('/login?from=' . $referer);
+            if($referer) {
+                $referer = '?from=' . $referer;
+            }
+            return $self::redirect('/login' . $referer);
         }
 
+        // log user in
         Auth::login($user->rank, $user->id);
         return $self::redirect($referer ?: '/');
     }
@@ -70,20 +81,26 @@ class Users
     public function edit(Context $self)
     {
         // get post data
-        list($email, $password) = $self->post('email', 'password');
+        list($email, $password, $id) = $self->post('email', 'password', 'id');
+
+        // get user
+        $user = $self->user;
+        if($id and $self->user->rank == User::ADMIN) {
+            $user = User::one(['id' => $id]);
+        }
 
         // edit email
-        if($email != $self->user->email and filter_var($email, FILTER_SANITIZE_EMAIL)) {
-            $self->user->email = $email;
+        if($email != $user->email and filter_var($email, FILTER_SANITIZE_EMAIL)) {
+            $user->email = $email;
         }
 
         // edit password
         if($password and strlen($password) < $this->minLength) {
-            $self->user->password = sha1($this->salt . $password);
+            $user->password = sha1($this->salt . $password);
         }
 
         // save user
-        $self->user->save();
+        $user->edit();
         return $self::redirect('/');
     }
 

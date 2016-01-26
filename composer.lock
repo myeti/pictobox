@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3bb186d58c793b6c613059007e0ed025",
-    "content-hash": "1335c79e71feb0ec5df3a7854ed8d872",
+    "hash": "27c72024345c26bb17c7b1b1429ff316",
+    "content-hash": "24319963f916ab9716536ef2df7235b1",
     "packages": [
         {
             "name": "colorium/app",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/app.git",
-                "reference": "9c858cc2080c1feebc62585bfdf14c0c1daae450"
+                "reference": "ea34b3435fd12b6f9477718d9c09fff64b56edfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/app/zipball/9c858cc2080c1feebc62585bfdf14c0c1daae450",
-                "reference": "9c858cc2080c1feebc62585bfdf14c0c1daae450",
+                "url": "https://api.github.com/repos/colorium/app/zipball/ea34b3435fd12b6f9477718d9c09fff64b56edfe",
+                "reference": "ea34b3435fd12b6f9477718d9c09fff64b56edfe",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
             ],
             "description": "Colorium Application Component",
             "homepage": "https://github.com/colorium/app",
-            "time": "2016-01-14 13:47:04"
+            "time": "2016-01-25 15:25:54"
         },
         {
             "name": "colorium/arraydot",
@@ -136,12 +136,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/http.git",
-                "reference": "1009e7fbb1a44b86194792b638b897b2a4cf794a"
+                "reference": "1fc3cd52e524b2c577e7e2030a1ff031eae59e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/http/zipball/1009e7fbb1a44b86194792b638b897b2a4cf794a",
-                "reference": "1009e7fbb1a44b86194792b638b897b2a4cf794a",
+                "url": "https://api.github.com/repos/colorium/http/zipball/1fc3cd52e524b2c577e7e2030a1ff031eae59e93",
+                "reference": "1fc3cd52e524b2c577e7e2030a1ff031eae59e93",
                 "shasum": ""
             },
             "require": {
@@ -166,7 +166,7 @@
             ],
             "description": "HTTP Request/Response Implementation",
             "homepage": "https://github.com/colorium/http",
-            "time": "2016-01-14 12:32:59"
+            "time": "2016-01-25 15:25:28"
         },
         {
             "name": "colorium/orm",
@@ -174,12 +174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/orm.git",
-                "reference": "30581d1c4af709768c3e2be938124fa6445af87f"
+                "reference": "51a750e4a8d8a14ed8dc4f43e4422059bba882ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/orm/zipball/30581d1c4af709768c3e2be938124fa6445af87f",
-                "reference": "30581d1c4af709768c3e2be938124fa6445af87f",
+                "url": "https://api.github.com/repos/colorium/orm/zipball/51a750e4a8d8a14ed8dc4f43e4422059bba882ca",
+                "reference": "51a750e4a8d8a14ed8dc4f43e4422059bba882ca",
                 "shasum": ""
             },
             "require": {
@@ -205,7 +205,7 @@
             ],
             "description": "Simple ORM Library",
             "homepage": "https://github.com/colorium/orm",
-            "time": "2016-01-14 12:32:48"
+            "time": "2016-01-25 15:31:25"
         },
         {
             "name": "colorium/routing",
@@ -213,12 +213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/routing.git",
-                "reference": "4fb69d885deac8e8d96c3893e1286e12295f12eb"
+                "reference": "f59d55b09257af556eecd8d251f49e67f94dac14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/routing/zipball/4fb69d885deac8e8d96c3893e1286e12295f12eb",
-                "reference": "4fb69d885deac8e8d96c3893e1286e12295f12eb",
+                "url": "https://api.github.com/repos/colorium/routing/zipball/f59d55b09257af556eecd8d251f49e67f94dac14",
+                "reference": "f59d55b09257af556eecd8d251f49e67f94dac14",
                 "shasum": ""
             },
             "require": {
@@ -243,7 +243,7 @@
             ],
             "description": "Colorium Routing Component",
             "homepage": "https://github.com/colorium/routing",
-            "time": "2016-01-14 14:16:00"
+            "time": "2016-01-22 09:09:09"
         },
         {
             "name": "colorium/runtime",
@@ -251,12 +251,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/runtime.git",
-                "reference": "466ed32aca9131c6e0d44d17e5e9e3e867a3fba0"
+                "reference": "44740483c705c698bae005af4b81138d53441188"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/runtime/zipball/466ed32aca9131c6e0d44d17e5e9e3e867a3fba0",
-                "reference": "466ed32aca9131c6e0d44d17e5e9e3e867a3fba0",
+                "url": "https://api.github.com/repos/colorium/runtime/zipball/44740483c705c698bae005af4b81138d53441188",
+                "reference": "44740483c705c698bae005af4b81138d53441188",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +281,7 @@
             ],
             "description": "Runtime Resolver, Annotation and Injector",
             "homepage": "https://github.com/colorium/runtime",
-            "time": "2016-01-14 12:32:36"
+            "time": "2016-01-22 09:08:07"
         },
         {
             "name": "colorium/stateful",
@@ -289,12 +289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/stateful.git",
-                "reference": "e858c2d673a101d0528550205089b551545cf586"
+                "reference": "d52098540dd599b0c0a5023bfbdc8f2e2b4d1c4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/stateful/zipball/e858c2d673a101d0528550205089b551545cf586",
-                "reference": "e858c2d673a101d0528550205089b551545cf586",
+                "url": "https://api.github.com/repos/colorium/stateful/zipball/d52098540dd599b0c0a5023bfbdc8f2e2b4d1c4e",
+                "reference": "d52098540dd599b0c0a5023bfbdc8f2e2b4d1c4e",
                 "shasum": ""
             },
             "require": {
@@ -320,7 +320,7 @@
             ],
             "description": "Stateful Session Component",
             "homepage": "https://github.com/colorium/stateful",
-            "time": "2016-01-14 12:36:27"
+            "time": "2016-01-22 09:09:48"
         },
         {
             "name": "colorium/templating",
@@ -328,12 +328,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/templating.git",
-                "reference": "b66a6877c756c20626dd2a1fa0d80059c23c2486"
+                "reference": "c5b7248eb432dc512276b4bac6bdf24f86dc3fed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/templating/zipball/b66a6877c756c20626dd2a1fa0d80059c23c2486",
-                "reference": "b66a6877c756c20626dd2a1fa0d80059c23c2486",
+                "url": "https://api.github.com/repos/colorium/templating/zipball/c5b7248eb432dc512276b4bac6bdf24f86dc3fed",
+                "reference": "c5b7248eb432dc512276b4bac6bdf24f86dc3fed",
                 "shasum": ""
             },
             "require": {
@@ -358,7 +358,7 @@
             ],
             "description": "Colorium Templating Component",
             "homepage": "https://github.com/colorium/templating",
-            "time": "2016-01-14 12:35:37"
+            "time": "2016-01-25 15:30:28"
         },
         {
             "name": "filp/whoops",
@@ -417,6 +417,175 @@
                 "zf2"
             ],
             "time": "2015-06-29 05:42:04"
+        },
+        {
+            "name": "guzzlehttp/psr7",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/psr7.git",
+                "reference": "f5d04bdd2881ac89abde1fb78cc234bce24327bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5d04bdd2881ac89abde1fb78cc234bce24327bb",
+                "reference": "f5d04bdd2881ac89abde1fb78cc234bce24327bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "psr/http-message": "~1.0"
+            },
+            "provide": {
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "PSR-7 message implementation",
+            "keywords": [
+                "http",
+                "message",
+                "stream",
+                "uri"
+            ],
+            "time": "2016-01-23 01:23:02"
+        },
+        {
+            "name": "intervention/image",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/image.git",
+                "reference": "86dfe2f2a95aa9eed58faf1cc1dae6534a6ce931"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/86dfe2f2a95aa9eed58faf1cc1dae6534a6ce931",
+                "reference": "86dfe2f2a95aa9eed58faf1cc1dae6534a6ce931",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "guzzlehttp/psr7": "~1.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.2",
+                "phpunit/phpunit": "3.*"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing.",
+                "intervention/imagecache": "Caching extension for the Intervention Image library"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Image\\": "src/Intervention/Image"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.net",
+                    "homepage": "http://olivervogel.net/"
+                }
+            ],
+            "description": "Image handling and manipulation library with support for Laravel integration",
+            "homepage": "http://image.intervention.io/",
+            "keywords": [
+                "gd",
+                "image",
+                "imagick",
+                "laravel",
+                "thumbnail",
+                "watermark"
+            ],
+            "time": "2016-01-10 11:20:02"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "85d63699f0dbedb190bbd4b0d2b9dc707ea4c298"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/85d63699f0dbedb190bbd4b0d2b9dc707ea4c298",
+                "reference": "85d63699f0dbedb190bbd4b0d2b9dc707ea4c298",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP messages",
+            "keywords": [
+                "http",
+                "http-message",
+                "psr",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2015-05-04 20:22:00"
         },
         {
             "name": "psr/log",

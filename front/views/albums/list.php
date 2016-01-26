@@ -6,7 +6,7 @@
     <li class="col-xs-12 col-sm-6 col-md-4">
         <a href="<?= self::url($album->url) ?>">
             <div class="album">
-                <div class="bg" style="background-image: url('<?= self::url($album->thumbnail()->url) ?>')"></div>
+                <div class="bg" style="background-image: url('<?= self::url($album->thumbnail()->cacheurl) ?>')"></div>
                 <h2 class="title"><?= $album->name ?></h2>
                 <em class="date"><?= $album->date ?></em>
             </div>

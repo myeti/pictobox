@@ -2,12 +2,12 @@
 
 <?php if($authors = $album->pics()): ?>
 <ul class="grid pictures row">
-    <?php foreach($authors as $pics): ?>
+    <?php foreach($authors as $author => $pics): ?>
         <?php foreach($pics as $pic): ?>
         <li class="col-xs-6 col-sm-3 col-md-2">
             <a href="<?= self::url($pic->url) ?>">
                 <div class="picture">
-                    <div class="bg" style="background-image: url('<?= self::url($album->thumbnail()->url) ?>')"></div>
+                    <div class="bg" style="background-image: url('<?= self::url($pic->cacheurl) ?>')"></div>
                 </div>
             </a>
         </li>
