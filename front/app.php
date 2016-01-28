@@ -7,12 +7,20 @@
 define('__ROOT__', dirname(__DIR__));
 
 define('APP_NAME', 'Pictobox');
-
 define('ALBUMS_DIR', __ROOT__ . '/public/img/albums/');
 define('ALBUMS_URL', '/img/albums/');
-
 define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
 define('CACHE_URL', '/img/cache/');
+
+
+
+/**
+ * Generate HTTP context
+ */
+
+use Colorium\App;
+
+$context = App\Front::context();
 
 
 
@@ -29,6 +37,17 @@ $sqlite = new Orm\SQLite(__DIR__ . '/orm/pictobox.db', [
 ]);
 
 Orm\Hub::source($sqlite);
+
+
+
+/**
+ * Dev mode
+ */
+
+$trusted = ['127.0.0.1', '::1', '10.0.2.2'];
+if(in_array($context->request->ip, $trusted)) {
+    require 'development.php';
+}
 
 
 
@@ -85,7 +104,7 @@ $router = new Router([
  * App instance
  */
 
-$app = new Colorium\App\Front($router, $templater);
+$app = new App\Front($router, $templater);
 
 
 
@@ -100,19 +119,8 @@ $app->events([
 ]);
 
 
-
-/**
- * Dev mode
- */
-
-$trusted = ['127.0.0.1', '::1', '10.0.2.2'];
-if(in_array($app->context->request->ip, $trusted)) {
-    require 'development.php';
-}
-
-
 /**
  * Finally, run app
  */
 
-$app->run()->end();
+$app->run($context)->end();

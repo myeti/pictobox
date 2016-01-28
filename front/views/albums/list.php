@@ -1,4 +1,4 @@
-<?php self::layout('private', ['ariane' => $ariane]); ?>
+<?php self::layout('private', ['ariane' => $ariane, 'user' => $self->access->user]); ?>
 
 <?php if($albums): ?>
 <ul class="grid albums row">

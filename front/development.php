@@ -50,8 +50,6 @@ $admin->save();
  * Debug stacktrace using WHOOPS
  */
 
-$app->config->catch = false;
-
 $handler = new Whoops\Handler\PrettyPageHandler;
 $handler->addDataTableCallback('App Uri', function() use ($app) {
     return (array)$app->context->request->uri;

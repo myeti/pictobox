@@ -1,4 +1,4 @@
-<?php self::layout('public') ?>
+<?php self::layout('public', ['class' => 'login']) ?>
 
 <div id="login">
 

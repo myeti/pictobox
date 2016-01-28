@@ -2,7 +2,7 @@
  * Login
  */
 
-body {
+body.login {
     background: url(../img/login-bg.jpg);
     background-size: cover;
 }

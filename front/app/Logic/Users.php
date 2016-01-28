@@ -27,7 +27,7 @@ class Users
     public function login(Context $self)
     {
         // already logged in
-        if($self->auth->rank) {
+        if($self->access->auth) {
             return $self::redirect('/');
         }
 
@@ -85,7 +85,7 @@ class Users
 
         // get user
         $user = $self->user;
-        if($id and $self->user->rank == User::ADMIN) {
+        if($id and $self->access->user->rank == User::ADMIN) {
             $user = User::one(['id' => $id]);
         }
 

@@ -25,64 +25,71 @@
             <?php endif; ?>
         </nav>
 
-        <menu>
+    </header>
 
-            <span class="switch glyphicon glyphicon-menu-hamburger"></span>
 
-            <ul>
-                <li>
-                    <div class="title"><?= $self->user->username ?></div>
-                </li>
-                <li>
-                    <div class="form">
-                        <div class="header">
-                            <span class="glyphicon glyphicon-user"></span> Modifier mes infos
-                        </div>
-                        <form action="<?= self::url('/login/edit') ?>" method="post">
 
-                            <?php if($self->user->rank == 9): ?>
-                            <label for="user-id">Identifiant</label>
-                            <select name="id" id="user-id">
-                                <?php foreach(\App\Model\User::fetch() as $user): ?>
-                                    <option value="<?= $user->id ?>" <?= $self->user->id == $user->id ? 'selected' : null ?>><?= $user->username ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?php endif; ?>
+    <menu>
 
-                            <label for="user-email">Adresse email</label>
-                            <input type="email" id="user-email" name="email" value="<?= $self->user->email ?>">
+        <span class="switch glyphicon glyphicon-menu-hamburger"></span>
 
-                            <label for="user-pwd">Mot de passe</label>
-                            <input type="password" id="user-pwd" name="password">
-
-                            <button type="submit">Mettre à jour</button>
-
-                        </form>
+        <ul>
+            <li>
+                <div class="form">
+                    <div class="header">
+                        <span class="glyphicon glyphicon-user" title="Modifier mes informations"></span>
                     </div>
-                </li>
-                <?php if($album): ?>
+                    <form action="<?= self::url('/login/edit') ?>" method="post">
+
+                        <?php if($user->rank >= 9): ?>
+                        <label for="user-id">Identifiant</label>
+                        <select name="id" id="user-id">
+                            <?php foreach(\App\Model\User::fetch() as $other): ?>
+                                <option value="<?= $other->id ?>" data-email="<?= $other->email ?>" <?= $other->id == $user->id ? 'selected' : null ?> >
+                                    <?= $other->username ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <?php else: ?>
+                        <h4><?= $user->username ?></h4>
+                        <?php endif; ?>
+
+                        <label for="user-email">Adresse email</label>
+                        <input type="email" id="user-email" name="email" value="<?= $self->access->user->email ?>">
+
+                        <label for="user-pwd">Mot de passe</label>
+                        <input type="password" id="user-pwd" name="password">
+
+                        <button type="submit">Mettre à jour</button>
+
+                    </form>
+                </div>
+            </li>
+            <?php if($album): ?>
                 <li>
                     <div class="form">
                         <div class="header">
-                            <span class="glyphicon glyphicon-open"></span> Ajouter des photos
+                            <span class="glyphicon glyphicon-open" title="Ajouter des photos"></span>
                         </div>
                         <form action="<?= self::url($album->url, 'upload') ?>" method="post">
-                             // todo
+                            <h4>Ajouter des photos</h4>
                         </form>
                     </div>
                 </li>
                 <li>
-                    <a href="<?= self::url($album->url, 'download') ?>">
-                        <span class="glyphicon glyphicon-save"></span> Télécharger l'album
+                    <a href="<?= self::url($album->url, 'download') ?>" title="Télécharger l'album">
+                        <span class="glyphicon glyphicon-save"></span>
                     </a>
                 </li>
-                <?php else: ?>
+            <?php else: ?>
                 <li>
                     <div class="form">
                         <div class="header">
-                            <span class="glyphicon glyphicon-plus-sign"></span> Créer un nouvel album
+                            <span class="glyphicon glyphicon-plus-sign" title="Créer une nouvel album"></span>
                         </div>
                         <form action="<?= self::url('/new') ?>" method="post">
+
+                            <h4>Créer une nouvel album</h4>
 
                             <label for="album-name">Titre</label>
                             <input type="text" id="album-name" name="name" required>
@@ -96,12 +103,10 @@
                         </form>
                     </div>
                 </li>
-                <?php endif; ?>
-            </ul>
+            <?php endif; ?>
+        </ul>
 
-        </menu>
-
-    </header>
+    </menu>
 
     <main>
         <?= self::content(); ?>

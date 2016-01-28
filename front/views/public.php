@@ -9,7 +9,7 @@
     <link href="<?= self::url('/css/common.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/public.css') ?>" rel="stylesheet">
 </head>
-<body>
+<body class="<?= $class ?>">
 
 <header><?= APP_NAME ?></header>
 

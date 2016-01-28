@@ -1,3 +1,3 @@
 <?php self::layout('public') ?>
 
-<h1 class="error">Aïe aïe aèie ! Une erreur est survenue !</h1>
+<h1 class="error">AÃ¯e aÃ¯e aÃ¯e ! Une erreur est survenue !</h1>

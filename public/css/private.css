@@ -13,6 +13,9 @@ header {
     padding: 16px 20px;
 }
 
+header nav {
+    margin-left: 32px;
+}
 header nav a {
     font-size: 14px;
     color: #aaa;
@@ -35,77 +38,81 @@ header nav span {
     padding: 0 5px;
 }
 
-header menu {
+
+/**
+ * Menu
+ */
+
+menu {
     position: fixed;
-    top: 0;
-    right: -280px;
+    top: 60px;
+    left: -54px;
     bottom: 0;
-    width: 280px;
-    background: #2f3234;
-    transition: right 0.2s;
     margin: 0;
     padding: 0;
+    z-index: 1000;
+    transition: left 0.2s, opacity 0.2s;
 }
-header menu.active {
-    right: 0;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+menu.open {
+    left: 0;
+    opacity: 1;
 }
-header menu .switch {
+menu .switch {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 22px;
+    left: 20px;
     transition: transform 0.2s;
     cursor: pointer;
     font-size: 14px;
 }
-header menu.active .switch {
-    transform: rotate(90deg);
+menu.open .switch {
+    transform: rotate(-90deg);
 }
-header menu ul {
+menu ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-header menu ul li .title,
-header menu ul li .form .header,
-header menu ul li .form form,
-header menu ul li > a {
+menu ul li .form .header,
+menu ul li > a {
     display: block;
-    padding: 10px 20px;
-}
-header menu ul li .title,
-header menu ul li .form,
-header menu ul li > a {
-    border-bottom: 1px solid #3c3f41;
-}
-header menu ul li .title {
-    padding: 20px 20px;
-    font-size: 14px;
-    letter-spacing: 2px;
-}
-header menu ul li .form:hover,
-header menu ul li .form.open,
-header menu ul li > a:hover {
-    background: #3c3f41;
-}
-header menu ul li .form .header,
-header menu ul li > a {
+    height: 54px;
+    width: 54px;
+    padding: 18px 20px;
     cursor: pointer;
 }
-header menu ul li .form form {
-    max-height: 0;
-    overflow-y: hidden;
-    padding: 0;
+menu ul li .form .header:hover,
+menu ul li .form.open .header,
+menu ul li .form.open form,
+menu ul li > a:hover {
+    background: #2f3234;
 }
-header menu ul li .form.open form {
-    max-height: none;
-    overflow-y: visible;
-    padding: 10px 20px;
+menu ul li .form {
+    position: relative;
 }
-header menu ul li .form form button[type=submit] {
+menu ul li .form form {
+    width: 250px;
+    padding: 20px;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 54px;
+}
+menu ul li .form.open form {
+    display: block;
+}
+menu ul li .form form h4 {
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+menu ul li .form form button[type=submit] {
     margin-top: 15px;
 }
-header menu .glyphicon {
+menu .glyphicon {
     margin-right: 8px;
 }
 
@@ -116,6 +123,10 @@ header menu .glyphicon {
 
 main {
     padding-top: 60px;
+    transition: margin-left 0.2s;
+}
+menu.open + main {
+    margin-left: 54px;
 }
 
 
