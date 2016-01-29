@@ -9,7 +9,7 @@ header {
     left: 0;
     right: 0;
     height: 60px;
-    background: #1f2224;
+    background: rgba(31, 34, 36, 0.98);
     padding: 16px 20px;
 }
 
@@ -38,6 +38,15 @@ header nav span {
     padding: 0 5px;
 }
 
+@media screen and (max-width: 480px) {
+    header nav .xs-hide {
+        display: none;
+    }
+    header nav span {
+        padding: 0 1px;
+    }
+}
+
 
 /**
  * Menu
@@ -59,7 +68,7 @@ menu.open {
 }
 menu .switch {
     position: fixed;
-    top: 22px;
+    top: 23px;
     left: 20px;
     transition: transform 0.2s;
     cursor: pointer;
@@ -134,6 +143,12 @@ main.blur {
 }
 #modals .modal button[type=reset] {
     margin-top: 5px;
+}
+
+@media screen and (max-width: 480px) {
+    #modals .modal {
+        margin-top: 0;
+    }
 }
 
 

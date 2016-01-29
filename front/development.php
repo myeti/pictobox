@@ -38,8 +38,8 @@ function dd($param, ...$params)
 use App\Model\User;
 use Colorium\Stateful\Auth;
 
-User::builder()->wipe();
-User::builder()->create();
+//User::builder()->wipe();
+//User::builder()->create();
 
 $admin = new User('Admin', sha1('EfiM$&5/*.w64$yPM3dadmin'), 'you@pictobox.io', User::ADMIN);
 $admin->save();
@@ -59,7 +59,8 @@ $handler->addDataTableCallback('App Route', function() use ($app) {
 });
 $handler->addDataTableCallback('App Invokable', function() use ($app) {
     $invokable = $app->context->invokable;
-    array_shift($invokable->params);
+    $params = (array)$invokable->params;
+    array_shift($params);
     return (array)$invokable;
 });
 $handler->addDataTableCallback('App Access', function() use ($app) {

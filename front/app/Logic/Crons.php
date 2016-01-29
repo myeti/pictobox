@@ -2,7 +2,7 @@
 
 namespace App\Logic;
 
-use App\Model\Library;
+use App\Model\Album;
 use Intervention\Image\Constraint;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -16,9 +16,11 @@ class Crons
      */
     public function cache()
     {
+        set_time_limit(300);
+
         $states = [];
 
-        $albums = Library::albums();
+        $albums = Album::fetch();
         foreach($albums as $album) {
             foreach($album->pics() as $author => $pics) {
                 foreach($pics as $pic) {

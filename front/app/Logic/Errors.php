@@ -31,6 +31,6 @@ class Errors
      *
      * @html errors/fatal
      */
-    public function fatal() {}
+    public function fatal($null, $e) { dd($e); }
 
 }

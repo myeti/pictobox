@@ -76,11 +76,11 @@
             <a href="<?= self::url('/') ?>" id="logo"><?= strtoupper(APP_NAME) ?></a> <span>/</span>
 
             <?php foreach($ariane as $text => $link): ?>
-            <a href="<?= self::url($link) ?>"><?= $text ?></a>
+            <a href="<?= self::url($link) ?>" class="xs-hide"><?= $text ?></a>
             <?php endforeach; ?>
 
             <?php if($ariane and $album): ?>
-            <span>/</span> <a href="<?= self::url($album->url) ?>" class="album"><?= $album->name ?></a>
+            <span class="xs-hide">/</span> <a href="<?= self::url($album->url) ?>" class="album"><?= $album->name ?></a>
             <?php endif; ?>
         </nav>
 
