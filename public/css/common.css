@@ -42,7 +42,7 @@ form label {
 }
 form input,
 form select,
-form button[type=submit] {
+form button {
     display: block;
     border: 0;
     width: 100%;
@@ -55,6 +55,10 @@ form input {
     background: rgba(255, 255, 255, 0.8);
     margin-bottom: 10px;
 }
+form button {
+    text-transform: uppercase;
+    text-align: center;
+}
 form input[type=text] {
     text-transform: capitalize;
 }
@@ -65,4 +69,22 @@ form input:focus {
 form button[type=submit] {
     background: #F77049;
     color: #fff;
+}
+form button[type=submit] .glyphicon-option-horizontal {
+    animation: rotate 1s infinite;
+}
+form button[type=reset] {
+    background: none;
+    border: none;
+    color: #666;
+}
+
+
+/**
+ * Animations
+ */
+
+@keyframes rotate {
+    0% {transform: rotate(0deg)}
+    100% {transform: rotate(360deg)}
 }

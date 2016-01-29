@@ -88,7 +88,7 @@ $router = new Router([
     'POST /login/edit'              => 'App\Logic\Users::edit',
     'GET  /logout'                  => 'App\Logic\Users::logout',
 
-    'POST /new'                     => 'App\Logic\Albums::create',
+    'POST /create'                  => 'App\Logic\Albums::create',
     'GET  /'                        => 'App\Logic\Albums::all',
     'GET  /:y'                      => 'App\Logic\Albums::year',
     'GET  /:y/:m'                   => 'App\Logic\Albums::month',

@@ -73,47 +73,67 @@ menu ul {
     padding: 0;
     margin: 0;
 }
-menu ul li .form .header,
-menu ul li > a {
+menu ul li a {
     display: block;
     height: 54px;
     width: 54px;
     padding: 18px 20px;
     cursor: pointer;
 }
-menu ul li .form .header:hover,
-menu ul li .form.open .header,
-menu ul li .form.open form,
-menu ul li > a:hover {
+menu ul li a:hover {
     background: #2f3234;
-}
-menu ul li .form {
-    position: relative;
-}
-menu ul li .form form {
-    width: 250px;
-    padding: 20px;
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 54px;
-}
-menu ul li .form.open form {
-    display: block;
-}
-menu ul li .form form h4 {
-    margin: 0;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: normal;
-    font-size: 15px;
-    text-transform: uppercase;
-}
-menu ul li .form form button[type=submit] {
-    margin-top: 15px;
 }
 menu .glyphicon {
     margin-right: 8px;
+}
+
+
+/**
+ * Modals
+ */
+
+header.blur,
+menu.blur,
+main.blur {
+    filter: blur(6px);
+    -moz-filter: blur(6px);
+    -webkit-filter: blur(6px);
+}
+
+#modals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5000;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+}
+#modals .modal {
+    margin: auto;
+    margin-top: 100px;
+    width: 280px;
+    padding: 20px;
+    display: none;
+}
+#modals.open,
+#modals .modal.open {
+    display: block;
+}
+#modals .modal h4 {
+    margin: 0;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+#modals .modal button[type=submit] {
+    margin-top: 20px;
+}
+#modals .modal button[type=reset] {
+    margin-top: 5px;
 }
 
 

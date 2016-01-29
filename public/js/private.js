@@ -8,18 +8,37 @@ $(function() {
     menu.find('.switch').on('click', function()
     {
         menu.toggleClass('open');
-        menu.find('.form').removeClass('open');
-    });
-    menu.find('.form .header').on('click', function()
-    {
-        var form = $(this).parents('.form');
-        menu.find('.form').not(form).removeClass('open');
-        form.toggleClass('open');
     });
 
 
     /**
-     * User form
+     * Modals
+     */
+    var overlay = $('#modals');
+    var modals = overlay.find('.modal');
+    $('a[data-modal]').on('click', function(e)
+    {
+        e.preventDefault();
+
+        $('header, menu, main').addClass('blur');
+        modals.removeClass('open');
+
+        var id = $(this).attr('data-modal');
+        modals.filter(id).addClass('open');
+        overlay.addClass('open');
+
+        return false;
+    });
+    modals.find('.cancel').on('click', function()
+    {
+        $('header, menu, main').removeClass('blur');
+        overlay.removeClass('open');
+        modals.removeClass('open');
+    });
+
+
+    /**
+     * User admin form
      */
     var userSelect = $('#user-id');
     var userEmail = $('#user-email');

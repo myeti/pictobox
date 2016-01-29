@@ -35,8 +35,7 @@ class Users
         $referer = $self->request->uri->param('from');
 
         return [
-            'referer' => $referer,
-            'error' => Flash::get('login.error')
+            'redirect' => $referer ?: $self->request->uri->make('/')
         ];
     }
 
@@ -45,28 +44,30 @@ class Users
      * Attempt authentication
      *
      * @param Context $self
-     * @return \Colorium\Http\Response\Redirect
+     * @return \Colorium\Http\Response\Json
      */
     public function auth(Context $self)
     {
         // get form data
-        list($username, $password, $referer) = $self->post('username', 'password', 'referer');
+        list($username, $password) = $self->post('username', 'password');
         $username = ucfirst(strtolower($username));
         $password = sha1($this->salt . $password);
 
         // look user up
         $user = User::one(['username' => $username, 'password' => $password]);
         if(!$user) {
-            Flash::set('login.error', 'Identifiants incorrects');
-            if($referer) {
-                $referer = '?from=' . $referer;
-            }
-            return $self::redirect('/login' . $referer);
+            return Context::json([
+                'state' => false,
+                'message' => 'Identifiants incorrects'
+            ]);
         }
 
         // log user in
         Auth::login($user->rank, $user->id);
-        return $self::redirect($referer ?: '/');
+
+        return Context::json([
+            'state' => true
+        ]);
     }
 
 
@@ -76,7 +77,7 @@ class Users
      * @access 1
      *
      * @param Context $self
-     * @return \Colorium\Http\Response\Redirect
+     * @return \Colorium\Http\Response\Json
      */
     public function edit(Context $self)
     {
@@ -90,18 +91,35 @@ class Users
         }
 
         // edit email
-        if($email != $user->email and filter_var($email, FILTER_SANITIZE_EMAIL)) {
+        if($email != $user->email) {
+            if(!filter_var($email, FILTER_SANITIZE_EMAIL)) {
+                return Context::json([
+                    'state' => false,
+                    'message' => 'Adresse email invalide'
+                ]);
+            }
+
             $user->email = $email;
         }
 
         // edit password
-        if($password and strlen($password) < $this->minLength) {
+        if($password) {
+            if(strlen($password) < $this->minLength) {
+                return Context::json([
+                    'state' => false,
+                    'message' => 'Mot de passe trop court'
+                ]);
+            }
+
             $user->password = sha1($this->salt . $password);
         }
 
         // save user
         $user->edit();
-        return $self::redirect('/');
+
+        return Context::json([
+            'state' => true
+        ]);
     }
 
 

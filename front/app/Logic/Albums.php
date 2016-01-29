@@ -3,8 +3,10 @@
 namespace App\Logic;
 
 use App\Model\Album;
-use App\Model\Library;
+use Colorium\App\Context;
 use Colorium\Http\Error\NotFoundException;
+use Colorium\Http\Uri;
+use Colorium\Stateful\Flash;
 
 /**
  * @access 1
@@ -22,7 +24,7 @@ class Albums
      */
     public function all()
     {
-        $albums = Library::albums();
+        $albums = Album::fetch();
 
         return [
             'albums' => $albums,
@@ -43,7 +45,7 @@ class Albums
      */
     public function year($year)
     {
-        $albums = Library::albums($year);
+        $albums = Album::fetch($year);
         if(!$albums) {
             throw new NotFoundException;
         }
@@ -70,7 +72,7 @@ class Albums
      */
     public function month($year, $month)
     {
-        $albums = Library::albums($year, $month);
+        $albums = Album::fetch($year, $month);
         if(!$albums) {
             throw new NotFoundException;
         }
@@ -99,7 +101,7 @@ class Albums
      */
     public function day($year, $month, $day)
     {
-        $albums = Library::albums($year, $month, $day);
+        $albums = Album::fetch($year, $month, $day);
         if(!$albums) {
             throw new NotFoundException;
         }
@@ -130,7 +132,7 @@ class Albums
      */
     public function one($year, $month, $day, $flatname)
     {
-        $album = Library::album($year, $month, $day, $flatname);
+        $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
             throw new NotFoundException;
         }
@@ -143,6 +145,47 @@ class Albums
                 $year => $year
             ]
         ];
+    }
+
+
+    /**
+     * Create new album
+     *
+     * @param Context $self
+     * @return \Colorium\Http\Response\Json
+     */
+    public function create(Context $self)
+    {
+        list($name, $date) = $self->post('name', 'date');
+
+        // check name
+
+        // check date
+        list($day, $month, $year) = explode('/', $date);
+
+        // check if folder already exists
+        $flatname = Uri::sanitize($name);
+        if(Album::one($year, $month, $day, $flatname)) {
+            return Context::json([
+                'state' => false,
+                'message' => 'L\'album existe déja'
+            ]);
+        }
+
+        // create album folder
+        $author = $self->access->user->username;
+        $album = Album::create($year, $month, $day, $name, $author);
+        if(!$album) {
+            return Context::json([
+                'state' => false,
+                'message' => 'Impossible de créer l\'album'
+            ]);
+        }
+
+        return Context::json([
+            'state' => true,
+            'redirect' => $self->request->uri->make($album->url)
+        ]);
     }
 
 }

@@ -11,13 +11,16 @@
 </head>
 <body class="<?= $class ?>">
 
-<header><?= APP_NAME ?></header>
+    <header><?= APP_NAME ?></header>
 
-<main>
+    <main>
 
-    <?= self::content(); ?>
+        <?= self::content(); ?>
 
-</main>
+    </main>
+
+    <script src="<?= self::url('/js/jquery-2.2.0.min.js') ?>"></script>
+    <script src="<?= self::url('/js/common.js') ?>"></script>
 
 </body>
 </html>

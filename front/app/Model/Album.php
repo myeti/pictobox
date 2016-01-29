@@ -134,4 +134,70 @@ class Album
         return count($this->pics($author));
     }
 
+
+    /**
+     * Get many albums
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @return Album[]
+     */
+    public static function fetch($year = null, $month = null, $day = null)
+    {
+        $albums = [];
+        $folders = glob(ALBUMS_DIR . '/' . $year . $month . $day . '*', GLOB_ONLYDIR);
+        foreach($folders as $folder) {
+            $albums[] = new Album($folder);
+        }
+
+        return $albums;
+    }
+
+
+    /**
+     * Get one album
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param string $flatname
+     * @return Album
+     */
+    public static function one($year, $month, $day, $flatname)
+    {
+        $albums = static::fetch($year, $month, $day);
+        foreach($albums as $album) {
+            if($album->flatname == $flatname) {
+                return $album;
+            }
+        }
+    }
+
+
+    /**
+     * Create album
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param string $name
+     * @param string $author
+     *
+     * @return Album
+     */
+    public static function create($year, $month, $day, $name, $author = null)
+    {
+        $folder = $year . $month . $day . ' - ' . $name;
+        $path = $author
+            ? $folder . DIRECTORY_SEPARATOR . $author
+            : $folder;
+
+        if(is_dir(ALBUMS_DIR . $path) or !mkdir(ALBUMS_DIR . $path, 0777, true)) {
+            return false;
+        }
+
+        return new Album($folder);
+    }
+
 }
