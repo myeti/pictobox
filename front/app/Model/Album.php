@@ -182,18 +182,13 @@ class Album
      * @param int $month
      * @param int $day
      * @param string $name
-     * @param string $author
      *
      * @return Album
      */
-    public static function create($year, $month, $day, $name, $author = null)
+    public static function create($year, $month, $day, $name)
     {
         $folder = $year . $month . $day . ' - ' . $name;
-        $path = $author
-            ? $folder . DIRECTORY_SEPARATOR . $author
-            : $folder;
-
-        if(is_dir(ALBUMS_DIR . $path) or !mkdir(ALBUMS_DIR . $path, 0777, true)) {
+        if(is_dir(ALBUMS_DIR . $folder) or !mkdir(ALBUMS_DIR . $folder, 0777)) {
             return false;
         }
 

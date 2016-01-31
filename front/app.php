@@ -86,6 +86,7 @@ $router = new Router([
     'GET  /login'                   => 'App\Logic\Users::login',
     'POST /login/auth'              => 'App\Logic\Users::auth',
     'POST /login/edit'              => 'App\Logic\Users::edit',
+    'GET  /login/ping'              => 'App\Logic\Users::ping',
     'GET  /logout'                  => 'App\Logic\Users::logout',
 
     'POST /create'                  => 'App\Logic\Albums::create',

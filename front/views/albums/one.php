@@ -8,6 +8,7 @@
             <a href="<?= self::url($pic->url) ?>">
                 <div class="picture">
                     <div class="bg" style="background-image: url('<?= self::url($pic->cacheurl) ?>')"></div>
+                    <em class="info">Par <?= $author ?></em>
                 </div>
             </a>
         </li>

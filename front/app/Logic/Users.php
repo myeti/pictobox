@@ -124,6 +124,19 @@ class Users
 
 
     /**
+     * Check if user is still logged in
+     *
+     * @return \Colorium\Http\Response\Json
+     */
+    public function ping()
+    {
+        return Context::json([
+            'state' => (bool)Auth::valid()
+        ]);
+    }
+
+
+    /**
      * Log out user
      *
      * @param Context $self

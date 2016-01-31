@@ -179,7 +179,9 @@ ul.grid li {
 }
 
 .grid.albums .album {
-    padding-top: 50%;
+    /*padding-top: 50%;*/
+    height: calc(33.333vh - 20px);
+    min-height: 140px;
     position: relative;
     overflow: hidden;
 }
@@ -191,7 +193,7 @@ ul.grid li {
     bottom: 0;
     background-position: center center;
     background-size: cover;
-    opacity: 0.6;
+    opacity: 0.8;
     transition: transform 0.2s;
 }
 .grid.albums .album:hover .bg {
@@ -199,18 +201,22 @@ ul.grid li {
     transform: scale(1.1);
 }
 .grid.albums .album .title,
-.grid.albums .album .date {
+.grid.albums .album .info {
     position: absolute;
     bottom: 15px;
     left: 20px;
     text-transform: uppercase;
-    font-weight: normal;
-    font-size: 12px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 1);
 }
 .grid.albums .album .title {
-    bottom: 25px;
+    bottom: 22px;
     font-size: 14px;
-    letter-spacing: 1px;
+    font-weight: bold;
+}
+.grid.albums .album .info {
+    font-size: 10px;
+    font-style: normal;
 }
 
 .grid.pictures h1 {
@@ -235,4 +241,17 @@ ul.grid li {
 }
 .grid.pictures .picture:hover .bg {
     opacity: 1;
+}
+.grid.pictures .picture .info {
+    position: absolute;
+    bottom: 5px;
+    left: 8px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 4px #000;
+    font-size: 10px;
+    font-style: normal;
+    display: none;
+}
+.grid.pictures .picture:hover .info {
+    display: block;
 }

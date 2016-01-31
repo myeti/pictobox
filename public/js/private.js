@@ -1,6 +1,19 @@
 $(function() {
 
     /**
+     * User ping
+     */
+    setInterval(function()
+    {
+        $.get(routes.ping).done(function(json)
+        {
+            if(json.state == false) {
+                window.location.replace(routes.login);
+            }
+        });
+    }, 5000);
+
+    /**
      * Menu
      */
 
@@ -44,7 +57,7 @@ $(function() {
     var userEmail = $('#user-email');
     userSelect.on('change', function()
     {
-         var selected = userSelect.find('option[selected]');
+        var selected = userSelect.find('option[selected]');
         userEmail.val(selected.attr('data-email'));
     });
 

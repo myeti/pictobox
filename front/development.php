@@ -38,8 +38,8 @@ function dd($param, ...$params)
 use App\Model\User;
 use Colorium\Stateful\Auth;
 
-//User::builder()->wipe();
-//User::builder()->create();
+User::builder()->wipe();
+User::builder()->create();
 
 $admin = new User('Admin', sha1('EfiM$&5/*.w64$yPM3dadmin'), 'you@pictobox.io', User::ADMIN);
 $admin->save();

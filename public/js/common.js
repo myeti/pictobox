@@ -29,16 +29,22 @@ $(function() {
         .done(function(json)
         {
             if(json.state == true) {
-                icon.fadeOut(function(){
-                    icon.removeClass(classLoading).addClass(classOk).fadeIn();
-                })
-                if(json.redirect) {
-                    redirect = json.redirect;
-                }
-                if(redirect) {
-                    window.location.replace(redirect);
-                }
 
+                // change icon
+                icon.fadeOut(function(){
+                    icon.removeClass(classLoading).addClass(classOk).fadeIn(function() {
+                        // redirect on demand
+                        if(json.redirect || redirect) {
+                            window.location.replace(json.redirect || redirect);
+                        }
+                        // close modal
+                        else if(form.parent().hasClass('modal')){
+                            form.find('.cancel').trigger('click');
+                        }
+                    });
+                });
+
+                // get back original content
                 setTimeout(function() {
                     icon.fadeOut(function() {
                         button.empty().html(text);

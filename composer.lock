@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/app.git",
-                "reference": "ea34b3435fd12b6f9477718d9c09fff64b56edfe"
+                "reference": "8a5c02864c060bb61177aaeab6266e4b89375dd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/app/zipball/ea34b3435fd12b6f9477718d9c09fff64b56edfe",
-                "reference": "ea34b3435fd12b6f9477718d9c09fff64b56edfe",
+                "url": "https://api.github.com/repos/colorium/app/zipball/8a5c02864c060bb61177aaeab6266e4b89375dd0",
+                "reference": "8a5c02864c060bb61177aaeab6266e4b89375dd0",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
             ],
             "description": "Colorium Application Component",
             "homepage": "https://github.com/colorium/app",
-            "time": "2016-01-25 15:25:54"
+            "time": "2016-01-29 15:38:11"
         },
         {
             "name": "colorium/arraydot",
@@ -136,12 +136,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/http.git",
-                "reference": "1fc3cd52e524b2c577e7e2030a1ff031eae59e93"
+                "reference": "923f2c0dbab28e5534e6be19704a731d84f405da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/http/zipball/1fc3cd52e524b2c577e7e2030a1ff031eae59e93",
-                "reference": "1fc3cd52e524b2c577e7e2030a1ff031eae59e93",
+                "url": "https://api.github.com/repos/colorium/http/zipball/923f2c0dbab28e5534e6be19704a731d84f405da",
+                "reference": "923f2c0dbab28e5534e6be19704a731d84f405da",
                 "shasum": ""
             },
             "require": {
@@ -166,7 +166,7 @@
             ],
             "description": "HTTP Request/Response Implementation",
             "homepage": "https://github.com/colorium/http",
-            "time": "2016-01-25 15:25:28"
+            "time": "2016-01-28 13:19:08"
         },
         {
             "name": "colorium/orm",
@@ -174,12 +174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/orm.git",
-                "reference": "51a750e4a8d8a14ed8dc4f43e4422059bba882ca"
+                "reference": "647a4c34e4db8d70bc1d457b6ea6f8f95d702c0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/orm/zipball/51a750e4a8d8a14ed8dc4f43e4422059bba882ca",
-                "reference": "51a750e4a8d8a14ed8dc4f43e4422059bba882ca",
+                "url": "https://api.github.com/repos/colorium/orm/zipball/647a4c34e4db8d70bc1d457b6ea6f8f95d702c0e",
+                "reference": "647a4c34e4db8d70bc1d457b6ea6f8f95d702c0e",
                 "shasum": ""
             },
             "require": {
@@ -205,7 +205,7 @@
             ],
             "description": "Simple ORM Library",
             "homepage": "https://github.com/colorium/orm",
-            "time": "2016-01-25 15:31:25"
+            "time": "2016-01-26 15:18:44"
         },
         {
             "name": "colorium/routing",
@@ -289,12 +289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/colorium/stateful.git",
-                "reference": "d52098540dd599b0c0a5023bfbdc8f2e2b4d1c4e"
+                "reference": "a7662b99a37ea1967d32cdec3c51193b3890049c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colorium/stateful/zipball/d52098540dd599b0c0a5023bfbdc8f2e2b4d1c4e",
-                "reference": "d52098540dd599b0c0a5023bfbdc8f2e2b4d1c4e",
+                "url": "https://api.github.com/repos/colorium/stateful/zipball/a7662b99a37ea1967d32cdec3c51193b3890049c",
+                "reference": "a7662b99a37ea1967d32cdec3c51193b3890049c",
                 "shasum": ""
             },
             "require": {
@@ -320,7 +320,7 @@
             ],
             "description": "Stateful Session Component",
             "homepage": "https://github.com/colorium/stateful",
-            "time": "2016-01-22 09:09:48"
+            "time": "2016-01-28 13:19:57"
         },
         {
             "name": "colorium/templating",

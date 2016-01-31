@@ -184,7 +184,7 @@ class Albums
 
         return Context::json([
             'state' => true,
-            'redirect' => $self->request->uri->make($album->url)
+            'redirect' => (string)$self->request->uri->make($album->url)
         ]);
     }
 
