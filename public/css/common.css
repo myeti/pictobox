@@ -33,6 +33,10 @@ a, a:hover, a:active {
     box-sizing: border-box;
 }
 
+.clearfix {
+    clear: both;
+}
+
 
 /**
  * Form

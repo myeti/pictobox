@@ -66,4 +66,22 @@ $(function() {
         userEmail.val(selected.attr('data-email'));
     });
 
+
+    /**
+     * Current grid
+     */
+    var grids = $('.grid');
+    grids.each(function(index, element)
+    {
+        var grid = $(element);
+        $(window).on('load scroll', function()
+        {
+            var scroll = $(this).scrollTop();
+            if(grid.position().top <= scroll) {
+                grids.removeClass('affix');
+                grid.addClass('affix');
+            }
+        });
+    });
+
 });
