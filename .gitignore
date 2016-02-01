@@ -2,3 +2,4 @@
 vendor
 front/orm/*
 public/img/cache/*
+composer.lock
