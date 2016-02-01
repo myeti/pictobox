@@ -3,6 +3,7 @@
 namespace App\Logic;
 
 use Colorium\App\Context;
+use Colorium\Http\Response;
 
 class Errors
 {
@@ -22,7 +23,7 @@ class Errors
      */
     public function unauthorized(Context $self)
     {
-        return $self::redirect('/login?from=' . $self->request->uri->path);
+        return Response::redirect('/login?from=' . $self->request->uri->path);
     }
 
 
@@ -31,6 +32,6 @@ class Errors
      *
      * @html errors/fatal
      */
-    public function fatal($null, $e) { dd($e); }
+    public function fatal() {}
 
 }

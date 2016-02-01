@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="<?= self::url('/css/bootstrap.min.css') ?>" rel="stylesheet">
+    <link href="<?= self::url('/css/font-awesome.min.css') ?>" rel="stylesheet">
+    <link href="<?= self::url('/css/normalize.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/common.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/private.css') ?>" rel="stylesheet">
     <script>
@@ -30,14 +31,20 @@
     <header>
 
         <nav>
-            <a href="<?= self::url('/') ?>" id="logo"><?= strtoupper(APP_NAME) ?></a> <span>/</span>
+            <a href="<?= self::url('/') ?>" id="logo"><?= strtoupper(APP_NAME) ?></a>
 
-            <?php foreach($ariane as $text => $link): ?>
-            <a href="<?= self::url($link) ?>" class="xs-hide"><?= $text ?></a>
-            <?php endforeach; ?>
+            <?php if($ariane): ?>
 
-            <?php if($ariane and $album): ?>
-            <span class="xs-hide">/</span> <a href="<?= self::url($album->url) ?>" class="album"><?= $album->name ?></a>
+                <span class="xs-hide">/</span>
+
+                <?php foreach($ariane as $text => $link): ?>
+                <a href="<?= self::url($link) ?>" class="xs-hide"><?= $text ?></a>
+                <?php endforeach; ?>
+
+                <?php if($album): ?>
+                <span>/</span> <a href="<?= self::url($album->url) ?>" class="album"><?= $album->name ?></a>
+                <?php endif; ?>
+
             <?php endif; ?>
         </nav>
 
@@ -45,29 +52,29 @@
 
     <menu>
 
-        <span class="switch glyphicon glyphicon-menu-hamburger"></span>
+        <span class="switch fa fa-bars"></span>
 
         <ul>
             <li>
                 <a data-modal="#user-details" href="#">
-                    <span class="glyphicon glyphicon-user" title="Modifier mes informations"></span>
+                    <span class="fa fa-user" title="Modifier mes informations"></span>
                 </a>
             </li>
             <?php if($album): ?>
             <li>
                 <a data-modal="#upload-pics" href="#">
-                    <span class="glyphicon glyphicon-open" title="Ajouter des photos"></span>
+                    <span class="fa fa-upload" title="Ajouter des photos"></span>
                 </a>
             </li>
             <li>
                 <a href="<?= self::url($album->url, 'download') ?>" title="Télécharger l'album">
-                    <span class="glyphicon glyphicon-save"></span>
+                    <span class="fa fa-download"></span>
                 </a>
             </li>
             <?php else: ?>
             <li>
-                <a data-modal="#create-album" href="#">
-                    <span class="glyphicon glyphicon-plus-sign" title="Créer un nouvel album"></span>
+                <a data-modal="#create-album" data-autofocus href="#">
+                    <span class="fa fa-plus-circle" title="Créer un nouvel album"></span>
                 </a>
             </li>
             <?php endif; ?>

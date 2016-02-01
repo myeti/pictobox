@@ -23,6 +23,7 @@ header nav a {
     padding: 0 2px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    line-height: 26px;
 }
 header nav a#logo {
     font-family: Righteous, Helvetica, Arial, sans-serif;
@@ -35,16 +36,10 @@ header nav a.album {
 header nav span {
     font-size: 17px;
     color: #777;
-    padding: 0 5px;
+    padding: 0 1px;
 }
-
-@media screen and (max-width: 480px) {
-    header nav .xs-hide {
-        display: none;
-    }
-    header nav span {
-        padding: 0 1px;
-    }
+header nav .xs-hide {
+    display: none;
 }
 
 
@@ -68,7 +63,7 @@ menu.open {
 }
 menu .switch {
     position: fixed;
-    top: 23px;
+    top: 22px;
     left: 20px;
     transition: transform 0.2s;
     cursor: pointer;
@@ -92,7 +87,7 @@ menu ul li a {
 menu ul li a:hover {
     background: #2f3234;
 }
-menu .glyphicon {
+menu .fa {
     margin-right: 8px;
 }
 
@@ -121,7 +116,6 @@ main.blur {
 }
 #modals .modal {
     margin: auto;
-    margin-top: 100px;
     width: 280px;
     padding: 20px;
     display: none;
@@ -143,12 +137,6 @@ main.blur {
 }
 #modals .modal button[type=reset] {
     margin-top: 5px;
-}
-
-@media screen and (max-width: 480px) {
-    #modals .modal {
-        margin-top: 0;
-    }
 }
 
 
@@ -175,17 +163,13 @@ ul.grid {
     margin: 0;
 }
 ul.grid li {
-    padding: 0;
+    float: left;
 }
-
-.grid.albums .album {
-    /*padding-top: 50%;*/
-    height: calc(33.333vh - 20px);
-    min-height: 140px;
+ul.grid li .item {
     position: relative;
     overflow: hidden;
 }
-.grid.albums .album .bg {
+ul.grid li .item .image {
     position: absolute;
     top: 0;
     left: 0;
@@ -193,65 +177,102 @@ ul.grid li {
     bottom: 0;
     background-position: center center;
     background-size: cover;
-    opacity: 0.8;
-    transition: transform 0.2s;
 }
-.grid.albums .album:hover .bg {
-    opacity: 1;
-    transform: scale(1.1);
-}
-.grid.albums .album .title,
-.grid.albums .album .info {
+ul.grid li .item .title,
+ul.grid li .item .info {
     position: absolute;
     bottom: 15px;
     left: 20px;
-    text-transform: uppercase;
     letter-spacing: 1px;
     text-shadow: 0 0 6px rgba(0, 0, 0, 1);
+    font-size: 10px;
+    font-style: normal;
 }
-.grid.albums .album .title {
+ul.grid li .item .title {
     bottom: 22px;
     font-size: 14px;
     font-weight: bold;
-}
-.grid.albums .album .info {
-    font-size: 10px;
-    font-style: normal;
+    text-transform: uppercase;
 }
 
-.grid.pictures h1 {
-    padding: 15px;
-    padding-bottom: 5px;
-    font-size: 14px;
-    color: #aaa;
+.grid.albums li {
+    width: 100%;
 }
-.grid.pictures .picture {
+.grid.albums li .item {
+    height: calc(33.333vh - 20px);
+    min-height: 130px;
+}
+.grid.albums li .item .image {
+    opacity: 0.8;
+    transition: transform 0.2s;
+}
+.grid.albums li .item:hover .image {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.grid.pictures li {
+    width: 50%;
+}
+.grid.pictures li .item {
     padding-top: 100%;
     position: relative;
 }
-.grid.pictures .picture .bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-position: center center;
-    background-size: cover;
+.grid.pictures li .item .image {
     opacity: 0.8;
 }
-.grid.pictures .picture:hover .bg {
+.grid.pictures li .item:hover .image {
     opacity: 1;
 }
-.grid.pictures .picture .info {
-    position: absolute;
+.grid.pictures li .item .info {
     bottom: 5px;
     left: 8px;
-    letter-spacing: 1px;
-    text-shadow: 0 0 4px #000;
-    font-size: 10px;
-    font-style: normal;
     display: none;
 }
-.grid.pictures .picture:hover .info {
+.grid.pictures li .item:hover .info {
     display: block;
+}
+
+
+/**
+ * Responsive
+ */
+
+@media screen and (min-width: 480px) {
+    header nav .xs-hide {
+        display: inline-block;
+    }
+    header nav span {
+        padding: 0 5px;
+    }
+    .grid.pictures li {
+        width: 33.33333%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #modals .modal {
+        margin-top: 100px;
+    }
+    .grid.albums li {
+        width: 50%;
+    }
+    .grid.pictures li {
+        width: 25%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .grid.albums li {
+        width: 33.333333%;
+    }
+    .grid.pictures li {
+        width: 16.6666667%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .grid.pictures li {
+        width: 12.5%;
+    }
 }

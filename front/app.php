@@ -7,6 +7,7 @@
 define('__ROOT__', dirname(__DIR__));
 
 define('APP_NAME', 'Pictobox');
+
 define('ALBUMS_DIR', __ROOT__ . '/public/img/albums/');
 define('ALBUMS_URL', '/img/albums/');
 define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
@@ -37,17 +38,6 @@ $sqlite = new Orm\SQLite(__DIR__ . '/orm/pictobox.db', [
 ]);
 
 Orm\Hub::source($sqlite);
-
-
-
-/**
- * Dev mode
- */
-
-$trusted = ['127.0.0.1', '::1', '10.0.2.2'];
-if(in_array($context->request->ip, $trusted)) {
-    require 'development.php';
-}
 
 
 
@@ -106,6 +96,17 @@ $router = new Router([
  */
 
 $app = new App\Front($router, $templater);
+
+
+
+/**
+ * Dev mode
+ */
+
+$trusted = ['127.0.0.1', '::1', '10.0.2.2'];
+if(in_array($context->request->ip, $trusted)) {
+    require 'whoops.php';
+}
 
 
 

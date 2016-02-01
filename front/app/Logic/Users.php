@@ -4,6 +4,7 @@ namespace App\Logic;
 
 use App\Model\User;
 use Colorium\App\Context;
+use Colorium\Http\Response;
 use Colorium\Stateful\Auth;
 use Colorium\Stateful\Flash;
 
@@ -28,7 +29,7 @@ class Users
     {
         // already logged in
         if($self->access->auth) {
-            return $self::redirect('/');
+            return Response::redirect('/');
         }
 
         // keep previous location
@@ -56,7 +57,7 @@ class Users
         // look user up
         $user = User::one(['username' => $username, 'password' => $password]);
         if(!$user) {
-            return Context::json([
+            return Response::json([
                 'state' => false,
                 'message' => 'Identifiants incorrects'
             ]);
@@ -65,7 +66,7 @@ class Users
         // log user in
         Auth::login($user->rank, $user->id);
 
-        return Context::json([
+        return Response::json([
             'state' => true
         ]);
     }
@@ -93,7 +94,7 @@ class Users
         // edit email
         if($email != $user->email) {
             if(!filter_var($email, FILTER_SANITIZE_EMAIL)) {
-                return Context::json([
+                return Response::json([
                     'state' => false,
                     'message' => 'Adresse email invalide'
                 ]);
@@ -105,7 +106,7 @@ class Users
         // edit password
         if($password) {
             if(strlen($password) < $this->minLength) {
-                return Context::json([
+                return Response::json([
                     'state' => false,
                     'message' => 'Mot de passe trop court'
                 ]);
@@ -117,7 +118,7 @@ class Users
         // save user
         $user->edit();
 
-        return Context::json([
+        return Response::json([
             'state' => true
         ]);
     }
@@ -130,7 +131,7 @@ class Users
      */
     public function ping()
     {
-        return Context::json([
+        return Response::json([
             'state' => (bool)Auth::valid()
         ]);
     }
@@ -145,7 +146,7 @@ class Users
     public function logout(Context $self)
     {
         Auth::logout();
-        return $self::redirect('/login');
+        return Response::redirect('/login');
     }
 
 }

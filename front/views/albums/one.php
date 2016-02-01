@@ -4,10 +4,10 @@
 <ul class="grid pictures row">
     <?php foreach($authors as $author => $pics): ?>
         <?php foreach($pics as $pic): ?>
-        <li class="col-xs-6 col-sm-3 col-md-2">
+        <li>
             <a href="<?= self::url($pic->url) ?>">
-                <div class="picture">
-                    <div class="bg" style="background-image: url('<?= self::url($pic->cacheurl) ?>')"></div>
+                <div class="item">
+                    <div class="image" style="background-image: url('<?= self::url($pic->cacheurl) ?>')"></div>
                     <em class="info">Par <?= $author ?></em>
                 </div>
             </a>

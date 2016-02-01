@@ -10,6 +10,10 @@
  * Layout
  */
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
 html {
     height: 100%;
 }
@@ -23,6 +27,10 @@ body {
 a, a:hover, a:active {
     color: inherit;
     text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 
@@ -70,7 +78,7 @@ form button[type=submit] {
     background: #F77049;
     color: #fff;
 }
-form button[type=submit] .glyphicon-option-horizontal {
+form button[type=submit] .fa-refresh {
     animation: rotate 1s infinite;
 }
 form button[type=reset] {

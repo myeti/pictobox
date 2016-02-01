@@ -37,8 +37,13 @@ $(function() {
         modals.removeClass('open');
 
         var id = $(this).attr('data-modal');
-        modals.filter(id).addClass('open');
+        var modal = modals.filter(id);
+        modal.addClass('open');
         overlay.addClass('open');
+
+        if($(this).is('[data-autofocus]')) {
+            modal.find('input').first().focus();
+        }
 
         return false;
     });

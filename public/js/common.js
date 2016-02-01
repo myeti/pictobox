@@ -7,8 +7,8 @@ $(function() {
     {
         e.stopPropagation();
 
-        var classLoading = 'glyphicon-option-horizontal';
-        var classOk = 'glyphicon-ok';
+        var classLoading = 'fa-refresh';
+        var classOk = 'fa-check';
 
         var form = $(this);
         var button = form.find('button[type=submit]');
@@ -16,7 +16,7 @@ $(function() {
         var redirect = form.attr('data-ajax');
 
         var icon = $('<span></span>')
-            .addClass('glyphicon')
+            .addClass('fa')
             .addClass(classLoading);
 
         button.empty().append(icon).attr('disabled');
@@ -31,8 +31,10 @@ $(function() {
             if(json.state == true) {
 
                 // change icon
-                icon.fadeOut(function(){
-                    icon.removeClass(classLoading).addClass(classOk).fadeIn(function() {
+                icon.fadeOut(function()
+                {
+                    icon.removeClass(classLoading).addClass(classOk).fadeIn(function()
+                    {
                         // redirect on demand
                         if(json.redirect || redirect) {
                             window.location.replace(json.redirect || redirect);
@@ -45,8 +47,10 @@ $(function() {
                 });
 
                 // get back original content
-                setTimeout(function() {
-                    icon.fadeOut(function() {
+                setTimeout(function()
+                {
+                    icon.fadeOut(function()
+                    {
                         button.empty().html(text);
                     });
                 }, 2000);

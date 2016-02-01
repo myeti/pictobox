@@ -5,5 +5,4 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL & ~E_NOTICE);
 
 require '../vendor/autoload.php';
-require '../front/helpers.php';
-require '../front/app.php';
+require '../front/install.php';

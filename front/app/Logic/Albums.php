@@ -6,7 +6,7 @@ use App\Model\Album;
 use Colorium\App\Context;
 use Colorium\Http\Error\NotFoundException;
 use Colorium\Http\Uri;
-use Colorium\Stateful\Flash;
+use Colorium\Http\Response;
 
 /**
  * @access 1
@@ -27,8 +27,7 @@ class Albums
         $albums = Album::fetch();
 
         return [
-            'albums' => $albums,
-            'ariane' => []
+            'albums' => $albums
         ];
     }
 
@@ -166,26 +165,73 @@ class Albums
         // check if folder already exists
         $flatname = Uri::sanitize($name);
         if(Album::one($year, $month, $day, $flatname)) {
-            return Context::json([
+            return Response::json([
                 'state' => false,
                 'message' => 'L\'album existe déja'
             ]);
         }
 
         // create album folder
-        $author = $self->access->user->username;
-        $album = Album::create($year, $month, $day, $name, $author);
+        $album = Album::create($year, $month, $day, $name);
         if(!$album) {
-            return Context::json([
+            return Response::json([
                 'state' => false,
                 'message' => 'Impossible de créer l\'album'
             ]);
         }
 
-        return Context::json([
+        return Response::json([
             'state' => true,
             'redirect' => (string)$self->request->uri->make($album->url)
         ]);
+    }
+
+
+    /**
+     * Edit album details
+     *
+     * @access 9
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param string $flatname
+     */
+    public function edit($year, $month, $day, $flatname)
+    {
+
+    }
+
+
+    /**
+     * Upload pics to album
+     *
+     * @access 9
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param string $flatname
+     */
+    public function upload($year, $month, $day, $flatname)
+    {
+
+    }
+
+
+    /**
+     * Download album as .zip
+     *
+     * @access 9
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param string $flatname
+     */
+    public function download($year, $month, $day, $flatname)
+    {
+
     }
 
 }

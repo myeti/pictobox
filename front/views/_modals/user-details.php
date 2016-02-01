@@ -20,7 +20,7 @@
         <label for="user-pwd">Mot de passe</label>
         <input type="password" id="user-pwd" name="password">
 
-        <button type="submit" data-loading="glyphicon-cog" data-ok="glyphicon-ok">Sauvegarder</button>
+        <button type="submit" data-loading="fa-cog" data-ok="fa-ok">Sauvegarder</button>
         <button type="reset" class="cancel">Fermer</button>
 
     </form>

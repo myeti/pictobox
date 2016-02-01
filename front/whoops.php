@@ -1,54 +1,10 @@
 <?php
 
 /**
- * DEVELOPMENT MODE
- */
-
-
-/**
- * Vardump
- *
- * @param $param
- * @param $params
- */
-function vd($param, ...$params)
-{
-    var_dump($param, ...$params);
-}
-
-
-
-/**
- * Vardump and die
- *
- * @param $param
- * @param ...$params
- */
-function dd($param, ...$params)
-{
-    var_dump($param, ...$params);
-    exit;
-}
-
-
-/**
- * Orm fake data
- */
-
-use App\Model\User;
-use Colorium\Stateful\Auth;
-
-User::builder()->wipe();
-User::builder()->create();
-
-$admin = new User('Admin', sha1('EfiM$&5/*.w64$yPM3dadmin'), 'you@pictobox.io', User::ADMIN);
-$admin->save();
-
-
-
-/**
  * Debug stacktrace using WHOOPS
  */
+
+$app->catch = false;
 
 $handler = new Whoops\Handler\PrettyPageHandler;
 $handler->addDataTableCallback('App Uri', function() use ($app) {
