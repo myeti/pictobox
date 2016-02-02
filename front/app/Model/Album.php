@@ -110,13 +110,14 @@ class Album
      * Get thumbnail of album
      * Currently random, need proper system (TODO)
      *
+     * @param null $author
      * @return Picture
      */
-    public function thumbnail()
+    public function thumbnail($author = null)
     {
         $authors = $this->pics();
         if($authors) {
-            $author = array_rand($authors);
+            $author = $author ?: array_rand($authors);
             $rand = array_rand($authors[$author]);
             return $authors[$author][$rand];
         }

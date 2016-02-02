@@ -145,6 +145,7 @@ main.blur {
  */
 
 main {
+    margin-top: 60px;
     transition: margin-left 0.2s;
 }
 menu.open + main {
@@ -159,25 +160,9 @@ menu.open + main {
 ul.grid {
     list-style: none;
     padding: 0;
-    padding-top: 60px;
     margin: 0;
     position: relative;
     clear: both;
-}
-ul.grid::before {
-    position: absolute;
-    top: 22px;
-    right: 20px;
-    content: attr(data-title);
-    z-index: 800;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #aaa;
-    display: none;
-}
-ul.grid.affix::before {
-    position: fixed;
-    top: 20px;
 }
 ul.grid li {
     float: left;
@@ -204,6 +189,7 @@ ul.grid li .item .info {
     position: absolute;
     bottom: 15px;
     left: 20px;
+    right: 20px;
     letter-spacing: 1px;
     text-shadow: 0 0 6px rgba(0, 0, 0, 1);
     font-size: 10px;
@@ -235,6 +221,22 @@ ul.grid li .item .title {
 }
 .grid.pictures li .item {
     padding-top: 100%;
+}
+.grid.pictures li .item.author .image {
+    filter: grayscale(100%) invert(100%);
+    -webkit-filter: grayscale(100%) invert(100%);
+    -moz-filter: grayscale(100%) invert(100%);
+}
+.grid.pictures li .item.author .title {
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    margin: 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding-top: calc(50% - 32px);
+    border-radius: 100%;
 }
 
 
