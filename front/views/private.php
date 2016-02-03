@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="<?= self::url('/css/font-awesome.min.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/normalize.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/common.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/private.css') ?>" rel="stylesheet">
+    <?php if($album): ?>
+        <link href="<?= self::url('/css/photoswipe.css') ?>" rel="stylesheet">
+        <link href="<?= self::url('/css/default-skin/default-skin.css') ?>" rel="stylesheet">
+    <?php endif; ?>
+
     <script>
         var routes = {
             ping: "<?= self::url('/login/ping') ?>",
@@ -17,6 +23,10 @@
     </script>
 </head>
 <body>
+
+    <?php if($album): ?>
+        <?= self::render('_modals/photoswipe') ?>
+    <?php endif; ?>
 
     <div id="modals">
         <?= self::render('_modals/user-details', ['user' => $user]) ?>
@@ -89,6 +99,10 @@
     <script src="<?= self::url('/js/jquery-2.2.0.min.js') ?>"></script>
     <script src="<?= self::url('/js/common.js') ?>"></script>
     <script src="<?= self::url('/js/private.js') ?>"></script>
+    <?php if($album): ?>
+        <script src="<?= self::url('/js/photoswipe.min.js') ?>"></script>
+        <script src="<?= self::url('/js/photoswipe-ui-default.min.js') ?>"></script>
+    <?php endif; ?>
 
 </body>
 </html

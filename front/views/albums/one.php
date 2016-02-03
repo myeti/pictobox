@@ -18,7 +18,7 @@
         </li>
         <?php foreach($pics as $pic): ?>
         <li>
-            <a href="<?= self::url($pic->url) ?>">
+            <a href="<?= self::url($pic->url) ?>" data-slideshow>
                 <div class="item">
                     <div class="image" style="background-image: url('<?= self::url($pic->cacheurl) ?>')"></div>
                 </div>
