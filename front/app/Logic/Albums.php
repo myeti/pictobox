@@ -158,6 +158,7 @@ class Albums
         list($name, $date) = $self->post('name', 'date');
 
         // check name
+        // todo
 
         // check date
         list($day, $month, $year) = explode('/', $date);
@@ -196,10 +197,49 @@ class Albums
      * @param int $month
      * @param int $day
      * @param string $flatname
+     * @param Context $self
+     * @return Response\Json
+     *
+     * @throws NotFoundException
      */
-    public function edit($year, $month, $day, $flatname)
+    public function edit($year, $month, $day, $flatname, Context $self)
     {
+        // get album
+        $album = Album::one($year, $month, $day, $flatname);
+        if(!$album) {
+            throw new NotFoundException;
+        }
 
+        // get form data
+        list($name, $date) = $self->post('name', 'date');
+
+        // check name
+        // todo
+
+        // check date
+        list($newday, $newmonth, $newyear) = explode('/', $date);
+
+        // check if folder already exists
+        $flatname = Uri::sanitize($name);
+        if(Album::one($newday, $newmonth, $newyear, $flatname)) {
+            return Response::json([
+                'state' => false,
+                'message' => 'L\'album existe déja'
+            ]);
+        }
+
+        // rename
+        if(!$album->rename($newday, $newmonth, $newyear, $name)) {
+            return Response::json([
+                'state' => false,
+                'message' => 'Impossible de modifier l\'album'
+            ]);
+        }
+
+        return Response::json([
+            'state' => true,
+            'redirect' => (string)$self->request->uri->make($album->url)
+        ]);
     }
 
 
@@ -212,10 +252,28 @@ class Albums
      * @param int $month
      * @param int $day
      * @param string $flatname
+     * @param Context $self
+     *
+     * @throws NotFoundException
      */
-    public function upload($year, $month, $day, $flatname)
+    public function upload($year, $month, $day, $flatname, Context $self)
     {
+        // get album
+        $album = Album::one($year, $month, $day, $flatname);
+        if(!$album) {
+            throw new NotFoundException;
+        }
 
+        // create author
+        $author = $self->access->user->username;
+        $path = $album->path . DIRECTORY_SEPARATOR . $author;
+        if(!is_dir($path)) {
+            mkdir($path, 0777);
+        }
+
+        // save file to author dir
+        $file = $self->request->file('upload');
+//        $file->save($path);
     }
 
 

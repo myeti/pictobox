@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="<?= self::url('/css/font-awesome.min.css') ?>" rel="stylesheet">
-    <link href="<?= self::url('/css/normalize.css') ?>" rel="stylesheet">
+    <link href="<?= self::url('/css/libs/font-awesome.min.css') ?>" rel="stylesheet">
+    <link href="<?= self::url('/css/libs/normalize.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/common.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/private.css') ?>" rel="stylesheet">
     <?php if($album): ?>
-        <link href="<?= self::url('/css/photoswipe.css') ?>" rel="stylesheet">
-        <link href="<?= self::url('/css/default-skin/default-skin.css') ?>" rel="stylesheet">
+        <link href="<?= self::url('/css/libs/photoswipe.css') ?>" rel="stylesheet">
+        <link href="<?= self::url('/css/libs/photoswipe/default-skin.css') ?>" rel="stylesheet">
     <?php endif; ?>
 
     <script>
@@ -32,7 +32,7 @@
         <?= self::render('_modals/user-details', ['user' => $user]) ?>
 
         <?php if($album): ?>
-            <?= self::render('_modals/upload-pics') ?>
+            <?= self::render('_modals/upload-pics', ['album' => $album]) ?>
         <?php else: ?>
             <?= self::render('_modals/create-album') ?>
         <?php endif; ?>
@@ -72,7 +72,7 @@
             </li>
             <?php if($album): ?>
             <li>
-                <a data-modal="#upload-pics" href="#">
+                <a data-modal="#upload-pics" data-callback="openUpload" href="#">
                     <span class="fa fa-upload" title="Ajouter des photos"></span>
                 </a>
             </li>
@@ -96,12 +96,13 @@
         <?= self::content(); ?>
     </main>
 
-    <script src="<?= self::url('/js/jquery-2.2.0.min.js') ?>"></script>
+    <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
     <script src="<?= self::url('/js/common.js') ?>"></script>
     <script src="<?= self::url('/js/private.js') ?>"></script>
     <?php if($album): ?>
-        <script src="<?= self::url('/js/photoswipe.min.js') ?>"></script>
-        <script src="<?= self::url('/js/photoswipe-ui-default.min.js') ?>"></script>
+        <script src="<?= self::url('/js/Upload.js') ?>"></script>
+        <script src="<?= self::url('/js/libs/photoswipe.min.js') ?>"></script>
+        <script src="<?= self::url('/js/libs/photoswipe-ui-default.min.js') ?>"></script>
     <?php endif; ?>
 
 </body>

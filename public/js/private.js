@@ -116,4 +116,16 @@ $(function() {
         return false;
     });
 
+
+
+    /**
+     * Upload
+     */
+
+    var upload = new Upload($('#upload-pics'));
+    window.openUpload = function openUpload()
+    {
+        upload.open();
+    };
+
 });

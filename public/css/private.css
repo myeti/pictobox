@@ -139,6 +139,35 @@ main.blur {
     margin-top: 5px;
 }
 
+/* Upload modal */
+.modal#upload-pics {
+
+}
+.modal#upload-pics form {
+    display: none;
+}
+.modal#upload-pics ul {
+    padding: 0;
+    list-style: none;
+}
+.modal#upload-pics ul li {
+    display: block;
+    position: relative;
+    padding: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.modal#upload-pics ul li span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: -1;
+}
+
 
 /**
  * Main

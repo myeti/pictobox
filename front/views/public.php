@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="<?= self::url('/css/font-awesome.min.css') ?>" rel="stylesheet">
-    <link href="<?= self::url('/css/normalize.css') ?>" rel="stylesheet">
+    <link href="<?= self::url('/css/libs/font-awesome.min.css') ?>" rel="stylesheet">
+    <link href="<?= self::url('/css/libs/normalize.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/common.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/public.css') ?>" rel="stylesheet">
 </head>
@@ -20,7 +20,7 @@
 
     </main>
 
-    <script src="<?= self::url('/js/jquery-2.2.0.min.js') ?>"></script>
+    <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
     <script src="<?= self::url('/js/common.js') ?>"></script>
 
 </body>

@@ -188,12 +188,60 @@ class Album
      */
     public static function create($year, $month, $day, $name)
     {
+        // create album
         $folder = $year . $month . $day . ' - ' . $name;
-        if(is_dir(ALBUMS_DIR . $folder) or !mkdir(ALBUMS_DIR . $folder, 0777)) {
+        if(is_dir(ALBUMS_DIR . $folder) or !mkdir(ALBUMS_DIR . $folder, 0777)
+           or is_dir(CACHE_DIR . $folder) or !mkdir(CACHE_DIR . $folder, 0777)) {
             return false;
         }
 
+        // create cache
+        if(!is_dir(CACHE_DIR . $folder)) {
+            mkdir(CACHE_DIR . $folder, 0777);
+        }
+
         return new Album($folder);
+    }
+
+
+    /**
+     * Create album
+     *
+     * @param Album $album
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param string $name
+     *
+     * @return Album
+     */
+    public static function rename(Album $album, $year, $month, $day, $name)
+    {
+        // rename album
+        $folder = $year . $month . $day . ' - ' . $name;
+        if(!rename($album->path, ALBUMS_DIR . $folder) or rename(CACHE_DIR . $album->name, ALBUMS_DIR . $folder)) {
+            return false;
+        }
+
+        // rename cache
+        if(!is_dir(CACHE_DIR . $folder)) {
+            mkdir(CACHE_DIR . $folder, 0777);
+        }
+
+        return new Album($folder);
+    }
+
+
+    /**
+     * Create album
+     *
+     * @param Album $album
+     *
+     * @return Album
+     */
+    public static function delete(Album $album)
+    {
+
     }
 
 }
