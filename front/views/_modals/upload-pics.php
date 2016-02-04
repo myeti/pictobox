@@ -1,7 +1,12 @@
 <div class="modal" id="upload-pics">
-    <form action="<?= self::url($album->url, 'upload') ?>" method="post">
-        <input type="file" name="upload" accept="image/*" multiple>
+    <h4>Upload</h4>
+    <form action="<?= self::url($album->url, 'upload') ?>" method="post" enctype="multipart/form-data" class="dropzone">
+        <div class="dz-message">
+            <span class="fa fa-plus"></span>
+            Clic / Drag'n'drop
+        </div>
+        <div class="fallback">
+            <input type="file" name="upload" accept="image/*" multiple>
+        </div>
     </form>
-    <h4>Upload <i class="state"></i></h4>
-    <ul class="list"></ul>
 </div>

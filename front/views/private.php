@@ -7,19 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="<?= self::url('/css/libs/font-awesome.min.css') ?>" rel="stylesheet">
-    <link href="<?= self::url('/css/libs/normalize.css') ?>" rel="stylesheet">
+    <link href="<?= self::url('/css/libs/normalize.min.css') ?>" rel="stylesheet">
+    <?php if($album): ?>
+        <link href="<?= self::url('/css/libs/dropzone.min.css') ?>" rel="stylesheet">
+        <link href="<?= self::url('/css/libs/photoswipe.min.css') ?>" rel="stylesheet">
+        <link href="<?= self::url('/css/libs/photoswipe/default-skin.min.css') ?>" rel="stylesheet">
+    <?php endif; ?>
     <link href="<?= self::url('/css/common.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/private.css') ?>" rel="stylesheet">
-    <?php if($album): ?>
-        <link href="<?= self::url('/css/libs/photoswipe.css') ?>" rel="stylesheet">
-        <link href="<?= self::url('/css/libs/photoswipe/default-skin.css') ?>" rel="stylesheet">
-    <?php endif; ?>
 
     <script>
-        var routes = {
-            ping: "<?= self::url('/login/ping') ?>",
-            login: "<?= self::url('/login') ?>"
-        }
+    var routes = {
+        ping: "<?= self::url('/login/ping') ?>",
+        login: "<?= self::url('/login') ?>"
+    }
     </script>
 </head>
 <body>
@@ -72,7 +73,7 @@
             </li>
             <?php if($album): ?>
             <li>
-                <a data-modal="#upload-pics" data-callback="openUpload" href="#">
+                <a data-modal="#upload-pics" href="#">
                     <span class="fa fa-upload" title="Ajouter des photos"></span>
                 </a>
             </li>
@@ -97,13 +98,13 @@
     </main>
 
     <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
-    <script src="<?= self::url('/js/common.js') ?>"></script>
-    <script src="<?= self::url('/js/private.js') ?>"></script>
     <?php if($album): ?>
-        <script src="<?= self::url('/js/Upload.js') ?>"></script>
+        <script src="<?= self::url('/js/libs/dropzone.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe-ui-default.min.js') ?>"></script>
     <?php endif; ?>
+    <script src="<?= self::url('/js/common.js') ?>"></script>
+    <script src="<?= self::url('/js/private.js') ?>"></script>
 
 </body>
 </html

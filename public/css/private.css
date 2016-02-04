@@ -113,6 +113,7 @@ main.blur {
     z-index: 5000;
     display: none;
     background: rgba(0, 0, 0, 0.8);
+    overflow: auto;
 }
 #modals .modal {
     margin: auto;
@@ -140,32 +141,31 @@ main.blur {
 }
 
 /* Upload modal */
-.modal#upload-pics {
-
+form.dropzone {
+    border: 2px dashed #fff;
+    border-radius: 10px;
+    min-height: 240px;
+    width: 100%;
+    padding: 8px;
+    text-align: center;
+    background: none;
 }
-.modal#upload-pics form {
-    display: none;
+form.dropzone .dz-message {
+    font-size: 14px;
+    margin-top: 80px;
 }
-.modal#upload-pics ul {
-    padding: 0;
-    list-style: none;
-}
-.modal#upload-pics ul li {
+form.dropzone .dz-message span {
     display: block;
-    position: relative;
-    padding: 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    font-size: 40px;
 }
-.modal#upload-pics ul li span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    background: rgba(255, 255, 255, 0.2);
-    z-index: -1;
+form.dropzone .dz-preview {
+    margin: 5px;
+    background: none;
+}
+form.dropzone .dz-preview .dz-image {
+    height: 100px;
+    width: 100px;
+    border-radius: 0;
 }
 
 

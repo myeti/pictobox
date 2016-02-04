@@ -122,10 +122,11 @@ $(function() {
      * Upload
      */
 
-    var upload = new Upload($('#upload-pics'));
-    window.openUpload = function openUpload()
+    var dropzone = new Dropzone("#upload-pics form");
+    dropzone.on('queuecomplete', function()
     {
-        upload.open();
-    };
+        dropzone.removeAllFiles();
+        window.location.reload();
+    });
 
 });

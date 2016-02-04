@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="<?= self::url('/css/libs/font-awesome.min.css') ?>" rel="stylesheet">
-    <link href="<?= self::url('/css/libs/normalize.css') ?>" rel="stylesheet">
+    <link href="<?= self::url('/css/libs/normalize.min.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/common.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/public.css') ?>" rel="stylesheet">
 </head>
