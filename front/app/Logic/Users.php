@@ -83,12 +83,18 @@ class Users
     public function edit(Context $self)
     {
         // get post data
-        list($email, $password, $id) = $self->post('email', 'password', 'id');
+        list($email, $password, $id, $rank) = $self->post('email', 'password', 'id', 'rank');
 
         // get user
-        $user = $self->user;
-        if($id and $self->access->user->rank == User::ADMIN) {
+        $user = $self->access->user;
+        $admin = $user->isAdmin();
+        if($id and $admin) {
             $user = User::one(['id' => $id]);
+        }
+
+        // edit rank
+        if($rank != $user->rank and $admin) {
+            $user->rank = $rank;
         }
 
         // edit email
@@ -140,10 +146,9 @@ class Users
     /**
      * Log out user
      *
-     * @param Context $self
      * @return \Colorium\Http\Response\Redirect
      */
-    public function logout(Context $self)
+    public function logout()
     {
         Auth::logout();
         return Response::redirect('/login');

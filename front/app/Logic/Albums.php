@@ -150,6 +150,8 @@ class Albums
     /**
      * Create new album
      *
+     * @access 5
+     *
      * @param Context $self
      * @return \Colorium\Http\Response\Json
      */
@@ -191,7 +193,7 @@ class Albums
     /**
      * Edit album details
      *
-     * @access 9
+     * @access 5
      *
      * @param int $year
      * @param int $month
@@ -246,7 +248,7 @@ class Albums
     /**
      * Upload pics to album
      *
-     * @access 9
+     * @access 5
      *
      * @param int $year
      * @param int $month
@@ -280,7 +282,7 @@ class Albums
     /**
      * Download album as .zip
      *
-     * @access 9
+     * @access 5
      *
      * @param int $year
      * @param int $month

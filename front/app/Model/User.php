@@ -10,7 +10,8 @@ class User
     use Orm\Model;
 
     const GUEST = 0;
-    const NORMAL = 1;
+    const VIEWER = 1;
+    const UPLOADER = 5;
     const ADMIN = 9;
 
     /** @var string */
@@ -23,7 +24,7 @@ class User
     public $email;
 
     /** @var int */
-    public $rank = 1;
+    public $rank = self::VIEWER;
 
 
     /**
@@ -34,12 +35,34 @@ class User
      * @param string $email
      * @param int $rank
      */
-    public function __construct($username = null, $password = null, $email = null, $rank = 1)
+    public function __construct($username = null, $password = null, $email = null, $rank = self::VIEWER)
     {
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
         $this->rank = $rank;
+    }
+
+
+    /**
+     * Weither user can upload
+     *
+     * @return bool
+     */
+    public function isUploader()
+    {
+        return $this->rank >= self::UPLOADER;
+    }
+
+
+    /**
+     * Weither user is admin
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->rank >= self::ADMIN;
     }
 
 }
