@@ -30,12 +30,14 @@
     <?php endif; ?>
 
     <div id="modals">
-        <?= self::render('_modals/user-details', ['user' => $user]) ?>
+        <?= self::render('_modals/profile', ['user' => $user]) ?>
 
-        <?php if($album): ?>
-            <?= self::render('_modals/upload-pics', ['album' => $album]) ?>
-        <?php else: ?>
-            <?= self::render('_modals/create-album') ?>
+        <?php if($user->isUploader()): ?>
+            <?php if($album): ?>
+                <?= self::render('_modals/upload', ['album' => $album]) ?>
+            <?php else: ?>
+                <?= self::render('_modals/create') ?>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 
@@ -67,24 +69,26 @@
 
         <ul>
             <li>
-                <a data-modal="#user-details" href="#">
+                <a data-modal="#profile" href="#">
                     <span class="fa fa-user" title="Modifier mes informations"></span>
                 </a>
             </li>
             <?php if($album): ?>
-            <li>
-                <a data-modal="#upload-pics" href="#">
-                    <span class="fa fa-upload" title="Ajouter des photos"></span>
-                </a>
-            </li>
+                <?php if($user->isUploader()): ?>
+                <li>
+                    <a data-modal="#upload" href="#">
+                        <span class="fa fa-upload" title="Ajouter des photos"></span>
+                    </a>
+                </li>
+                <?php endif; ?>
             <li>
                 <a href="<?= self::url($album->url, 'download') ?>" title="Télécharger l'album">
                     <span class="fa fa-download"></span>
                 </a>
             </li>
-            <?php else: ?>
+            <?php elseif($user->isUploader()): ?>
             <li>
-                <a data-modal="#create-album" data-autofocus href="#">
+                <a data-modal="#create" data-autofocus href="#">
                     <span class="fa fa-plus-circle" title="Créer un nouvel album"></span>
                 </a>
             </li>
@@ -98,13 +102,15 @@
     </main>
 
     <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
+    <script src="<?= self::url('/js/common.js') ?>"></script>
+    <script src="<?= self::url('/js/private.js') ?>"></script>
+
     <?php if($album): ?>
         <script src="<?= self::url('/js/libs/dropzone.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe-ui-default.min.js') ?>"></script>
+        <script src="<?= self::url('/js/private-album.js') ?>"></script>
     <?php endif; ?>
-    <script src="<?= self::url('/js/common.js') ?>"></script>
-    <script src="<?= self::url('/js/private.js') ?>"></script>
 
 </body>
 </html

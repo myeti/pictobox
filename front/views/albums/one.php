@@ -6,7 +6,6 @@
     <?php foreach($authors as $author => $pics): ?>
         <li>
             <div class="item author" id="<?= strtolower($author) ?>">
-                <div class="image" style="background-image: url('<?= self::url($album->thumbnail($author)->cacheurl) ?>')"></div>
                 <h2 class="title">
                     <?php if(in_array($author[0], $vowels)): ?>
                         Photos <br> d'<?= $author ?>
@@ -18,9 +17,9 @@
         </li>
         <?php foreach($pics as $pic): ?>
         <li>
-            <a href="<?= self::url($pic->url) ?>" data-slideshow>
+            <a href="<?= self::url($pic->cacheurl) ?>" data-slideshow="<?= $pic->width ?>x<?= $pic->height ?>">
                 <div class="item">
-                    <div class="image" style="background-image: url('<?= self::url($pic->cacheurl) ?>')"></div>
+                    <div class="image" style="background-image: url('<?= self::url($pic->cacheurl_small) ?>')"></div>
                 </div>
             </a>
         </li>

@@ -21,14 +21,8 @@ header {
     margin-top: calc(50vh - 100px);
     width: 250px;
 }
-#login .bg-danger {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -40px;
-    padding: 5px;
+#login input {
     text-align: center;
-    border-radius: 2px;
 }
 
 .error {

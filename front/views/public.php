@@ -15,9 +15,7 @@
     <header><?= APP_NAME ?></header>
 
     <main>
-
         <?= self::content(); ?>
-
     </main>
 
     <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>

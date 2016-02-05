@@ -12,6 +12,9 @@ class Picture
     public $cachepath;
 
     /** @var string */
+    public $cachepath_small;
+
+    /** @var string */
     public $name;
 
     /** @var string */
@@ -26,6 +29,15 @@ class Picture
     /** @var string */
     public $cacheurl;
 
+    /** @var string */
+    public $cacheurl_small;
+
+    /** @var int */
+    public $width;
+
+    /** @var int */
+    public $height;
+
 
     /**
      * Open picture
@@ -39,14 +51,21 @@ class Picture
         $this->author = basename(dirname($path));
         $this->album = basename(dirname(dirname($path)));
 
-        $file = $this->album . '/' . $this->author . '/' . $this->name;
-        $this->url = ALBUMS_URL . $file;
+        $this->url = ALBUMS_URL . $this->album . '/' . $this->author . '/' . $this->name;
         $this->cacheurl = $this->url;
+        $this->cacheurl_small = $this->url;
 
-        $this->cachepath = CACHE_DIR . $file;
+        $this->cachepath = CACHE_DIR . $this->album . '/' . $this->author . '/' . $this->name;
+        $this->cachepath_small = CACHE_DIR . $this->album . '/' . $this->author . '/small_' . $this->name;
+
         if(file_exists($this->cachepath)) {
-            $this->cacheurl = CACHE_URL . $file;
+            $this->cacheurl = CACHE_URL . $this->album . '/' . $this->author . '/' . $this->name;
+            $this->cacheurl_small = CACHE_URL . $this->album . '/' . $this->author . '/small_' . $this->name;
         }
+
+        list($width, $height) = getimagesize($this->cachepath);
+        $this->width = $width;
+        $this->height = $height;
     }
 
 }

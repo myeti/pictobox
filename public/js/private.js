@@ -21,7 +21,6 @@ $(function() {
      */
 
     var menu = $('menu');
-
     menu.find('.switch').on('click', function()
     {
         menu.toggleClass('open');
@@ -55,7 +54,9 @@ $(function() {
 
         if(self.is('[data-callback]')) {
             var callback = window[self.attr('data-callback')];
-            callback(self.attr('href'));
+            if(typeof callback == 'function') {
+                callback(self.attr('href'));
+            }
         }
 
         return false;
@@ -74,59 +75,15 @@ $(function() {
      * User admin form
      */
 
-    var userSelect = $('#user-id');
-    var userEmail = $('#user-email');
-
-    userSelect.on('change', function()
-    {
-        var selected = userSelect.find('option[selected]');
-        userEmail.val(selected.attr('data-email'));
-    });
-
-
-
-    /**
-     * Photoswipe
-     */
-
-    var images = [];
-    var triggers = $('a[data-slideshow]');
-    var slideshow = document.querySelectorAll('.pswp')[0];
-
-    triggers.each(function(index, element)
-    {
-        var trigger = $(element);
-        images.push({
-            src: trigger.attr('href'),
-            w: 1200,
-            h: 900
+    var userSelect = $('#user-switch');
+    if(userSelect.length) {
+        var userRank = $('#user-rank');
+        var userEmail = $('#user-email');
+        userSelect.on('change', function () {
+            var selected = userSelect.find('option[selected]');
+            userRank.val(selected.attr('data-rank'));
+            userEmail.val(selected.attr('data-email'));
         });
-    });
-
-    triggers.on('click', function(e)
-    {
-        e.preventDefault();
-
-        var photoswipe = new PhotoSwipe(slideshow, PhotoSwipeUI_Default, images, {
-            index: triggers.index(this)
-        });
-
-        photoswipe.init();
-
-        return false;
-    });
-
-
-
-    /**
-     * Upload
-     */
-
-    var dropzone = new Dropzone("#upload-pics form");
-    dropzone.on('queuecomplete', function()
-    {
-        dropzone.removeAllFiles();
-        window.location.reload();
-    });
+    }
 
 });

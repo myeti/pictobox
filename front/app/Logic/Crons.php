@@ -37,17 +37,27 @@ class Crons
                             }
                         }
 
-                        // generate cache file
-                        if($img = Image::make($pic->path)) {
-                            $img->resize(640, null, function(Constraint $constraint) {
-                                $constraint->aspectRatio();
-                            });
-                            $img->save($pic->cachepath, 75);
-                            $states[$pic->cachepath] = false;
+                        // process image
+                        $states[$pic->cachepath] = false;
+                        if(!$img = Image::make($pic->path)) {
+                            $states[$pic->cachepath] = 'Cannot generate cache file';
                             continue;
                         }
 
-                        $states[$pic->cachepath] = 'Cannot generate cache file';
+                        // generate cache
+                        $img->resize(1280, null, function(Constraint $constraint) {
+                            $constraint->aspectRatio();
+                        });
+
+                        $img->save($pic->cachepath, 75);
+
+                        // generate small cache
+                        $img = Image::make($pic->path);
+                        $img->resize(500, null, function(Constraint $constraint) {
+                            $constraint->aspectRatio();
+                        });
+
+                        $img->save($pic->cachepath_small, 75);
                     }
                 }
             }

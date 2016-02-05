@@ -47,7 +47,6 @@ form label {
     margin-left: 16px;
     margin-bottom: 0;
     color: #fff;
-    font-weight: 300;
     font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -60,26 +59,27 @@ form button {
     width: 100%;
     padding: 10px 15px;
     outline: none;
+    letter-spacing: 1px;
 }
 form select,
 form input {
     color: #000;
-    background: rgba(255, 255, 255, 0.8);
+    background: #fff;
     margin-bottom: 10px;
 }
-form button {
-    text-transform: uppercase;
-    text-align: center;
+form select option {
+    padding: 0;
 }
 form input[type=text] {
     text-transform: capitalize;
 }
-form select:focus,
-form input:focus {
-    background: rgba(255, 255, 255, 1);
+form button {
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
 }
 form button[type=submit] {
-    background: #F77049;
+    background: #f77049;
     color: #fff;
 }
 form button[type=submit] .fa-refresh {

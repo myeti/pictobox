@@ -117,7 +117,7 @@ main.blur {
 }
 #modals .modal {
     margin: auto;
-    width: 280px;
+    width: 300px;
     padding: 20px;
     display: none;
 }
@@ -132,6 +132,7 @@ main.blur {
     text-align: center;
     font-size: 18px;
     text-transform: uppercase;
+    letter-spacing: 2px;
 }
 #modals .modal button[type=submit] {
     margin-top: 20px;
@@ -141,31 +142,71 @@ main.blur {
 }
 
 /* Upload modal */
-form.dropzone {
-    border: 2px dashed #fff;
-    border-radius: 10px;
-    min-height: 240px;
+.modal#upload {
     width: 100%;
+    min-width: 300px;
+}
+.modal#upload form.dropzone {
+    border: 2px dashed #fff;
+    width: 100%;
+    min-height: calc(100vh - 85px);
     padding: 8px;
     text-align: center;
     background: none;
+    position: relative;
 }
-form.dropzone .dz-message {
+.modal#upload form.dropzone .dz-message {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin-top: -20px;
     font-size: 14px;
-    margin-top: 80px;
 }
-form.dropzone .dz-message span {
+.modal#upload form.dropzone .dz-message span {
     display: block;
     font-size: 40px;
 }
-form.dropzone .dz-preview {
-    margin: 5px;
+.modal#upload form.dropzone .dz-preview {
+    margin: 14px;
     background: none;
 }
-form.dropzone .dz-preview .dz-image {
+.modal#upload form.dropzone .dz-preview .dz-image {
     height: 100px;
     width: 100px;
     border-radius: 0;
+}
+.modal#upload form.dropzone .dz-preview .dz-image img {
+    filter: grayscale(1);
+    -moz-filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+    opacity: 0.65s;
+}
+.modal#upload form.dropzone .dz-preview.dz-complete .dz-image img {
+    filter: none;
+    -moz-filter: none;
+    -webkit-filter: none;
+    opacity: 1;
+}
+.modal#upload form.dropzone .dz-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border-radius: 0;
+    margin: 0;
+}
+.modal#upload form.dropzone .dz-progress .dz-upload {
+    background: rgba(247, 112, 73, 0.5);
+}
+.modal#upload form.dropzone .cancel {
+    position: absolute;
+    top: -56px;
+    right: -18px;
+    display: inline-block;
+    width: auto;
 }
 
 
@@ -251,21 +292,19 @@ ul.grid li .item .title {
 .grid.pictures li .item {
     padding-top: 100%;
 }
-.grid.pictures li .item.author .image {
-    filter: grayscale(100%) invert(100%);
-    -webkit-filter: grayscale(100%) invert(100%);
-    -moz-filter: grayscale(100%) invert(100%);
+.grid.pictures li .item.author {
+    background-color: #d2d2d2;
 }
 .grid.pictures li .item.author .title {
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     margin: 0;
     text-align: center;
-    background: rgba(0, 0, 0, 0.7);
-    padding-top: calc(50% - 32px);
-    border-radius: 100%;
+    padding-top: calc(50% - 20px);
+    text-shadow: none;
+    color: #000;
 }
 
 
@@ -291,6 +330,9 @@ ul.grid li .item .title {
     }
     #modals .modal {
         margin-top: 100px;
+    }
+    #modals .modal#upload form.dropzone {
+        min-height: calc(100vh - 185px);
     }
     .grid.albums li {
         width: 50%;
