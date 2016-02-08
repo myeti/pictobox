@@ -222,6 +222,12 @@ menu.open + main {
     margin-left: 54px;
 }
 
+main .empty {
+    font-size: 18px;
+    text-align: center;
+    margin-top: calc(50vh - 10px);
+}
+
 
 /**
  * Grid
@@ -240,6 +246,7 @@ ul.grid li {
 ul.grid li .item {
     position: relative;
     overflow: hidden;
+    background: #333739;
 }
 ul.grid li .item .image {
     position: absolute;

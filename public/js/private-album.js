@@ -46,7 +46,7 @@ $(function() {
         {
             setTimeout(function()
             {
-                window.location.reload();
+                //window.location.reload();
             }, 1000)
         });
 

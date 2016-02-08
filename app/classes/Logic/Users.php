@@ -11,9 +11,6 @@ use Colorium\Stateful\Flash;
 class Users
 {
 
-    /** @var string */
-    protected $salt = 'EfiM$&5/*.w64$yPM3d';
-
     /** @var int */
     protected $minLength = 6;
 
@@ -52,7 +49,7 @@ class Users
         // get form data
         list($username, $password) = $self->post('username', 'password');
         $username = ucfirst(strtolower($username));
-        $password = sha1($this->salt . $password);
+        $password = sha1(PWD_SALT . $password);
 
         // look user up
         $user = User::one(['username' => $username, 'password' => $password]);
@@ -118,7 +115,7 @@ class Users
                 ]);
             }
 
-            $user->password = sha1($this->salt . $password);
+            $user->password = sha1(PWD_SALT . $password);
         }
 
         // save user

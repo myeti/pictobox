@@ -1,21 +1,21 @@
 <?php self::layout('private', ['ariane' => $ariane, 'album' => $album, 'user' => $self->access->user]); ?>
 
-<?php if($authors = $album->pics()): ?>
+<?php if($authors = $album->authors()): ?>
     <ul class="grid pictures row">
     <?php $vowels = ['E','U','I','O','A','Y']; ?>
-    <?php foreach($authors as $author => $pics): ?>
+    <?php foreach($authors as $author): ?>
         <li>
-            <div class="item author" id="<?= strtolower($author) ?>">
+            <div class="item author" id="<?= strtolower($author->name) ?>">
                 <h2 class="title">
-                    <?php if(in_array($author[0], $vowels)): ?>
-                        Photos <br> d'<?= $author ?>
+                    <?php if(in_array($author->name[0], $vowels)): ?>
+                        Photos <br> d'<?= $author->name ?>
                     <?php else: ?>
-                        Photos <br> de <?= $author ?>
+                        Photos <br> de <?= $author->name ?>
                     <?php endif; ?>
                 </h2>
             </div>
         </li>
-        <?php foreach($pics as $pic): ?>
+        <?php foreach($author->pics() as $pic): ?>
         <li>
             <a href="<?= self::url($pic->cacheurl) ?>" data-slideshow="<?= $pic->width ?>x<?= $pic->height ?>">
                 <div class="item">

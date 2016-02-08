@@ -1,5 +1,7 @@
 .idea
 vendor
-front/orm/*
+instance/albums/*
+instance/logs/*
+instance/database.sqlite
 public/img/cache/*
 composer.lock

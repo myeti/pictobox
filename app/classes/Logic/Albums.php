@@ -3,7 +3,9 @@
 namespace App\Logic;
 
 use App\Model\Album;
+use App\Model\Picture;
 use Colorium\App\Context;
+use Colorium\Http\Error\HttpException;
 use Colorium\Http\Error\NotFoundException;
 use Colorium\Http\Uri;
 use Colorium\Http\Response;
@@ -16,13 +18,15 @@ class Albums
 
 
     /**
-     * Render all albums, sorted by year
+     * Render many albums
      *
-     * @html albums/list
+     * @html albums/listing
      *
      * @return array
+     *
+     * @throws NotFoundException
      */
-    public function all()
+    public function listing()
     {
         $albums = Album::fetch();
 
@@ -31,19 +35,20 @@ class Albums
         ];
     }
 
-
     /**
-     * Render albums of specified year
+     * Render many albums
      *
-     * @html albums/list
+     * @html albums/listing
      *
      * @param int $year
      * @return array
      *
      * @throws NotFoundException
      */
-    public function year($year)
+    public function listingYear($year)
     {
+        $year = (int)$year;
+
         $albums = Album::fetch($year);
         if(!$albums) {
             throw new NotFoundException;
@@ -57,11 +62,10 @@ class Albums
         ];
     }
 
-
     /**
-     * Render albums of specified month
+     * Render many albums
      *
-     * @html albums/list
+     * @html albums/listing
      *
      * @param int $year
      * @param int $month
@@ -69,8 +73,11 @@ class Albums
      *
      * @throws NotFoundException
      */
-    public function month($year, $month)
+    public function listingMonth($year, $month)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+
         $albums = Album::fetch($year, $month);
         if(!$albums) {
             throw new NotFoundException;
@@ -85,11 +92,10 @@ class Albums
         ];
     }
 
-
     /**
-     * Render albums of specified day
+     * Render many albums
      *
-     * @html albums/list
+     * @html albums/listing
      *
      * @param int $year
      * @param int $month
@@ -98,10 +104,14 @@ class Albums
      *
      * @throws NotFoundException
      */
-    public function day($year, $month, $day)
+    public function listingDay($year, $month, $day)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
         $albums = Album::fetch($year, $month, $day);
-        if(!$albums) {
+        if($year and !$albums) {
             throw new NotFoundException;
         }
 
@@ -119,7 +129,7 @@ class Albums
     /**
      * Render a specific album
      *
-     * @html albums/one
+     * @html albums/show
      *
      * @param int $year
      * @param int $month
@@ -129,8 +139,12 @@ class Albums
      *
      * @throws NotFoundException
      */
-    public function one($year, $month, $day, $flatname)
+    public function show($year, $month, $day, $flatname)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
             throw new NotFoundException;
@@ -159,11 +173,11 @@ class Albums
     {
         list($name, $date) = $self->post('name', 'date');
 
-        // check name
-        // todo
-
         // check date
         list($day, $month, $year) = explode('/', $date);
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
 
         // check if folder already exists
         $flatname = Uri::sanitize($name);
@@ -206,6 +220,10 @@ class Albums
      */
     public function edit($year, $month, $day, $flatname, Context $self)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
         // get album
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
@@ -216,10 +234,13 @@ class Albums
         list($name, $date) = $self->post('name', 'date');
 
         // check name
-        // todo
+        $name = htmlentities($name);
 
         // check date
         list($newday, $newmonth, $newyear) = explode('/', $date);
+        $newday = (int)$newday;
+        $newmonth = (int)$newmonth;
+        $newyear = (int)$newyear;
 
         // check if folder already exists
         $flatname = Uri::sanitize($name);
@@ -255,43 +276,96 @@ class Albums
      * @param int $day
      * @param string $flatname
      * @param Context $self
+     * @return Response\Json
      *
      * @throws NotFoundException
      */
     public function upload($year, $month, $day, $flatname, Context $self)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
         // get album
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
             throw new NotFoundException;
         }
 
-        // create author
-        $author = $self->access->user->username;
-        $path = $album->path . DIRECTORY_SEPARATOR . $author;
-        if(!is_dir($path)) {
-            mkdir($path, 0777);
+        // get uploaded file
+        $file = $self->request->file('file');
+        if(!$file) {
+            return Response::json([
+                'state' => false,
+                'message' => 'Echec de l\'envoie'
+            ]);
         }
 
-        // save file to author dir
-        $file = $self->request->file('upload');
-//        $file->save($path);
+        // bad format
+        if(!Picture::valid($file->tmp)) {
+            return Response::json([
+                'state' => false,
+                'message' => 'Mauvais format'
+            ]);
+        }
+
+        // save and create cache
+        $picture = $album->add($file->tmp, $file->name, $self->access->user->username);
+        if(!$picture) {
+            return Response::json([
+                'state' => false,
+                'message' => 'Erreur durant l\'upload'
+            ]);
+        }
+
+        return Response::json([
+            'state' => true
+        ]);
     }
 
 
     /**
      * Download album as .zip
      *
-     * @access 5
-     *
      * @param int $year
      * @param int $month
      * @param int $day
      * @param string $flatname
+     * @return Response\Redirect
+     *
+     * @throws HttpException
+     * @throws NotFoundException
      */
     public function download($year, $month, $day, $flatname)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
 
+        // get album
+        $album = Album::one($year, $month, $day, $flatname);
+        if(!$album) {
+            throw new NotFoundException;
+        }
+
+        $zipname = sys_get_temp_dir() . '/' . $album->basename . ' - ' . uniqid() . '.zip';
+
+        $zip = new \ZipArchive;
+        $code = $zip->open($zipname, \ZipArchive::CREATE);
+        if($code !== true) {
+            throw new HttpException;
+        }
+
+        $zip->addEmptyDir($album->basename);
+        foreach($album->authors() as $author) {
+            $zip->addEmptyDir($album->basename . '/' . $author->name);
+            foreach($author->pics() as $pic) {
+                $zip->addFile($pic->path, $album->basename . '/' . $author->name . '/' . $pic->name);
+            }
+        }
+        $zip->close();
+
+        return Response::download($zipname)->header('Content-Type', 'application/zip');
     }
 
 }

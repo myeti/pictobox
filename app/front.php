@@ -5,13 +5,8 @@
  */
 
 define('__ROOT__', dirname(__DIR__));
-
-define('APP_NAME', 'Pictobox');
-
-define('ALBUMS_DIR', __ROOT__ . '/public/img/albums/');
-define('ALBUMS_URL', '/img/albums/');
-define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
 define('CACHE_URL', '/img/cache/');
+define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
 
 
 
@@ -33,7 +28,7 @@ $context = App\Front::context();
 use Colorium\Orm;
 use App\Model\User;
 
-$sqlite = new Orm\SQLite(__DIR__ . '/orm/pictobox.db', [
+$sqlite = new Orm\SQLite(DB_FILE, [
     'user' => User::class
 ]);
 
@@ -48,8 +43,8 @@ Orm\Hub::source($sqlite);
 
 use Colorium\Stateful\Auth;
 
-Auth::factory(function($ref) {
-    return User::one(['id' => $ref]);
+Auth::factory(function($id) {
+    return User::one(['id' => $id]);
 });
 
 
@@ -60,7 +55,7 @@ Auth::factory(function($ref) {
 
 use Colorium\Templating\Templater;
 
-$templater = new Templater(__DIR__ . '/views/');
+$templater = new Templater(__DIR__ . '/templates/');
 
 
 
@@ -80,11 +75,11 @@ $router = new Router([
     'GET  /logout'                  => 'App\Logic\Users::logout',
 
     'POST /create'                  => 'App\Logic\Albums::create',
-    'GET  /'                        => 'App\Logic\Albums::all',
-    'GET  /:y'                      => 'App\Logic\Albums::year',
-    'GET  /:y/:m'                   => 'App\Logic\Albums::month',
-    'GET  /:y/:m/:d'                => 'App\Logic\Albums::day',
-    'GET  /:y/:m/:d/:album'         => 'App\Logic\Albums::one',
+    'GET  /'                        => 'App\Logic\Albums::listing',
+    'GET  /:y'                      => 'App\Logic\Albums::listingYear',
+    'GET  /:y/:m'                   => 'App\Logic\Albums::listingMonth',
+    'GET  /:y/:m/:d'                => 'App\Logic\Albums::listingDay',
+    'GET  /:y/:m/:d/:album'         => 'App\Logic\Albums::show',
     'POST /:y/:m/:d/:album/upload'  => 'App\Logic\Albums::upload',
     'GET  /:y/:m/:d/:album/download'=> 'App\Logic\Albums::download',
 ]);
