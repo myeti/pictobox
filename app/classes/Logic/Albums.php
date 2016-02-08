@@ -23,7 +23,6 @@ class Albums
      * @html albums/listing
      *
      * @return array
-     *
      * @throws NotFoundException
      */
     public function listing()
@@ -42,13 +41,10 @@ class Albums
      *
      * @param int $year
      * @return array
-     *
      * @throws NotFoundException
      */
     public function listingYear($year)
     {
-        $year = (int)$year;
-
         $albums = Album::fetch($year);
         if(!$albums) {
             throw new NotFoundException;
@@ -70,14 +66,10 @@ class Albums
      * @param int $year
      * @param int $month
      * @return array
-     *
      * @throws NotFoundException
      */
     public function listingMonth($year, $month)
     {
-        $year = (int)$year;
-        $month = (int)$month;
-
         $albums = Album::fetch($year, $month);
         if(!$albums) {
             throw new NotFoundException;
@@ -101,17 +93,12 @@ class Albums
      * @param int $month
      * @param int $day
      * @return array
-     *
      * @throws NotFoundException
      */
     public function listingDay($year, $month, $day)
     {
-        $year = (int)$year;
-        $month = (int)$month;
-        $day = (int)$day;
-
         $albums = Album::fetch($year, $month, $day);
-        if($year and !$albums) {
+        if(!$albums) {
             throw new NotFoundException;
         }
 
@@ -136,15 +123,10 @@ class Albums
      * @param int $day
      * @param string $flatname
      * @return array
-     *
      * @throws NotFoundException
      */
     public function show($year, $month, $day, $flatname)
     {
-        $year = (int)$year;
-        $month = (int)$month;
-        $day = (int)$day;
-
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
             throw new NotFoundException;
@@ -165,9 +147,10 @@ class Albums
      * Create new album
      *
      * @access 5
+     * @json
      *
      * @param Context $self
-     * @return \Colorium\Http\Response\Json
+     * @return array
      */
     public function create(Context $self)
     {
@@ -175,32 +158,29 @@ class Albums
 
         // check date
         list($day, $month, $year) = explode('/', $date);
-        $year = (int)$year;
-        $month = (int)$month;
-        $day = (int)$day;
 
         // check if folder already exists
         $flatname = Uri::sanitize($name);
         if(Album::one($year, $month, $day, $flatname)) {
-            return Response::json([
+            return [
                 'state' => false,
                 'message' => 'L\'album existe déja'
-            ]);
+            ];
         }
 
         // create album folder
         $album = Album::create($year, $month, $day, $name);
         if(!$album) {
-            return Response::json([
+            return [
                 'state' => false,
                 'message' => 'Impossible de créer l\'album'
-            ]);
+            ];
         }
 
-        return Response::json([
+        return [
             'state' => true,
             'redirect' => (string)$self->request->uri->make($album->url)
-        ]);
+        ];
     }
 
 
@@ -208,22 +188,18 @@ class Albums
      * Edit album details
      *
      * @access 5
+     * @json
      *
      * @param int $year
      * @param int $month
      * @param int $day
      * @param string $flatname
      * @param Context $self
-     * @return Response\Json
-     *
+     * @return array
      * @throws NotFoundException
      */
     public function edit($year, $month, $day, $flatname, Context $self)
     {
-        $year = (int)$year;
-        $month = (int)$month;
-        $day = (int)$day;
-
         // get album
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
@@ -233,36 +209,30 @@ class Albums
         // get form data
         list($name, $date) = $self->post('name', 'date');
 
-        // check name
-        $name = htmlentities($name);
-
         // check date
         list($newday, $newmonth, $newyear) = explode('/', $date);
-        $newday = (int)$newday;
-        $newmonth = (int)$newmonth;
-        $newyear = (int)$newyear;
 
         // check if folder already exists
         $flatname = Uri::sanitize($name);
         if(Album::one($newday, $newmonth, $newyear, $flatname)) {
-            return Response::json([
+            return [
                 'state' => false,
                 'message' => 'L\'album existe déja'
-            ]);
+            ];
         }
 
         // rename
         if(!$album->rename($newday, $newmonth, $newyear, $name)) {
-            return Response::json([
+            return [
                 'state' => false,
                 'message' => 'Impossible de modifier l\'album'
-            ]);
+            ];
         }
 
-        return Response::json([
+        return [
             'state' => true,
             'redirect' => (string)$self->request->uri->make($album->url)
-        ]);
+        ];
     }
 
 
@@ -270,6 +240,7 @@ class Albums
      * Upload pics to album
      *
      * @access 5
+     * @json
      *
      * @param int $year
      * @param int $month
@@ -277,15 +248,10 @@ class Albums
      * @param string $flatname
      * @param Context $self
      * @return Response\Json
-     *
      * @throws NotFoundException
      */
     public function upload($year, $month, $day, $flatname, Context $self)
     {
-        $year = (int)$year;
-        $month = (int)$month;
-        $day = (int)$day;
-
         // get album
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
@@ -295,32 +261,32 @@ class Albums
         // get uploaded file
         $file = $self->request->file('file');
         if(!$file) {
-            return Response::json([
+            return [
                 'state' => false,
                 'message' => 'Echec de l\'envoie'
-            ]);
+            ];
         }
 
         // bad format
         if(!Picture::valid($file->tmp)) {
-            return Response::json([
+            return [
                 'state' => false,
                 'message' => 'Mauvais format'
-            ]);
+            ];
         }
 
         // save and create cache
         $picture = $album->add($file->tmp, $file->name, $self->access->user->username);
         if(!$picture) {
-            return Response::json([
+            return [
                 'state' => false,
                 'message' => 'Erreur durant l\'upload'
-            ]);
+            ];
         }
 
-        return Response::json([
+        return [
             'state' => true
-        ]);
+        ];
     }
 
 
@@ -331,17 +297,13 @@ class Albums
      * @param int $month
      * @param int $day
      * @param string $flatname
-     * @return Response\Redirect
+     * @return Response\Download
      *
      * @throws HttpException
      * @throws NotFoundException
      */
     public function download($year, $month, $day, $flatname)
     {
-        $year = (int)$year;
-        $month = (int)$month;
-        $day = (int)$day;
-
         // get album
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {

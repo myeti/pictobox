@@ -173,10 +173,7 @@ class Album
      */
     public function rename($year, $month, $day, $name)
     {
-        $month = str_pad($month, 2, '0', STR_PAD_LEFT);
-        $day = str_pad($day, 2, '0', STR_PAD_LEFT);
-
-        $folder = $year . $month . $day . ' - ' . $name;
+        $folder = static::format($year, $month, $day, $name);
         if(!rename($this->path, ALBUMS_DIR . $folder)
             or rename($this->cachepath, CACHE_DIR . $folder)) {
             return false;
@@ -294,17 +291,32 @@ class Album
      */
     public static function create($year, $month, $day, $name)
     {
-        $name = preg_replace('/[^a-zA-Z0-9-\'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]*/', null, $name);
-        $month = str_pad($month, 2, '0', STR_PAD_LEFT);
-        $day = str_pad($day, 2, '0', STR_PAD_LEFT);
-
-        $folder = $year . $month . $day . ' - ' . $name;
+        $folder = static::format($year, $month, $day, $name);
         if(is_dir(ALBUMS_DIR . $folder) or !mkdir(ALBUMS_DIR . $folder, 0777)
             or is_dir(CACHE_DIR . $folder) or !mkdir(CACHE_DIR . $folder, 0777)) {
             return false;
         }
 
         return new Album($folder);
+    }
+
+
+    /**
+     * Format name
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param string $name
+     * @return string
+     */
+    public static function format($year, $month, $day, $name)
+    {
+        $name = preg_replace('/[^a-zA-Z0-9-\'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]*/', null, $name);
+        $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+        $day = str_pad($day, 2, '0', STR_PAD_LEFT);
+
+        return $year . $month . $day . ' - ' . $name;
     }
 
 }

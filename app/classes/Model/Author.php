@@ -57,6 +57,22 @@ class Author
 
 
     /**
+     * Get pic
+     *
+     * @param string $name
+     * @return Picture
+     */
+    public function pic($name)
+    {
+        $this->pics();
+
+        return isset($this->pics[$name])
+            ? $this->pics[$name]
+            : null;
+    }
+
+
+    /**
      * Get random pic
      *
      * @return Picture
