@@ -42,4 +42,17 @@ $(function() {
         });
     }
 
+
+    /**
+     * Mobile confirm
+     */
+
+    if(typeof window.orientation !== 'undefined') {
+        $('a[data-confirm]').on('click', function()
+        {
+            var message = $(this).attr('data-confirm');
+            return confirm(message);
+        });
+    }
+
 });
