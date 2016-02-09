@@ -17,56 +17,27 @@ $(function() {
 
 
     /**
-     * Menu
+     * Modals
      */
 
-    var menu = $('menu');
-    menu.find('.switch').on('click', function()
-    {
-        menu.toggleClass('open');
-    });
+    var modals = new Modals();
 
 
 
     /**
-     * Modals
+     * Menu
      */
 
-    var overlay = $('#modals');
-    var modals = overlay.find('.modal');
-
-    $('a[data-modal]').on('click', function(e)
+    var menu = $('menu');
+    var menuSwitch = $('header .switch');
+    menuSwitch.on('click', function()
     {
-        e.preventDefault();
-        var self = $(this);
-
-        $('header, menu, main').addClass('blur');
-        modals.removeClass('open');
-
-        var id = self.attr('data-modal');
-        var modal = modals.filter(id);
-        modal.addClass('open');
-        overlay.addClass('open');
-
-        if(self.is('[data-autofocus]')) {
-            modal.find('input').first().focus();
+        if(menuSwitch.hasClass('open')) {
+            modals.close();
         }
 
-        if(self.is('[data-callback]')) {
-            var callback = window[self.attr('data-callback')];
-            if(typeof callback == 'function') {
-                callback(self.attr('href'));
-            }
-        }
-
-        return false;
-    });
-
-    modals.find('.cancel').on('click', function()
-    {
-        $('header, menu, main').removeClass('blur');
-        overlay.removeClass('open');
-        modals.removeClass('open');
+        menuSwitch.toggleClass('open');
+        menu.toggleClass('open');
     });
 
 

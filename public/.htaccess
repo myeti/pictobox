@@ -1,4 +1,10 @@
 RewriteEngine On
+
+# deny direct photo access
+RewriteCond %{HTTP_REFERER} !yourdomain.tld [NC]
+RewriteRule \.(jpg|jpeg|JPG|JPEG)$ - [F]
+
+# rebase all requests to index.php
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]

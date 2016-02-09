@@ -1,4 +1,4 @@
-<div class="modal" id="create">
+<div class="modal" id="create" data-autofocus>
     <form action="<?= self::url('/create') ?>" method="post" data-ajax>
 
         <h4>Nouvel album</h4>
@@ -8,7 +8,10 @@
                pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])/(0?[1-9]|1[012])/(19|20)[0-9]{2}" required>
 
         <button type="submit">Créer</button>
-        <button type="reset" class="cancel">Fermer</button>
+
+        <button type="reset" class="cancel">
+            <span class="fa fa-close"></span>
+        </button>
 
     </form>
 </div>

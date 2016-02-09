@@ -32,5 +32,5 @@ Orm\Hub::source($sqlite);
 $sqlite->builder('user')->wipe();
 $sqlite->builder('user')->create();
 
-$admin = new User('Admin', sha1(PWD_SALT . 'admin'), 'you@pictobox.io', User::ADMIN);
+$admin = new User(ADMIN_NAME, sha1(PWD_SALT . ADMIN_PWD), ADMIN_EMAIL, User::ADMIN);
 $admin->save();

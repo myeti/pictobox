@@ -3,21 +3,20 @@
  */
 
 header {
-    z-index: 10;
+    z-index: 50;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 60px;
-    background: rgba(31, 34, 36, 0.98);
-    padding: 16px 20px;
+    background: #1f2224;
 }
 
 header nav {
-    margin-left: 32px;
+    padding: 16px 20px;
 }
 header nav a {
-    font-size: 14px;
+    font-size: 13px;
     color: #aaa;
     display: inline-block;
     padding: 0 2px;
@@ -42,53 +41,64 @@ header nav .xs-hide {
     display: none;
 }
 
-
-/**
- * Menu
- */
+header .switch {
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 16px 20px;
+    text-align: center;
+    height: 60px;
+    width: 60px;
+}
+header .switch .fa {
+    transition: transform 0.2s;
+}
+header .switch.open .fa {
+    transform: rotate(-90deg);
+}
 
 menu {
     position: fixed;
-    top: 60px;
-    left: -54px;
-    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    background: #f77049;
     margin: 0;
     padding: 0;
-    z-index: 1000;
-    transition: left 0.2s, opacity 0.2s;
+    z-index: 40;
+    transition: top 0.2s;
 }
 menu.open {
-    left: 0;
-    opacity: 1;
-}
-menu .switch {
-    position: fixed;
-    top: 22px;
-    left: 20px;
-    transition: transform 0.2s;
-    cursor: pointer;
-    font-size: 14px;
-}
-menu.open .switch {
-    transform: rotate(-90deg);
+    top: 60px;
 }
 menu ul {
-    list-style: none;
     padding: 0;
     margin: 0;
+    list-style: none;
+}
+menu ul li {
+    display: inline-block;
+    float: left;
+    width: 33.3333%;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 menu ul li a {
     display: block;
-    height: 54px;
-    width: 54px;
-    padding: 18px 20px;
-    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    padding: 13px 5px 12px 5px;
+    text-align: center;
+    border-bottom: 2px solid transparent;
 }
-menu ul li a:hover {
-    background: #2f3234;
+menu ul li a.open {
+    border-color: #fff;
 }
-menu .fa {
-    margin-right: 8px;
+menu ul li a em {
+    font-style: normal;
+}
+menu ul li a .fa {
+    display: none;
 }
 
 
@@ -96,21 +106,13 @@ menu .fa {
  * Modals
  */
 
-header.blur,
-menu.blur,
-main.blur {
-    filter: blur(6px);
-    -moz-filter: blur(6px);
-    -webkit-filter: blur(6px);
-}
-
 #modals {
     position: fixed;
-    top: 0;
+    top: 105px;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 5000;
+    z-index: 500;
     display: none;
     background: rgba(0, 0, 0, 0.8);
     overflow: auto;
@@ -138,7 +140,12 @@ main.blur {
     margin-top: 20px;
 }
 #modals .modal button[type=reset] {
-    margin-top: 5px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+}
+#modals .modal button[type=reset] .fa {
+    font-size: 20px;
 }
 
 /* Upload modal */
@@ -149,7 +156,7 @@ main.blur {
 .modal#upload form.dropzone {
     border: 2px dashed #fff;
     width: 100%;
-    min-height: calc(100vh - 85px);
+    min-height: calc(100vh - 200px);
     padding: 8px;
     text-align: center;
     background: none;
@@ -180,7 +187,7 @@ main.blur {
     filter: grayscale(1);
     -moz-filter: grayscale(1);
     -webkit-filter: grayscale(1);
-    opacity: 0.65s;
+    opacity: 0.65;
 }
 .modal#upload form.dropzone .dz-preview.dz-complete .dz-image img {
     filter: none;
@@ -201,12 +208,9 @@ main.blur {
 .modal#upload form.dropzone .dz-progress .dz-upload {
     background: rgba(247, 112, 73, 0.5);
 }
-.modal#upload form.dropzone .cancel {
-    position: absolute;
-    top: -56px;
-    right: -18px;
-    display: inline-block;
-    width: auto;
+.modal#upload button[type=reset] {
+    top: -55px;
+    right: -20px;
 }
 
 
@@ -216,16 +220,16 @@ main.blur {
 
 main {
     margin-top: 60px;
-    transition: margin-left 0.2s;
 }
-menu.open + main {
-    margin-left: 54px;
-}
-
 main .empty {
     font-size: 18px;
     text-align: center;
     margin-top: calc(50vh - 10px);
+}
+main.blur {
+    filter: blur(6px);
+    -moz-filter: blur(6px);
+    -webkit-filter: blur(6px);
 }
 
 
@@ -334,6 +338,29 @@ ul.grid li .item .title {
 @media screen and (min-width: 768px) {
     header nav .xs-hide {
         display: inline-block;
+    }
+    menu {
+        top: -60px;
+        left: auto;
+        right: 60px;
+        height: 60px;
+        background: none;
+        z-index: 80;
+        transition: top 0.2s;
+    }
+    menu.open {
+        top: 0;
+    }
+    menu ul li {
+        width: auto;
+        border: none;
+    }
+    menu ul li a {
+        display: inline-block;
+        padding: 20px 18px;
+    }
+    #modals {
+        top: 60px;
     }
     #modals .modal {
         margin-top: 100px;

@@ -21,7 +21,10 @@
         <input type="password" name="password" placeholder="Mot de passe" pattern="/^(.{0}|.{5,})$/" title="5 caractères minimum">
 
         <button type="submit" data-loading="fa-cog" data-ok="fa-ok">Sauvegarder</button>
-        <button type="reset" class="cancel">Fermer</button>
+
+        <button type="reset" class="cancel">
+            <span class="fa fa-close"></span>
+        </button>
 
     </form>
 </div>
