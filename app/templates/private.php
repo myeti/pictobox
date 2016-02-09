@@ -72,28 +72,22 @@
 
         <ul>
             <li>
-                <a data-modal="#profile" href="#">
-                    <span class="fa fa-user"></span> <em>Profil</em>
-                </a>
+                <a data-modal="#profile" href="#">Profil</a>
             </li>
             <?php if($album): ?>
                 <?php if($user->isUploader()): ?>
                 <li>
-                    <a data-modal="#upload" href="#">
-                        <span class="fa fa-upload"></span> <em>Compléter</em>
-                    </a>
+                    <a data-modal="#upload" href="#">Ajouter photos</a>
                 </li>
                 <?php endif; ?>
                 <li>
                     <a href="<?= self::url($album->url, 'download') ?>" data-confirm="Attention, le téléchargement d'un album entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile ! Continuer ?">
-                        <span class="fa fa-download"></span>  <em>Télécharger</em>
+                        Télécharger
                     </a>
                 </li>
             <?php elseif($user->isUploader()): ?>
             <li>
-                <a data-modal="#create" href="#">
-                    <span class="fa fa-plus-circle"></span> <em>Créer album</em>
-                </a>
+                <a data-modal="#create" href="#">Créer album</a>
             </li>
             <?php endif; ?>
         </ul>

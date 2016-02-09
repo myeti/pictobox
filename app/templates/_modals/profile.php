@@ -28,5 +28,7 @@
             <span class="fa fa-close"></span>
         </button>
 
+        <a href="<?= self::url('/logout') ?>" class="btn">Se déconnecter</a>
+
     </form>
 </div>

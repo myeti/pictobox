@@ -94,12 +94,6 @@ menu ul li a {
 menu ul li a.open {
     border-color: #fff;
 }
-menu ul li a em {
-    font-style: normal;
-}
-menu ul li a .fa {
-    display: none;
-}
 
 
 /**

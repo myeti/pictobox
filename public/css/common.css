@@ -39,7 +39,8 @@ a, a:hover, a:active {
 
 form input,
 form select,
-form button {
+form button,
+form a.btn {
     display: block;
     border: 0;
     width: 100%;
@@ -80,7 +81,8 @@ form label input {
     margin-bottom: 0;
     width: calc(100% - 30px);
 }
-form button {
+form button,
+form a.btn {
     text-transform: uppercase;
     text-align: center;
     letter-spacing: 1px;
@@ -98,6 +100,11 @@ form button[type=reset] {
     border: none;
     color: #666;
     width: auto;
+}
+form a.btn {
+    margin-top: 15px;
+    border: 1px solid #aaa;
+    color: #fff;
 }
 
 
