@@ -12,7 +12,7 @@ class Users
 {
 
     /** @var int */
-    protected $minLength = 6;
+    protected $minLength = 5;
 
 
     /**
@@ -84,18 +84,18 @@ class Users
     public function edit(Context $self)
     {
         // get post data
-        list($email, $password, $id, $rank) = $self->post('email', 'password', 'id', 'rank');
+        list($email, $password, $id, $rank, $username) = $self->post('email', 'password', 'id', 'rank', 'username');
 
         // get user
         $user = $self->access->user;
-        $admin = $user->isAdmin();
-        if($id and $admin) {
-            $user = User::one(['id' => $id]);
-        }
-
-        // edit rank
-        if($rank != $user->rank and $admin) {
-            $user->rank = $rank;
+        if($user->isAdmin()) {
+            $user = $id ? User::one(['id' => $id]) : new User;
+            if($username != $user->username) {
+                $user->username = $username;
+            }
+            if($rank != $user->rank) {
+                $user->rank = $rank;
+            }
         }
 
         // edit email
@@ -123,17 +123,17 @@ class Users
         }
 
         // save user
-        $user->edit();
+        $user->save();
 
         // send confirmation mail
-        $email = new Mail(APP_NAME . ' - Mise à jour de ton profil');
+        $email = new Mail(APP_NAME . ' - Mise à jour de votre profil');
         $email->content = $self->templater->render('emails/user-updated', [
             'user' => $user,
             'password' => $password,
             'host' => $self->request->uri->host
         ]);
 
-        $email->send('arkhen.exitium@gmail.com');
+        $email->send($user->email);
 
         return [
             'state' => true
