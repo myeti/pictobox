@@ -66,8 +66,8 @@ $templater = new Templater(__DIR__ . '/templates/');
 use Colorium\Routing\Router;
 
 $router = new Router([
-    'GET  /cache'                   => 'App\Logic\Cache::listing',
-    'POST /cache/clear'             => 'App\Logic\Cache::clear',
+    'GET  /cron/cache'              => 'App\Logic\Crons::cache',
+    'POST /cron/cache/clear'        => 'App\Logic\Crons::cacheclear',
 
     'GET  /login'                   => 'App\Logic\Users::login',
     'POST /login/auth'              => 'App\Logic\Users::auth',

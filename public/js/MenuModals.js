@@ -1,10 +1,27 @@
-function Modals()
+function MenuModals()
 {
     var self = this;
+
+    this.menu = $('menu');
+    this.switcher = $('header .switch');
 
     this.overlay = $('#modals');
     this.modals = this.overlay.find('.modal');
     this.links = $('a[data-modal]');
+
+
+    /**
+     * Switch menu
+     */
+    this.switch = function()
+    {
+        if(self.switcher.hasClass('open')) {
+            self.close();
+        }
+
+        self.menu.toggleClass('open');
+        self.switcher.toggleClass('open');
+    };
 
 
     /**
@@ -51,6 +68,11 @@ function Modals()
      * Attach events
      */
 
+    this.switcher.on('click', function(e)
+    {
+        self.switch();
+    });
+
     this.links.on('click', function(e)
     {
         e.preventDefault();
@@ -67,5 +89,6 @@ function Modals()
     this.modals.find('.cancel').on('click', function()
     {
         self.close();
+        self.switch();
     });
 }

@@ -16,7 +16,7 @@
             return;
         }
 
-        $.post('<?= self::url('/cache/clear') ?>', {file: file})
+        $.post('<?= self::url('/cron/cacheclear') ?>', {file: file})
         .done(function(json)
         {
             var li = $('<li></li>').text(file).css('color', (json == true) ? 'green' : 'red');

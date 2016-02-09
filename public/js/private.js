@@ -17,28 +17,10 @@ $(function() {
 
 
     /**
-     * Modals
+     * Menu and Modals
      */
 
-    var modals = new Modals();
-
-
-
-    /**
-     * Menu
-     */
-
-    var menu = $('menu');
-    var menuSwitch = $('header .switch');
-    menuSwitch.on('click', function()
-    {
-        if(menuSwitch.hasClass('open')) {
-            modals.close();
-        }
-
-        menuSwitch.toggleClass('open');
-        menu.toggleClass('open');
-    });
+    var menu = new MenuModals();
 
 
 

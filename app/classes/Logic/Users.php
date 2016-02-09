@@ -3,6 +3,7 @@
 namespace App\Logic;
 
 use App\Model\User;
+use App\Service\Mail;
 use Colorium\App\Context;
 use Colorium\Http\Response;
 use Colorium\Stateful\Auth;
@@ -123,6 +124,16 @@ class Users
 
         // save user
         $user->edit();
+
+        // send confirmation mail
+        $email = new Mail(APP_NAME . ' - Mise à jour de ton profil');
+        $email->content = $self->templater->render('emails/user-updated', [
+            'user' => $user,
+            'password' => $password,
+            'host' => $self->request->uri->host
+        ]);
+
+        $email->send('arkhen.exitium@gmail.com');
 
         return [
             'state' => true

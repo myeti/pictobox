@@ -18,7 +18,7 @@
         <?php endif; ?>
 
         <input type="email" id="user-email" name="email" value="<?= $user->email ?>" placeholder="Adresse email" required>
-        <input type="password" name="password" placeholder="Mot de passe" pattern="/^(.{0}|.{5,})$/" title="5 caractères minimum">
+        <input type="password" name="password" placeholder="Mot de passe" pattern="^.{5,}$" title="5 caractères minimum">
 
         <button type="submit" data-loading="fa-cog" data-ok="fa-ok">Sauvegarder</button>
 

@@ -8,15 +8,15 @@ use Colorium\App\Context;
 /**
  * @access 9
  */
-class Cache
+class Crons
 {
 
     /**
      * Generate albums cache
      *
-     * @html cache/listing
+     * @html crons/cache
      */
-    public function listing()
+    public function cache()
     {
         $files = [];
         $albums = Album::fetch();
@@ -31,6 +31,7 @@ class Cache
         return ['files' => $files];
     }
 
+
     /**
      * Generate albums cache
      *
@@ -39,7 +40,7 @@ class Cache
      * @param Context $self
      * @return bool
      */
-    public function clear(Context $self)
+    public function cacheclear(Context $self)
     {
         set_time_limit(300);
 
