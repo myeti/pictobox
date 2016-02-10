@@ -93,6 +93,7 @@ class Users
             $user = $id ? User::one(['id' => $id]) : new User;
             if($username != $user->username) {
                 $changed = true;
+                $username = htmlentities(strip_tags($username));
                 $user->username = $username;
             }
             if($rank != $user->rank) {
