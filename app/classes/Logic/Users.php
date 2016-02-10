@@ -135,8 +135,7 @@ class Users
             $email = new Mail(APP_NAME . ' - Mise à jour de votre profil');
             $email->content = $self->templater->render('emails/user-updated', [
                 'user' => $user,
-                'password' => $password,
-                'host' => $self->request->uri->host
+                'password' => $password
             ]);
             $email->send($user->email);
         }

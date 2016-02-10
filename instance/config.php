@@ -2,6 +2,7 @@
 
 define('APP_NAME', 'Pictobox');
 define('APP_EMAIL', 'noreply@pictobox.io');
+define('APP_HOST', 'pictobox.io');
 
 define('ALBUMS_DIR', __DIR__ . '/albums/');
 define('LOGS_DIR', __DIR__ . '/logs');

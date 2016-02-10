@@ -68,6 +68,7 @@ use Colorium\Routing\Router;
 $router = new Router([
     'GET  /cron/cache'              => 'App\Logic\Crons::cache',
     'POST /cron/cache/clear'        => 'App\Logic\Crons::cacheclear',
+    'GET  /cron/newest'             => 'App\Logic\Crons::newest',
 
     'GET  /login'                   => 'App\Logic\Users::login',
     'GET  /logout'                  => 'App\Logic\Users::logout',

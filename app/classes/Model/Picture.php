@@ -35,6 +35,9 @@ class Picture
     /** @var int */
     public $height;
 
+    /** @var int */
+    protected $ctime;
+
 
     /**
      * Open picture
@@ -102,6 +105,20 @@ class Picture
         $cache->save($this->cachepath_small, 100);
 
         return true;
+    }
+
+
+    /**
+     * Get last modified date
+     * @return int
+     */
+    public function ctime()
+    {
+        if(!$this->ctime) {
+            $this->ctime = filectime($this->path);
+        }
+
+        return $this->ctime;
     }
 
 
