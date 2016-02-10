@@ -80,8 +80,17 @@ menu ul {
 menu ul li {
     display: inline-block;
     float: left;
-    width: 33.3333%;
+    width: 100%;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+menu ul li.col-2 {
+    width: 50%;
+}
+menu ul li.col-3 {
+    width: 33.3333%;
+}
+menu ul li.col-4 {
+    width: 25%;
 }
 menu ul li a {
     display: block;

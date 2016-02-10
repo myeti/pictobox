@@ -34,9 +34,7 @@
             <?php endif; ?>
         <?php endif; ?>
 
-        <?php if(!$user->isAdmin()): ?>
-            <?= self::render('_modals/feedback') ?>
-        <?php endif; ?>
+        <?= self::render('_modals/feedback') ?>
     </div>
 
     <header>
@@ -67,34 +65,38 @@
 
     <menu>
 
+        <?php
+        $parts = $album ? 3 : 2;
+        if($user->isUploader()) {  $parts++; }
+        ?>
+
         <ul>
-            <li>
+            <li class="col-<?= $parts ?>">
                 <a data-modal="#profile" href="#">Profil</a>
             </li>
+
             <?php if($album): ?>
                 <?php if($user->isUploader()): ?>
-                <li>
+                <li class="col-<?= $parts ?>">
                     <a data-modal="#upload" href="#">Ajouter photos</a>
                 </li>
                 <?php endif; ?>
-                <li>
-                    <a href="<?= self::url($album->url, 'download') ?>" data-confirm="<?= 'Attention, le téléchargement d\'un album entier est lourd, long
-                                                                                           et peut entrainer un surcoût si vous êtes sur le réseau mobile !
-                                                                                           Continuer ?' ?>'">
-                        Télécharger
-                    </a>
-                </li>
+            <li class="col-<?= $parts ?>">
+                <a href="<?= self::url($album->url, 'download') ?>" data-confirm="<?= 'Attention, le téléchargement d\'un album entier est lourd, long
+                                                                                       et peut entrainer un surcoût si vous êtes sur le réseau mobile !
+                                                                                       Continuer ?' ?>'">
+                    Télécharger
+                </a>
+            </li>
             <?php elseif($user->isUploader()): ?>
-            <li>
+            <li class="col-<?= $parts ?>">
                 <a data-modal="#create" href="#">Créer album</a>
             </li>
             <?php endif; ?>
 
-            <?php if(!$user->isAdmin()): ?>
-            <li>
+            <li class="col-<?= $parts ?>">
                 <a data-modal="#feedback" href="#">Feedback</a>
             </li>
-            <?php endif; ?>
         </ul>
 
     </menu>
