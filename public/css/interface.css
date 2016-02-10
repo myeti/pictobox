@@ -63,7 +63,7 @@ menu {
     left: 0;
     right: 0;
     height: 45px;
-    background: #f77049;
+    background: #E14938;
     margin: 0;
     padding: 0;
     z-index: 40;
@@ -95,10 +95,11 @@ menu ul li.col-4 {
 menu ul li a {
     display: block;
     color: #fff;
-    font-size: 14px;
-    padding: 13px 5px 12px 5px;
+    font-size: 12px;
+    padding: 15px 2px 13px 2px;
     text-align: center;
     border-bottom: 2px solid transparent;
+    text-transform: uppercase;
 }
 menu ul li a.open {
     border-color: #fff;
@@ -350,12 +351,12 @@ ul.grid li .item .title {
         top: 0;
     }
     menu ul li {
-        width: auto;
+        width: auto !important;
         border: none;
     }
     menu ul li a {
         display: inline-block;
-        padding: 20px 18px;
+        padding: 21px 12px;
     }
     #modals {
         top: 60px;

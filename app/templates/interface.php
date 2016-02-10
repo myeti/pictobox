@@ -78,7 +78,7 @@
             <?php if($album): ?>
                 <?php if($user->isUploader()): ?>
                 <li class="col-<?= $parts ?>">
-                    <a data-modal="#upload" href="#">Ajouter photos</a>
+                    <a data-modal="#upload" href="#">Compléter</a>
                 </li>
                 <?php endif; ?>
             <li class="col-<?= $parts ?>">
@@ -90,7 +90,7 @@
             </li>
             <?php elseif($user->isUploader()): ?>
             <li class="col-<?= $parts ?>">
-                <a data-modal="#create" href="#">Créer album</a>
+                <a data-modal="#create" href="#">Ajouter</a>
             </li>
             <?php endif; ?>
 
