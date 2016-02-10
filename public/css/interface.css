@@ -350,6 +350,7 @@ ul.grid li .item .title {
         background: none;
         z-index: 80;
         transition: top 0.2s;
+        box-shadow: none !important;
     }
     menu.open {
         top: 0;
