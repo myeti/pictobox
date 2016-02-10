@@ -113,7 +113,9 @@ menu ul li a.open {
 }
 #modals .modal {
     margin: auto;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
+    min-width: 300px;
     padding: 20px;
     display: none;
 }
@@ -142,10 +144,14 @@ menu ul li a.open {
     font-size: 20px;
 }
 
+/* Feedback modal */
+.modal#feedback {
+    max-width: 600px;
+}
+
 /* Upload modal */
 .modal#upload {
-    width: 100%;
-    min-width: 300px;
+    max-width: none;
 }
 .modal#upload form.dropzone {
     border: 2px dashed #fff;
@@ -220,11 +226,6 @@ main .empty {
     text-align: center;
     margin-top: calc(50vh - 10px);
 }
-main.blur {
-    filter: blur(6px);
-    -moz-filter: blur(6px);
-    -webkit-filter: blur(6px);
-}
 
 
 /**
@@ -254,7 +255,7 @@ ul.grid li .item .image {
     bottom: 0;
     background-position: center center;
     background-size: cover;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 ul.grid li .item:hover .image {
     opacity: 1;
@@ -283,12 +284,6 @@ ul.grid li .item .title {
 .grid.albums li .item {
     height: calc(33.333vh - 20px);
     min-height: 130px;
-}
-.grid.albums li .item .image {
-    transition: transform 0.2s;
-}
-.grid.albums li .item:hover .image {
-    transform: scale(1.1);
 }
 
 .grid.pictures li {
@@ -360,7 +355,7 @@ ul.grid li .item .title {
         margin-top: 100px;
     }
     #modals .modal#upload form.dropzone {
-        min-height: calc(100vh - 185px);
+        min-height: calc(100vh - 250px);
     }
     .grid.albums li {
         width: 50%;

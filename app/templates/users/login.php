@@ -2,7 +2,7 @@
 
 <div id="login">
 
-    <form action="<?= self::url('/login/auth') ?>" method="post" data-ajax="<?= $redirect ?>">
+    <form action="<?= self::url('/user/auth') ?>" method="post" data-ajax="<?= $redirect ?>">
 
         <label>
             <span class="fa fa-user"></span>

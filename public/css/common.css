@@ -16,6 +16,9 @@ body {
     background: #1f2224;
     color: #fff;
 }
+body.fixed {
+    overflow: hidden;
+}
 
 a, a:hover, a:active {
     color: inherit;
@@ -39,6 +42,7 @@ a, a:hover, a:active {
 
 form input,
 form select,
+form textarea,
 form button,
 form a.btn {
     display: block;
@@ -51,6 +55,7 @@ form a.btn {
 }
 form label,
 form select,
+form textarea,
 form input {
     color: #000;
     background: #fff;

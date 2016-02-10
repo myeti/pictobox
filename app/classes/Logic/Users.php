@@ -167,4 +167,32 @@ class Users
         return Response::redirect('/login');
     }
 
+
+    /**
+     * Send feedback to admin
+     *
+     * @param Context $self
+     * @return array
+     */
+    public function feedback(Context $self)
+    {
+        // get post data
+        $message = $self->post('message');
+        if(!$message) {
+            return [
+                'state' => false,
+                'message' => 'Message vide'
+            ];
+        }
+
+        // send mail
+        $email = new Mail(APP_NAME . ' - Feedback ' . $self->access->user->username);
+        $email->content = $message;
+        $email->send(ADMIN_EMAIL);
+
+        return [
+            'state' => true
+        ];
+    }
+
 }

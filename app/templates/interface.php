@@ -15,14 +15,7 @@
         <link href="<?= self::url('/css/libs/photoswipe/default-skin.min.css') ?>" rel="stylesheet">
     <?php endif; ?>
     <link href="<?= self::url('/css/common.css') ?>" rel="stylesheet">
-    <link href="<?= self::url('/css/private.css') ?>" rel="stylesheet">
-
-    <script>
-    var routes = {
-        ping: "<?= self::url('/login/ping') ?>",
-        login: "<?= self::url('/login') ?>"
-    }
-    </script>
+    <link href="<?= self::url('/css/interface.css') ?>" rel="stylesheet">
 </head>
 <body>
 
@@ -39,6 +32,10 @@
             <?php else: ?>
                 <?= self::render('_modals/create') ?>
             <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if(!$user->isAdmin()): ?>
+            <?= self::render('_modals/feedback') ?>
         <?php endif; ?>
     </div>
 
@@ -81,13 +78,21 @@
                 </li>
                 <?php endif; ?>
                 <li>
-                    <a href="<?= self::url($album->url, 'download') ?>" data-confirm="Attention, le téléchargement d'un album entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile ! Continuer ?">
+                    <a href="<?= self::url($album->url, 'download') ?>" data-confirm="<?= 'Attention, le téléchargement d\'un album entier est lourd, long
+                                                                                           et peut entrainer un surcoût si vous êtes sur le réseau mobile !
+                                                                                           Continuer ?' ?>'">
                         Télécharger
                     </a>
                 </li>
             <?php elseif($user->isUploader()): ?>
             <li>
                 <a data-modal="#create" href="#">Créer album</a>
+            </li>
+            <?php endif; ?>
+
+            <?php if(!$user->isAdmin()): ?>
+            <li>
+                <a data-modal="#feedback" href="#">Feedback</a>
             </li>
             <?php endif; ?>
         </ul>
@@ -99,16 +104,20 @@
     </main>
 
     <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
-    <script src="<?= self::url('/js/MenuModals.js') ?>"></script>
-    <script src="<?= self::url('/js/common.js') ?>"></script>
-    <script src="<?= self::url('/js/private.js') ?>"></script>
-
     <?php if($album): ?>
         <script src="<?= self::url('/js/libs/dropzone.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe-ui-default.min.js') ?>"></script>
-        <script src="<?= self::url('/js/private-album.js') ?>"></script>
     <?php endif; ?>
+    <script src="<?= self::url('/js/pictobox-ui.js') ?>"></script>
+    <script src="<?= self::url('/js/ajaxforms.js') ?>"></script>
+    <script src="<?= self::url('/js/interface.js') ?>"></script>
+    <script>
+    $(function() {
+        window.PictoboxUI.routes.ping = "<?= self::url('/user/ping') ?>";
+        window.PictoboxUI.routes.login = "<?= self::url('/login') ?>";
+    });
+    </script>
 
 </body>
 </html

@@ -70,10 +70,11 @@ $router = new Router([
     'POST /cron/cache/clear'        => 'App\Logic\Crons::cacheclear',
 
     'GET  /login'                   => 'App\Logic\Users::login',
-    'POST /login/auth'              => 'App\Logic\Users::auth',
-    'POST /login/edit'              => 'App\Logic\Users::edit',
-    'GET  /login/ping'              => 'App\Logic\Users::ping',
     'GET  /logout'                  => 'App\Logic\Users::logout',
+    'POST /user/auth'               => 'App\Logic\Users::auth',
+    'POST /user/edit'               => 'App\Logic\Users::edit',
+    'GET  /user/ping'               => 'App\Logic\Users::ping',
+    'POST /user/feedback'           => 'App\Logic\Users::feedback',
 
     'POST /create'                  => 'App\Logic\Albums::create',
     'GET  /'                        => 'App\Logic\Albums::listing',

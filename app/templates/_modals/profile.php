@@ -1,5 +1,5 @@
 <div class="modal" id="profile">
-    <form action="<?= self::url('/login/edit') ?>" method="post" data-ajax>
+    <form action="<?= self::url('/user/edit') ?>" method="post" data-ajax>
 
         <h4><?= $user->username ?></h4>
 
@@ -22,7 +22,7 @@
         <input type="email" id="user-email" name="email" value="<?= $user->email ?>" placeholder="Adresse email" required>
         <input type="password" name="password" placeholder="Mot de passe" pattern="^.{5,}$" title="5 caractères minimum">
 
-        <button type="submit" data-loading="fa-cog" data-ok="fa-ok">Sauvegarder</button>
+        <button type="submit">Sauvegarder</button>
 
         <button type="reset" class="cancel">
             <span class="fa fa-close"></span>

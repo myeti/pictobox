@@ -1,4 +1,4 @@
-<?php self::layout('private', ['ariane' => $ariane, 'album' => $album, 'user' => $self->access->user]); ?>
+<?php self::layout('interface', ['ariane' => $ariane, 'album' => $album, 'user' => $self->access->user]); ?>
 
 <?php if($authors = $album->authors()): ?>
     <ul class="grid pictures row">
@@ -17,7 +17,7 @@
         </li>
         <?php foreach($author->pics() as $pic): ?>
         <li>
-            <a href="<?= self::url($pic->cacheurl) ?>" data-slideshow="<?= $pic->width ?>x<?= $pic->height ?>">
+            <a href="<?= self::url($pic->cacheurl) ?>" data-thumbnail="<?= $pic->width ?>x<?= $pic->height ?>">
                 <div class="item">
                     <div class="image" style="background-image: url('<?= self::url($pic->cacheurl_small) ?>')"></div>
                 </div>

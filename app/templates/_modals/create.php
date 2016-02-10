@@ -1,4 +1,4 @@
-<div class="modal" id="create" data-autofocus>
+<div class="modal" id="create">
     <form action="<?= self::url('/create') ?>" method="post" data-ajax>
 
         <h4>Nouvel album</h4>
