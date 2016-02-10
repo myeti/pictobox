@@ -82,9 +82,8 @@
                 </li>
                 <?php endif; ?>
             <li class="col-<?= $parts ?>">
-                <a href="<?= self::url($album->url, 'download') ?>" data-confirm="<?= 'Attention, le téléchargement d\'un album entier est lourd, long
-                                                                                       et peut entrainer un surcoût si vous êtes sur le réseau mobile !
-                                                                                       Continuer ?' ?>'">
+                <a href="<?= self::url($album->url, 'download') ?>"
+                   data-confirm="<?= "Attention, le téléchargement d'un album photo entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile !\nContinuer ?" ?>">
                     Télécharger
                 </a>
             </li>
