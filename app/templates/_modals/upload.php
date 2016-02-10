@@ -5,7 +5,7 @@
     <form action="<?= self::url($album->url, 'upload') ?>" method="post" enctype="multipart/form-data" class="dropzone">
 
         <div class="dz-message">
-            <span class="fa fa-plus"></span>
+            <span class="fa fa-plus"></span> .jpg / .jpeg uniquement
         </div>
 
         <div class="fallback">

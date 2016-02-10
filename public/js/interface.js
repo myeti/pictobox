@@ -34,7 +34,10 @@ $(function()
 
     window.PictoboxUI.modals.controller.upload = function()
     {
-        var dropzone = new Dropzone("#upload form");
+        var dropzone = new Dropzone("#upload form", {
+            acceptedFiles: 'image/jpeg, .jpg, .jpeg, .JPG, .JPEG'
+        });
+
         dropzone.on('queuecomplete', function()
         {
             setTimeout(function()
