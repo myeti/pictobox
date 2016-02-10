@@ -7,5 +7,4 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 require '../vendor/autoload.php';
 require '../instance/config.php';
-require '../app/helpers.php';
 require '../app/front.php';
