@@ -4,8 +4,8 @@
     <ul class="grid pictures row">
     <?php $vowels = ['E','U','I','O','A','Y']; ?>
     <?php foreach($authors as $author): ?>
-        <li>
-            <div class="item author" id="<?= strtolower($author->name) ?>">
+        <li class="author" id="<?= strtolower($author->name) ?>">
+            <div class="item">
                 <h2 class="title">
                     <?php if(in_array($author->name[0], $vowels)): ?>
                         Photos <br> d'<?= $author->name ?>

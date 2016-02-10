@@ -59,18 +59,20 @@ header .switch.open .fa {
 
 menu {
     position: fixed;
-    top: 0;
+    top: 15px;
     left: 0;
     right: 0;
     height: 45px;
+    box-shadow: none;
     background: #E14938;
     margin: 0;
     padding: 0;
     z-index: 40;
-    transition: top 0.2s;
+    transition: top 0.2s, box-shadow 0.2s;
 }
 menu.open {
     top: 60px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 menu ul {
     padding: 0;
@@ -230,6 +232,7 @@ menu ul li a.open {
 
 main {
     margin-top: 60px;
+    transition: margin-top 0.2s;
 }
 main .empty {
     font-size: 18px;
@@ -302,19 +305,20 @@ ul.grid li .item .title {
 .grid.pictures li .item {
     padding-top: 100%;
 }
-.grid.pictures li .item.author {
+.grid.pictures li.author .item {
     background-color: #d2d2d2;
 }
-.grid.pictures li .item.author .title {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.grid.pictures li.author .item .title {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
     margin: 0;
     text-align: center;
-    padding-top: calc(50% - 20px);
+    padding-top: calc(50% - 30px);
     text-shadow: none;
     color: #000;
+    border: 2px solid #1f2224;
 }
 
 
