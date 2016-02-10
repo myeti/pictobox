@@ -84,6 +84,7 @@ class Users
     public function edit(Context $self)
     {
         // get post data
+        $changed = false;
         list($email, $password, $id, $rank, $username) = $self->post('email', 'password', 'id', 'rank', 'username');
 
         // get user
@@ -91,9 +92,11 @@ class Users
         if($user->isAdmin()) {
             $user = $id ? User::one(['id' => $id]) : new User;
             if($username != $user->username) {
+                $changed = true;
                 $user->username = $username;
             }
             if($rank != $user->rank) {
+                $changed = true;
                 $user->rank = $rank;
             }
         }
@@ -107,6 +110,7 @@ class Users
                 ];
             }
 
+            $changed = true;
             $user->email = $email;
         }
 
@@ -119,6 +123,7 @@ class Users
                 ];
             }
 
+            $changed = true;
             $user->password = sha1(PWD_SALT . $password);
         }
 
@@ -126,14 +131,15 @@ class Users
         $user->save();
 
         // send confirmation mail
-        $email = new Mail(APP_NAME . ' - Mise à jour de votre profil');
-        $email->content = $self->templater->render('emails/user-updated', [
-            'user' => $user,
-            'password' => $password,
-            'host' => $self->request->uri->host
-        ]);
-
-        $email->send($user->email);
+        if($changed) {
+            $email = new Mail(APP_NAME . ' - Mise à jour de votre profil');
+            $email->content = $self->templater->render('emails/user-updated', [
+                'user' => $user,
+                'password' => $password,
+                'host' => $self->request->uri->host
+            ]);
+            $email->send($user->email);
+        }
 
         return [
             'state' => true
@@ -187,7 +193,7 @@ class Users
 
         // send mail
         $email = new Mail(APP_NAME . ' - Feedback ' . $self->access->user->username);
-        $email->content = $message;
+        $email->content = htmlentities(strip_tags($message));
         $email->send(ADMIN_EMAIL);
 
         return [
