@@ -193,7 +193,7 @@ class Users
 
         // send mail
         $email = new Mail(APP_NAME . ' - Feedback ' . $self->access->user->username);
-        $email->content = htmlentities(strip_tags($message));
+        $email->content = strip_tags($message);
         $email->send(ADMIN_EMAIL);
 
         return [

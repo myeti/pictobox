@@ -155,7 +155,6 @@ class Albums
     public function create(Context $self)
     {
         list($name, $date) = $self->post('name', 'date');
-        $name = htmlentities(strip_tags($name));
 
         // check date
         list($day, $month, $year) = explode('/', $date);
@@ -209,7 +208,6 @@ class Albums
 
         // get form data
         list($name, $date) = $self->post('name', 'date');
-        $name = htmlentities(strip_tags($name));
 
         // check date
         list($newday, $newmonth, $newyear) = explode('/', $date);
