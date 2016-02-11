@@ -1,11 +1,11 @@
 <div class="modal" id="feedback">
     <form action="<?= self::url('/user/feedback') ?>" method="post" data-ajax>
 
-        <h4>Feedback</h4>
+        <h4><?= text('modal.feedback.title') ?></h4>
 
-        <textarea name="message" cols="30" rows="10" placeholder="Votre suggestion, rapport d'erreur..." required></textarea>
+        <textarea name="message" cols="30" rows="10" placeholder="<?= text('modal.feedback.message') ?>" required></textarea>
 
-        <button type="submit">Envoyer</button>
+        <button type="submit"><?= text('modal.feedback.submit') ?></button>
 
         <button type="reset" class="cancel">
             <span class="fa fa-close"></span>

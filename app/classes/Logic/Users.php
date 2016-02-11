@@ -59,7 +59,7 @@ class Users
         if(!$user) {
             return [
                 'state' => false,
-                'message' => 'Identifiants incorrects'
+                'message' => text('logic.user.username.invalid')
             ];
         }
 
@@ -107,7 +107,7 @@ class Users
             if(!filter_var($email, FILTER_SANITIZE_EMAIL)) {
                 return [
                     'state' => false,
-                    'message' => 'Adresse email invalide'
+                    'message' => text('logic.user.email.invalid')
                 ];
             }
 
@@ -120,7 +120,7 @@ class Users
             if(strlen($password) < $this->minLength) {
                 return [
                     'state' => false,
-                    'message' => 'Mot de passe trop court'
+                    'message' => text('logic.user.password.invalid')
                 ];
             }
 
@@ -187,7 +187,7 @@ class Users
         if(!$message) {
             return [
                 'state' => false,
-                'message' => 'Message vide'
+                'message' => text('logic.feedback.empty')
             ];
         }
 

@@ -3,6 +3,7 @@ function PictoboxUI()
     var self = this;
     this.body = $('body');
     this.routes = {};
+    this.text = {};
 
 
     /**

@@ -49,7 +49,7 @@ $(function()
         $(window).on('beforeunload', function()
         {
             if(dropzone.getUploadingFiles().length > 0){
-                return 'Si vous changez de page, l\'upload des photos en cours sera annulé.';
+                return window.PictoboxUI.text.upload.leave;
             }
         });
 

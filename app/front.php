@@ -9,6 +9,17 @@ define('CACHE_URL', '/img/cache/');
 define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
 
 
+/**
+ * Load lang
+ */
+
+use Colorium\Text;
+
+Text\Lang::load([
+    'fr' => require 'langs/french.php'
+]);
+
+
 
 /**
  * Generate HTTP context

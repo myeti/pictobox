@@ -6,15 +6,15 @@
 
         <label>
             <span class="fa fa-user"></span>
-            <input type="text" name="username" placeholder="Identifiant" required autocomplete="off">
+            <input type="text" name="username" placeholder="<?= text('login.username') ?>" required autocomplete="off">
         </label>
 
         <label>
             <span class="fa fa-key"></span>
-            <input type="password" name="password" placeholder="Mot de passe" required>
+            <input type="password" name="password" placeholder="<?= text('login.password') ?>" required>
         </label>
 
-        <button type="submit" data-loading="fa-cog" data-ok="fa-ok">LOG IN</button>
+        <button type="submit" data-loading="fa-cog" data-ok="fa-ok"><?= text('login.submit') ?></button>
     </form>
 
 </div>

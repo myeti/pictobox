@@ -15,5 +15,5 @@
     <?php endforeach; ?>
 </ul>
 <?php else: ?>
-<p class="empty">Aucun album pour le moment !</p>
+<p class="empty"><?= text('album.none') ?></p>
 <?php endif; ?>

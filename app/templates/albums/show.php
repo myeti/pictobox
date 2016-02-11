@@ -8,9 +8,9 @@
             <div class="item">
                 <h2 class="title">
                     <?php if(in_array($author->name[0], $vowels)): ?>
-                        Photos <br> d'<?= $author->name ?>
+                        <?= text('pic.author.vowel', ['author' => $author->name]) ?>
                     <?php else: ?>
-                        Photos <br> de <?= $author->name ?>
+                        <?= text('pic.author', ['author' => $author->name]) ?>
                     <?php endif; ?>
                 </h2>
             </div>
@@ -28,5 +28,5 @@
     </ul>
     <div class="clearfix"></div>
 <?php else: ?>
-<p class="empty">Aucune photo pour le moment !</p>
+<p class="empty"><?= text('pic.none') ?></p>
 <?php endif; ?>

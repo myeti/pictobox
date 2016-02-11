@@ -1,6 +1,9 @@
 function AjaxForms()
 {
     var self = this;
+    this.text = {
+        error: 'Error !'
+    };
 
     this.forms = $('form[data-ajax]');
     this.css = {
@@ -94,7 +97,7 @@ function AjaxForms()
     this.fail = function(xhr, error, form)
     {
         form.button.html.empty().html(text);
-        alert('erreur');
+        alert(self.text.error);
     };
 
 

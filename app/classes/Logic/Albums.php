@@ -164,7 +164,7 @@ class Albums
         if(Album::one($year, $month, $day, $flatname)) {
             return [
                 'state' => false,
-                'message' => 'L\'album existe déja'
+                'message' => text('logic.album.error.exists')
             ];
         }
 
@@ -173,7 +173,7 @@ class Albums
         if(!$album) {
             return [
                 'state' => false,
-                'message' => 'Impossible de créer l\'album'
+                'message' => text('logic.album.error.create')
             ];
         }
 
@@ -217,7 +217,7 @@ class Albums
         if(Album::one($newday, $newmonth, $newyear, $flatname)) {
             return [
                 'state' => false,
-                'message' => 'L\'album existe déja'
+                'message' => text('logic.album.error.exists')
             ];
         }
 
@@ -225,7 +225,7 @@ class Albums
         if(!$album->rename($newday, $newmonth, $newyear, $name)) {
             return [
                 'state' => false,
-                'message' => 'Impossible de modifier l\'album'
+                'message' => text('logic.album.error.update')
             ];
         }
 
@@ -263,7 +263,7 @@ class Albums
         if(!$file) {
             return [
                 'state' => false,
-                'message' => 'Echec de l\'envoie'
+                'message' => text('logic.album.upload.empty')
             ];
         }
 
@@ -271,7 +271,7 @@ class Albums
         if(!Picture::valid($file->tmp)) {
             return [
                 'state' => false,
-                'message' => 'Mauvais format'
+                'message' => text('logic.album.upload.denied')
             ];
         }
 
@@ -280,7 +280,7 @@ class Albums
         if(!$picture) {
             return [
                 'state' => false,
-                'message' => 'Erreur durant l\'upload'
+                'message' => text('logic.album.upload.failed')
             ];
         }
 

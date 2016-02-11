@@ -22,6 +22,11 @@
 
     <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
     <script src="<?= self::url('/js/ajaxforms.js') ?>"></script>
+    <script>
+    $(function() {
+        window.AjaxForms.text.error = "<?= text('js.ajax.error') ?>";
+    });
+    </script>
 
 </body>
 </html>

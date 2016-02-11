@@ -72,29 +72,26 @@
 
         <ul>
             <li class="col-<?= $parts ?>">
-                <a data-modal="#profile" href="#">Profil</a>
+                <a data-modal="#profile" href="#"><?= text('menu.profile') ?></a>
             </li>
 
             <?php if($album): ?>
                 <?php if($user->isUploader()): ?>
                 <li class="col-<?= $parts ?>">
-                    <a data-modal="#upload" href="#">Compléter</a>
+                    <a data-modal="#upload" href="#"><?= text('menu.upload') ?></a>
                 </li>
                 <?php endif; ?>
             <li class="col-<?= $parts ?>">
-                <a href="<?= self::url($album->url, 'download') ?>"
-                   data-confirm="<?= "Attention, le téléchargement d'un album photo entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile !\nContinuer ?" ?>">
-                    Télécharger
-                </a>
+                <a href="<?= self::url($album->url, 'download') ?>" data-confirm="<?= text('menu.download.confirm') ?>"><?= text('menu.download') ?></a>
             </li>
             <?php elseif($user->isUploader()): ?>
             <li class="col-<?= $parts ?>">
-                <a data-modal="#create" href="#">Ajouter</a>
+                <a data-modal="#create" href="#"><?= text('menu.create') ?></a>
             </li>
             <?php endif; ?>
 
             <li class="col-<?= $parts ?>">
-                <a data-modal="#feedback" href="#">Feedback</a>
+                <a data-modal="#feedback" href="#"><?= text('menu.feedback') ?></a>
             </li>
         </ul>
 
@@ -115,8 +112,12 @@
     <script src="<?= self::url('/js/interface.js') ?>"></script>
     <script>
     $(function() {
-        window.PictoboxUI.routes.ping = "<?= self::url('/user/ping') ?>";
-        window.PictoboxUI.routes.login = "<?= self::url('/login') ?>";
+        window.AjaxForms.text.error = "<?= text('js.ajax.error') ?>";
+        window.PictoboxUI.text.upload.leave = "<?= text('js.upload.leave') ?>";
+        window.PictoboxUI.routes = {
+            ping: "<?= self::url('/user/ping') ?>",
+            login: "<?= self::url('/login') ?>"
+        };
     });
     </script>
 
