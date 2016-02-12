@@ -20,6 +20,9 @@ class Author
     /** @var Picture[] */
     protected $pics = [];
 
+    /** @var int */
+    protected $count;
+
 
     /**
      * Get author
@@ -82,6 +85,21 @@ class Author
         $this->pics();
         $random = array_rand($this->pics);
         return $this->pics[$random];
+    }
+
+
+    /**
+     * Total of pics
+     *
+     * @return int
+     */
+    public function count()
+    {
+        if(!$this->count) {
+            $this->count = count($this->pics());
+        }
+
+        return $this->count;
     }
 
 }

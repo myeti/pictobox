@@ -24,6 +24,15 @@ $(function()
     };
 
 
+
+    /**
+     * BLazy image loading
+     */
+
+    window.beLazy = new Blazy();
+
+
+
     /**
      * Dropzone
      */
@@ -49,7 +58,7 @@ $(function()
         $(window).on('beforeunload', function()
         {
             if(dropzone.getUploadingFiles().length > 0){
-                return window.PictoboxUI.text.upload.leave;
+                return window.PictoboxUI.text.leaveUpload;
             }
         });
 
@@ -63,14 +72,14 @@ $(function()
 
     var thumbnails = $('a[data-thumbnail]');
     if(thumbnails.length) {
-        var images = [];
+        var slidelist = [];
         var slideshow = document.querySelectorAll('.pswp')[0];
 
         thumbnails.each(function(index, element)
         {
             var trigger = $(element);
             var size = trigger.attr('data-thumbnail').split('x');
-            images.push({
+            slidelist.push({
                 src: trigger.attr('href'),
                 w: size[0],
                 h: size[1]
@@ -79,7 +88,7 @@ $(function()
 
         thumbnails.on('click', function(e)
         {
-            var photoswipe = new PhotoSwipe(slideshow, PhotoSwipeUI_Default, images, {
+            var photoswipe = new PhotoSwipe(slideshow, PhotoSwipeUI_Default, slidelist, {
                 index: thumbnails.index(this)
             });
             photoswipe.init();

@@ -152,11 +152,14 @@ class Album
     /**
      * Get random pic
      *
+     * @param Author $author
      * @return Picture
      */
-    public function thumbnail()
+    public function thumbnail(Author $author = null)
     {
-        if($author = $this->random()) {
+        $author = $author ?: $this->random();
+
+        if($author) {
             return $author->random();
         }
     }

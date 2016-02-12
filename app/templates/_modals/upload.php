@@ -12,10 +12,6 @@
             <input type="file" name="upload" accept="image/*" multiple>
         </div>
 
-        <button type="reset" class="cancel">
-            <span class="fa fa-close"></span>
-        </button>
-
     </form>
 
 </div>

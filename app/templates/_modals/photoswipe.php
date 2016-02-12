@@ -24,8 +24,8 @@
                 <!--  Controls are self-explanatory. Order can be changed. -->
                 <div class="pswp__counter"></div>
 
-                <button class="pswp__button pswp__button--close" title="Fermer"></button>
-                <button class="pswp__button pswp__button--fs" title="Plein écran"></button>
+                <button class="pswp__button pswp__button--close"></button>
+                <button class="pswp__button pswp__button--fs"></button>
 
                 <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
                 <!-- element will get class pswp__preloader--active when preloader is running -->
@@ -42,8 +42,8 @@
                 <div class="pswp__share-tooltip"></div>
             </div>
 
-            <button class="pswp__button pswp__button--arrow--left" title="Précédent"></button>
-            <button class="pswp__button pswp__button--arrow--right" title="Suivant"></button>
+            <button class="pswp__button pswp__button--arrow--left"></button>
+            <button class="pswp__button pswp__button--arrow--right"></button>
 
             <div class="pswp__caption">
                 <div class="pswp__caption__center"></div>

@@ -67,6 +67,7 @@ function AjaxForms()
                     }
 
                     if(window.PictoboxUI) {
+                        window.PictoboxUI.menu.toggle();
                         window.PictoboxUI.modals.close();
                     }
                 });
@@ -81,7 +82,7 @@ function AjaxForms()
             }, 2000);
         }
         else {
-            form.button.html.empty().html(text);
+            form.button.html.empty().html(form.button.text);
             alert(json.message);
         }
     };

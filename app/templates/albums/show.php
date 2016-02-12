@@ -6,6 +6,7 @@
     <?php foreach($authors as $author): ?>
         <li class="author" id="<?= strtolower($author->name) ?>">
             <div class="item">
+                <div class="image b-lazy" data-src="<?= self::url($album->thumbnail($author)->cacheurl_small) ?>"></div>
                 <h2 class="title">
                     <?php if(in_array($author->name[0], $vowels)): ?>
                         <?= text('pic.author.vowel', ['author' => $author->name]) ?>
@@ -19,7 +20,7 @@
         <li>
             <a href="<?= self::url($pic->cacheurl) ?>" data-thumbnail="<?= $pic->width ?>x<?= $pic->height ?>">
                 <div class="item">
-                    <div class="image" style="background-image: url('<?= self::url($pic->cacheurl_small) ?>')"></div>
+                    <div class="image b-lazy" data-src="<?= self::url($pic->cacheurl_small) ?>"></div>
                 </div>
             </a>
         </li>

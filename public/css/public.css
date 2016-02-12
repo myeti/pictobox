@@ -3,7 +3,7 @@
  */
 
 body.login {
-    background: url(../img/login-bg.jpg);
+    background-image: url(../img/login-bg.jpg);
     background-size: cover;
 }
 

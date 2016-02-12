@@ -9,9 +9,5 @@
 
         <button type="submit"><?= text('modal.create.submit') ?></button>
 
-        <button type="reset" class="cancel">
-            <span class="fa fa-close"></span>
-        </button>
-
     </form>
 </div>

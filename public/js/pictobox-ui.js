@@ -69,6 +69,7 @@ function PictoboxUI()
             }
             self.menu.container.toggleClass('open');
             self.menu.switcher.toggleClass('open');
+            self.body.toggleClass('fixed');
         }
     };
 
@@ -92,8 +93,6 @@ function PictoboxUI()
 
             self.modals.list.removeClass('open');
             self.modals.links.removeClass('open');
-
-            self.body.addClass('fixed');
             self.modals.overlay.addClass('open');
 
             var modal = self.modals.list.filter(id);
@@ -116,7 +115,7 @@ function PictoboxUI()
             self.modals.overlay.removeClass('open');
             self.modals.list.removeClass('open');
             self.modals.links.removeClass('open');
-            self.body.removeClass('fixed');
+            self.modals.list.find('form').trigger('reset');
         }
     };
 

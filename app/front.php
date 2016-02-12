@@ -1,12 +1,24 @@
 <?php
 
 /**
- * Config definitions
+ * App settings
  */
 
 define('__ROOT__', dirname(__DIR__));
 define('CACHE_URL', '/img/cache/');
 define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
+
+
+/**
+ * Request context
+ */
+
+use Colorium\App;
+
+if(!$context) {
+    $context = App\Front::context();
+}
+
 
 
 /**
@@ -22,18 +34,7 @@ Text\Lang::load([
 
 
 /**
- * Generate HTTP context
- */
-
-use Colorium\App;
-
-$context = App\Front::context();
-
-
-
-/**
  * Database setup
- * Define drive connector and model classes
  */
 
 use Colorium\Orm;
@@ -49,7 +50,6 @@ Orm\Hub::source($sqlite);
 
 /**
  * Authentication setup
- * Define user factory when login in
  */
 
 use Colorium\Stateful\Auth;
@@ -128,6 +128,7 @@ $app->events([
     404 => 'App\Logic\Errors::notfound',
     Exception::class => 'App\Logic\Errors::fatal'
 ]);
+
 
 
 /**

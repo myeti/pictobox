@@ -4,8 +4,8 @@
     <title><?= APP_NAME ?></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,300italic" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <link href="<?= self::url('/css/libs/font-awesome.min.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/libs/normalize.min.css') ?>" rel="stylesheet">
@@ -40,7 +40,8 @@
     <header>
 
         <div class="switch">
-            <span class="fa fa-bars"></span>
+            <span class="fa fa-bars do-open"></span>
+            <span class="fa fa-close do-close"></span>
         </div>
 
         <nav>
@@ -62,36 +63,41 @@
         </nav>
 
     </header>
+    <div class="header-bg"></div>
 
     <menu>
 
-        <?php
-        $parts = $album ? 3 : 2;
-        if($user->isUploader()) {  $parts++; }
-        ?>
-
         <ul>
-            <li class="col-<?= $parts ?>">
-                <a data-modal="#profile" href="#"><?= text('menu.profile') ?></a>
-            </li>
-
             <?php if($album): ?>
                 <?php if($user->isUploader()): ?>
-                <li class="col-<?= $parts ?>">
-                    <a data-modal="#upload" href="#"><?= text('menu.upload') ?></a>
+                <li>
+                    <a data-modal="#upload" href="#">
+                        <span class="fa fa-image"></span> <?= text('menu.upload') ?>
+                    </a>
                 </li>
                 <?php endif; ?>
-            <li class="col-<?= $parts ?>">
-                <a href="<?= self::url($album->url, 'download') ?>" data-confirm="<?= text('menu.download.confirm') ?>"><?= text('menu.download') ?></a>
+            <li>
+                <a href="<?= self::url($album->url, 'download') ?>" data-confirm="<?= text('menu.download.confirm') ?>">
+                    <span class="fa fa-download"></span> <?= text('menu.download') ?>
+                </a>
             </li>
             <?php elseif($user->isUploader()): ?>
-            <li class="col-<?= $parts ?>">
-                <a data-modal="#create" href="#"><?= text('menu.create') ?></a>
+            <li>
+                <a data-modal="#create" href="#">
+                    <span class="fa fa-plus"></span> <?= text('menu.create') ?>
+                </a>
             </li>
             <?php endif; ?>
 
-            <li class="col-<?= $parts ?>">
-                <a data-modal="#feedback" href="#"><?= text('menu.feedback') ?></a>
+            <li>
+                <a data-modal="#profile" href="#">
+                    <span class="fa fa-user"></span> <?= text('menu.profile') ?>
+                </a>
+            </li>
+            <li>
+                <a data-modal="#feedback" href="#">
+                    <span class="fa fa-comment"></span> <?= text('menu.feedback') ?>
+                </a>
             </li>
         </ul>
 
@@ -102,6 +108,7 @@
     </main>
 
     <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
+    <script src="<?= self::url('/js/libs/blazy.min.js') ?>"></script>
     <?php if($album): ?>
         <script src="<?= self::url('/js/libs/dropzone.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe.min.js') ?>"></script>
@@ -113,7 +120,7 @@
     <script>
     $(function() {
         window.AjaxForms.text.error = "<?= text('js.ajax.error') ?>";
-        window.PictoboxUI.text.upload.leave = "<?= text('js.upload.leave') ?>";
+        window.PictoboxUI.text.leaveUpload = "<?= text('js.upload.leave') ?>";
         window.PictoboxUI.routes = {
             ping: "<?= self::url('/user/ping') ?>",
             login: "<?= self::url('/login') ?>"

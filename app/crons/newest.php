@@ -1,3 +1,8 @@
 <?php
 
-file_get_contents('http://' . APP_HOST . '/cron/newest');
+require_once '../settings.php';
+
+$context = Colorium\App\Front::context();
+$context->forward('App\Logic\Crons::newest');
+
+require_once '../front.php';
