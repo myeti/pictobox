@@ -75,7 +75,7 @@ class Picture
     {
         // already cached
         if(file_exists($this->cachepath) and file_exists($this->cachepath_small)) {
-            return true;
+            return null;
         }
 
         // error
@@ -98,11 +98,11 @@ class Picture
         $cache->save($this->cachepath, 75);
 
         // create small cache picture
-        $cache = Image::make($this->cachepath);
+        $cache = Image::make($this->path);
         $cache->resize(500, null, function(Constraint $constraint) {
             $constraint->aspectRatio();
         });
-        $cache->save($this->cachepath_small, 100);
+        $cache->save($this->cachepath_small, 75);
 
         return true;
     }

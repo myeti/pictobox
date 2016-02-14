@@ -3,10 +3,8 @@
  * Layout
  */
 
-html, body {
+html {
     height: 100%;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
 }
 body {
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -41,8 +39,7 @@ a, a:hover, a:active {
 form input,
 form select,
 form textarea,
-form button,
-form a.btn {
+form button {
     display: block;
     border: 0;
     width: 100%;
@@ -84,8 +81,7 @@ form label input {
     margin-bottom: 0;
     width: calc(100% - 30px);
 }
-form button,
-form a.btn {
+form button {
     text-transform: uppercase;
     text-align: center;
     letter-spacing: 1px;
@@ -103,11 +99,6 @@ form button[type=reset] {
     border: none;
     color: #666;
     width: auto;
-}
-form a.btn {
-    margin-top: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
 }
 
 

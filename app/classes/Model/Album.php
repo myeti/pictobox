@@ -258,7 +258,7 @@ class Album
             $albums[] = new Album($folder);
         }
 
-        return $albums;
+        return array_reverse($albums);
     }
 
 

@@ -46,15 +46,31 @@ class Crons
     {
         set_time_limit(300);
 
-        $file = $self->request->value('file');
-        $author = dirname($file);
-        $album = dirname($author);
+        $files = $self->request->value('files');
+        $files = explode(',', $files);
 
-        $album = new Album($album);
-        $author = $album->author(basename($author));
-        $pic = $author->pic(basename($file));
+        $states = [];
+        foreach($files as $file) {
+            $author = dirname($file);
+            $album = dirname($author);
 
-        return $pic->cache();
+            $album = new Album($album);
+            $author = $album->author(basename($author));
+            $pic = $author->pic(basename($file));
+
+            $state = $pic->cache();
+            if($state === null) {
+                $states[] = [str_replace(ALBUMS_DIR, null, $file), 'skipped'];
+            }
+            elseif($state === true) {
+                $states[] = [str_replace(ALBUMS_DIR, null, $file), 'done'];
+            }
+            else {
+                $states[] = [str_replace(ALBUMS_DIR, null, $file), 'failed'];
+            }
+        }
+
+        return $states;
     }
 
 

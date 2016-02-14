@@ -23,7 +23,5 @@
 
         <button type="submit"><?= text('modal.profile.submit') ?></button>
 
-        <a href="<?= self::url('/logout') ?>" class="btn"><?= text('modal.profile.logout') ?></a>
-
     </form>
 </div>

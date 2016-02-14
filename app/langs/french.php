@@ -11,6 +11,7 @@ return [
     'menu.download.confirm' => "Attention, le téléchargement d'un album photo entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile !\nContinuer ?",
     'menu.create' => 'Créer un nouvel album',
     'menu.feedback' => 'Écrire une suggestion',
+    'menu.logout' => 'Se déconnecter',
 
     'modal.create.title' => 'Nouvel album',
     'modal.create.name' => 'Titre',
@@ -31,7 +32,6 @@ return [
     'modal.profile.password' => 'Mot de passe',
     'modal.profile.password.tooltip' => '5 caractères minimum',
     'modal.profile.submit' => 'Sauvegarder',
-    'modal.profile.logout' => 'Se déconnecter',
 
     'album.none' => 'Aucun album pour le moment !',
     'pic.none' => 'Aucune photo pour le moment !',
