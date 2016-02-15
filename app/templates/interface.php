@@ -13,7 +13,7 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href="<?= self::url('/css/libs/font-awesome.min.css') ?>" rel="stylesheet">
     <link href="<?= self::url('/css/libs/normalize.min.css') ?>" rel="stylesheet">
-    <?php if($album): ?>
+    <?php if(isset($album)): ?>
         <link href="<?= self::url('/css/libs/dropzone.min.css') ?>" rel="stylesheet">
         <link href="<?= self::url('/css/libs/photoswipe.min.css') ?>" rel="stylesheet">
         <link href="<?= self::url('/css/libs/photoswipe/default-skin.min.css') ?>" rel="stylesheet">
@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    <?php if($album): ?>
+    <?php if(isset($album)): ?>
         <?= self::render('_modals/photoswipe') ?>
     <?php endif; ?>
 
@@ -31,7 +31,7 @@
         <?= self::render('_modals/profile', ['user' => $user]) ?>
 
         <?php if($user->isUploader()): ?>
-            <?php if($album): ?>
+            <?php if(isset($album)): ?>
                 <?= self::render('_modals/upload', ['album' => $album]) ?>
             <?php else: ?>
                 <?= self::render('_modals/create') ?>
@@ -59,7 +59,7 @@
                 <a href="<?= self::url($link) ?>" class="xs-hide"><?= $text ?></a>
                 <?php endforeach; ?>
 
-                <?php if($album): ?>
+                <?php if(isset($album)): ?>
                 <span>/</span> <a href="<?= self::url($album->url) ?>" class="album"><?= $album->name ?></a>
                 <?php endif; ?>
 
@@ -72,7 +72,7 @@
     <menu>
 
         <ul>
-            <?php if($album): ?>
+            <?php if(isset($album)): ?>
                 <?php if($user->isUploader()): ?>
                 <li>
                     <a data-modal="#upload" href="#">
@@ -118,7 +118,7 @@
 
     <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
     <script src="<?= self::url('/js/libs/blazy.min.js') ?>"></script>
-    <?php if($album): ?>
+    <?php if(isset($album)): ?>
         <script src="<?= self::url('/js/libs/dropzone.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe-ui-default.min.js') ?>"></script>

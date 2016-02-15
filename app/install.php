@@ -1,12 +1,7 @@
 <?php
 
-/**
- * App settings
- */
+require 'instance.php';
 
-define('__ROOT__', dirname(__DIR__));
-define('CACHE_URL', '/img/cache/');
-define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
 
 
 /**
@@ -24,24 +19,13 @@ echo (string)is_writable(CACHE_DIR);
 
 
 /**
- * Database setup
- */
-
-use Colorium\Orm;
-use App\Model\User;
-
-$sqlite = new Orm\SQLite(DB_FILE, [
-    'user' => User::class
-]);
-
-
-
-/**
  * Database reset
  */
 
-$sqlite->builder('user')->wipe();
-$sqlite->builder('user')->create();
+use App\Model\User;
+
+User::builder()->wipe();
+User::builder()->create();
 
 $admin = new User(ADMIN_NAME, sha1(PWD_SALT . ADMIN_PWD), ADMIN_EMAIL, User::ADMIN);
 $admin->save();

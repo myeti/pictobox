@@ -1,50 +1,14 @@
 <?php
 
 /**
- * App settings
+ * PHP Settings
  */
 
-define('__ROOT__', dirname(__DIR__));
-define('CACHE_URL', '/img/cache/');
-define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
-
-/**
- * Request context
- */
-
-use Colorium\App;
-
-if(!$context) {
-    $context = App\Front::context();
-}
-
-
-
-/**
- * Load lang
- */
-
-use Colorium\Text;
-
-Text\Lang::load([
-    'fr' => require 'langs/french.php'
-]);
-
-
-
-/**
- * Database setup
- */
-
-use Colorium\Orm;
-use App\Model\User;
-
-$sqlite = new Orm\SQLite(DB_FILE, [
-    'user' => User::class
-]);
-
-Orm\Hub::source($sqlite);
+require 'instance.php';
 
 
 
@@ -53,6 +17,7 @@ Orm\Hub::source($sqlite);
  */
 
 use Colorium\Stateful\Auth;
+use App\Model\User;
 
 Auth::factory(function($id) {
     return User::one(['id' => $id]);
@@ -61,78 +26,28 @@ Auth::factory(function($id) {
 
 
 /**
- * Template setup
+ * Generate context
  */
 
-use Colorium\Templating\Templater;
+use Colorium\App;
 
-$templater = new Templater(__DIR__ . '/templates/');
+$context = App\Front::context();
 
 
 
 /**
- * Router setup
- */
-
-use Colorium\Routing\Router;
-
-$router = new Router([
-    'GET  /cron/cache'              => 'App\Logic\Crons::cache',
-    'POST /cron/cache/clear'        => 'App\Logic\Crons::cacheclear',
-    'GET  /cron/newest'             => 'App\Logic\Crons::newest',
-
-    'GET  /login'                   => 'App\Logic\Users::login',
-    'GET  /logout'                  => 'App\Logic\Users::logout',
-    'POST /user/auth'               => 'App\Logic\Users::auth',
-    'POST /user/edit'               => 'App\Logic\Users::edit',
-    'GET  /user/ping'               => 'App\Logic\Users::ping',
-    'POST /user/feedback'           => 'App\Logic\Users::feedback',
-
-    'POST /create'                  => 'App\Logic\Albums::create',
-    'GET  /'                        => 'App\Logic\Albums::listing',
-    'GET  /:y'                      => 'App\Logic\Albums::listingYear',
-    'GET  /:y/:m'                   => 'App\Logic\Albums::listingMonth',
-    'GET  /:y/:m/:d'                => 'App\Logic\Albums::listingDay',
-    'GET  /:y/:m/:d/:album'         => 'App\Logic\Albums::show',
-    'POST /:y/:m/:d/:album/upload'  => 'App\Logic\Albums::upload',
-    'GET  /:y/:m/:d/:album/download'=> 'App\Logic\Albums::download',
-]);
-
-
-
-/**
- * App instance
- */
-
-$app = new App\Front($router, $templater);
-
-
-
-/**
- * Dev mode
+ * Debug mode
  */
 
 $trusted = ['127.0.0.1', '::1', '10.0.2.2'];
 if(in_array($context->request->ip, $trusted)) {
-    require 'whoops.php';
+    require 'front/whoops.php';
 }
 
 
 
 /**
- * Http event
- */
-
-$app->events([
-    401 => 'App\Logic\Errors::unauthorized',
-    404 => 'App\Logic\Errors::notfound',
-    Exception::class => 'App\Logic\Errors::fatal'
-]);
-
-
-
-/**
- * Finally, run app
+ * Execute default context
  */
 
 $app->run($context)->end();

@@ -30,7 +30,8 @@ class Albums
         $albums = Album::fetch();
 
         return [
-            'albums' => $albums
+            'albums' => $albums,
+            'ariane' => []
         ];
     }
 

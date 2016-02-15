@@ -95,7 +95,7 @@
                 return;
             }
 
-            $.post('<?= self::url('/cron/cache/clear') ?>', {files: proceed.join(',')})
+            $.post('<?= self::url('/admin/cache/clear') ?>', {files: proceed.join(',')})
             .done(function(json)
             {
                 $.each(json, function(i, state)
