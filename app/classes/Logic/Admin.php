@@ -24,7 +24,9 @@ class Admin
         foreach($albums as $album) {
             foreach($album->authors() as $author) {
                 foreach($author->pics() as $pic) {
-                    $files[] = $pic->path;
+                    if(!file_exists($pic->cachepath)) {
+                        $files[] = $pic->path;
+                    }
                 }
             }
         }
