@@ -18,8 +18,9 @@ class Errors
 
     /**
      * 401
+     *
      * @param Context $ctx
-     * @return \Colorium\Http\Response\Redirect
+     * @return Response\Redirect
      */
     public function unauthorized(Context $ctx)
     {

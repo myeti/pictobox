@@ -8,13 +8,16 @@ use App\Service\Mail;
 use Colorium\App\Context;
 use Colorium\Http\Response;
 
+
+/**
+ * @access 9
+ */
 class Admin
 {
 
     /**
      * Generate albums cache
      *
-     * @access 9
      * @html admin/cache
      */
     public function cache()
@@ -38,11 +41,10 @@ class Admin
     /**
      * Generate albums cache
      *
-     * @access 9
      * @json
      *
      * @param Context $ctx
-     * @return bool
+     * @return array
      */
     public function cacheclear(Context $ctx)
     {

@@ -16,14 +16,12 @@ use Colorium\Http\Response;
 class Albums
 {
 
-
     /**
      * Render many albums
      *
      * @html albums/listing
      *
      * @return array
-     * @throws NotFoundException
      */
     public function listing()
     {

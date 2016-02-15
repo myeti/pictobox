@@ -14,6 +14,8 @@ class User
     const UPLOADER = 5;
     const ADMIN = 9;
 
+    const PWD_MINLENGTH = 5;
+
     /** @var string */
     public $username;
 

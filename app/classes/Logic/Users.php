@@ -11,9 +11,6 @@ use Colorium\Stateful\Auth;
 class Users
 {
 
-    /** @var int */
-    protected $minLength = 5;
-
 
     /**
      * Login form
@@ -117,7 +114,7 @@ class Users
 
         // edit password
         if($password) {
-            if(strlen($password) < $this->minLength) {
+            if(strlen($password) < User::PWD_MINLENGTH) {
                 return [
                     'state' => false,
                     'message' => text('logic.user.password.invalid')
@@ -176,6 +173,8 @@ class Users
 
     /**
      * Send feedback to admin
+     *
+     * @access 1
      *
      * @param Context $ctx
      * @return array

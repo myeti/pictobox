@@ -27,7 +27,7 @@ chdir(__DIR__);
 use Colorium\App;
 
 $context = App\Front::context();
-$context->resource('App\Cli\Crons::newest');
+$context->resource('App\Logic\Crons::newest');
 
 
 
