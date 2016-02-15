@@ -81,6 +81,7 @@ $(function()
             var size = trigger.attr('data-thumbnail').split('x');
             slidelist.push({
                 src: trigger.attr('href'),
+                title: trigger.attr('data-caption'),
                 w: size[0],
                 h: size[1]
             });

@@ -34,9 +34,9 @@ return [
     'modal.profile.submit' => 'Sauvegarder',
 
     'album.none' => 'Aucun album pour le moment !',
-    'pic.none' => 'Aucune photo pour le moment !',
-    'pic.author' => 'Photos <br/> de {author}',
-    'pic.author.vowel' => 'Photos <br/> d\'{author}',
+    'pics.none' => 'Aucune photo pour le moment !',
+    'pics.author' => 'Photos prises <br/> par {author}',
+    'pic.author' => 'photo prise par {author}',
 
     'js.ajax.error' => 'La requête a échouée, veuillez notifier l\'administrateur et ré-essayer plus tard.',
     'js.upload.leave' => 'Si vous changez de page, l\'envoi des photos en cours sera annulé.',
@@ -54,6 +54,15 @@ return [
     'logic.user.password.invalid' => 'Mot de passe trop court',
 
     'logic.feedback.empty' => 'Message vide',
+
+    'email.newest.title' => 'Nouveaux albums !',
+    'email.newest.body' => '{username}, de nouveaux albums ont été ajoutés :',
+
+    'email.profile.title' => 'Mise à jour de votre profil',
+    'email.profiles.body' => '{username}, votre compte a été mis à jours :',
+    'email.profiles.username' => 'Identifiant',
+    'email.profiles.password' => 'Mot de passe',
+    'email.profiles.email' => 'Adresse email',
 
     'error.404' => 'La page que vous recherchez n\'existe pas.',
     'error.fatal' => 'Aïe aïe aïe ! Une erreur est survenue !',

@@ -1,6 +1,6 @@
 <?php self::layout('email'); ?>
 
-<p><?= $user->username ?>, de nouveaux albums ont été ajoutés :</p>
+<p><?= text('email.newest.body', ['username' => $user->username]) ?></p>
 
 <ul>
     <?php foreach($albums as $album): ?>

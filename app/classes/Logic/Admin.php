@@ -41,14 +41,14 @@ class Admin
      * @access 9
      * @json
      *
-     * @param Context $self
+     * @param Context $ctx
      * @return bool
      */
-    public function cacheclear(Context $self)
+    public function cacheclear(Context $ctx)
     {
         set_time_limit(300);
 
-        $files = $self->request->value('files');
+        $files = $ctx->request->value('files');
         $files = explode(',', $files);
 
         $states = [];

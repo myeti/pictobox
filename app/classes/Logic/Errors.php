@@ -18,12 +18,17 @@ class Errors
 
     /**
      * 401
-     * @param Context $self
+     * @param Context $ctx
      * @return \Colorium\Http\Response\Redirect
      */
-    public function unauthorized(Context $self)
+    public function unauthorized(Context $ctx)
     {
-        return Response::redirect('/login?from=' . $self->request->uri->path);
+        $from = $ctx->request->uri->path;
+        if($from) {
+            $from = '?from=' . $from;
+        }
+
+        return Response::redirect('/login' . $from);
     }
 
 

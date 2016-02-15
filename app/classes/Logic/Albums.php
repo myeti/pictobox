@@ -35,6 +35,7 @@ class Albums
         ];
     }
 
+
     /**
      * Render many albums
      *
@@ -58,6 +59,7 @@ class Albums
             ]
         ];
     }
+
 
     /**
      * Render many albums
@@ -84,6 +86,7 @@ class Albums
             ]
         ];
     }
+
 
     /**
      * Render many albums
@@ -150,12 +153,12 @@ class Albums
      * @access 5
      * @json
      *
-     * @param Context $self
+     * @param Context $ctx
      * @return array
      */
-    public function create(Context $self)
+    public function create(Context $ctx)
     {
-        list($name, $date) = $self->post('name', 'date');
+        list($name, $date) = $ctx->post('name', 'date');
 
         // check date
         list($day, $month, $year) = explode('/', $date);
@@ -180,7 +183,7 @@ class Albums
 
         return [
             'state' => true,
-            'redirect' => (string)$self->request->uri->make($album->url)
+            'redirect' => (string)$ctx->uri($album->url)
         ];
     }
 
@@ -195,11 +198,11 @@ class Albums
      * @param int $month
      * @param int $day
      * @param string $flatname
-     * @param Context $self
+     * @param Context $ctx
      * @return array
      * @throws NotFoundException
      */
-    public function edit($year, $month, $day, $flatname, Context $self)
+    public function edit($year, $month, $day, $flatname, Context $ctx)
     {
         // get album
         $album = Album::one($year, $month, $day, $flatname);
@@ -208,7 +211,7 @@ class Albums
         }
 
         // get form data
-        list($name, $date) = $self->post('name', 'date');
+        list($name, $date) = $ctx->post('name', 'date');
 
         // check date
         list($newday, $newmonth, $newyear) = explode('/', $date);
@@ -232,7 +235,7 @@ class Albums
 
         return [
             'state' => true,
-            'redirect' => (string)$self->request->uri->make($album->url)
+            'redirect' => (string)$ctx->uri($album->url)
         ];
     }
 
@@ -247,11 +250,11 @@ class Albums
      * @param int $month
      * @param int $day
      * @param string $flatname
-     * @param Context $self
+     * @param Context $ctx
      * @return Response\Json
      * @throws NotFoundException
      */
-    public function upload($year, $month, $day, $flatname, Context $self)
+    public function upload($year, $month, $day, $flatname, Context $ctx)
     {
         // get album
         $album = Album::one($year, $month, $day, $flatname);
@@ -260,7 +263,7 @@ class Albums
         }
 
         // get uploaded file
-        $file = $self->request->file('file');
+        $file = $ctx->request->file('file');
         if(!$file) {
             return [
                 'state' => false,
@@ -277,7 +280,7 @@ class Albums
         }
 
         // save and create cache
-        $picture = $album->add($file->tmp, $file->name, $self->access->user->username);
+        $picture = $album->add($file->tmp, $file->name, $ctx->user()->username);
         if(!$picture) {
             return [
                 'state' => false,

@@ -20,21 +20,21 @@ class Users
      *
      * @html users/login
      *
-     * @param Context $self
+     * @param Context $ctx
      * @return array
      */
-    public function login(Context $self)
+    public function login(Context $ctx)
     {
         // already logged in
-        if($self->access->auth) {
+        if($ctx->access->auth) {
             return Response::redirect('/');
         }
 
         // keep previous location
-        $referer = $self->request->uri->param('from');
+        $referer = $ctx->request->uri->param('from');
 
         return [
-            'redirect' => $referer ?: $self->request->uri->make('/')
+            'redirect' => $referer ?: $ctx->uri('/')
         ];
     }
 
@@ -44,13 +44,13 @@ class Users
      *
      * @json
      *
-     * @param Context $self
+     * @param Context $ctx
      * @return array
      */
-    public function auth(Context $self)
+    public function auth(Context $ctx)
     {
         // get form data
-        list($username, $password) = $self->post('username', 'password');
+        list($username, $password) = $ctx->post('username', 'password');
         $username = ucfirst(strtolower($username));
         $password = sha1(PWD_SALT . $password);
 
@@ -78,22 +78,22 @@ class Users
      * @access 1
      * @json
      *
-     * @param Context $self
+     * @param Context $ctx
      * @return array
      */
-    public function edit(Context $self)
+    public function edit(Context $ctx)
     {
         // get post data
         $changed = false;
-        list($email, $password, $id, $rank, $username) = $self->post('email', 'password', 'id', 'rank', 'username');
+        list($email, $password, $id, $rank, $username) = $ctx->post('email', 'password', 'id', 'rank', 'username');
 
         // get user
-        $user = $self->access->user;
+        $user = $ctx->user();
         if($user->isAdmin()) {
             $user = $id ? User::one(['id' => $id]) : new User;
             if($username != $user->username) {
                 $changed = true;
-                $username = htmlentities(strip_tags($username));
+                $username = strip_tags($username);
                 $user->username = $username;
             }
             if($rank != $user->rank) {
@@ -133,8 +133,8 @@ class Users
 
         // send confirmation mail
         if($changed) {
-            $email = new Mail(APP_NAME . ' - Mise à jour de votre profil');
-            $email->content = $self->templater->render('emails/user-updated', [
+            $email = new Mail(APP_NAME . ' - ' . text('email.profile.title'));
+            $email->content = $ctx->templater->render('emails/profile', [
                 'user' => $user,
                 'password' => $password
             ]);
@@ -177,13 +177,13 @@ class Users
     /**
      * Send feedback to admin
      *
-     * @param Context $self
+     * @param Context $ctx
      * @return array
      */
-    public function feedback(Context $self)
+    public function feedback(Context $ctx)
     {
         // get post data
-        $message = $self->post('message');
+        list($message, $album) = $ctx->post('message', 'album');
         if(!$message) {
             return [
                 'state' => false,
@@ -192,8 +192,15 @@ class Users
         }
 
         // send mail
-        $email = new Mail(APP_NAME . ' - Feedback ' . $self->access->user->username);
-        $email->content = strip_tags($message);
+        $email = new Mail(APP_NAME . ' - Feedback ' . $ctx->user()->username);
+        if($album) {
+            $email->content .= '--- <br/>';
+            $email->content .= strip_tags($album) . '<br/>';
+            $email->content .= '--- <br/><br/>';
+        }
+        $email->content .= strip_tags($message);
+        $email->content .= '<br/><br/>';
+        $email->content .= $ctx->user()->username;
         $email->send(ADMIN_EMAIL);
 
         return [

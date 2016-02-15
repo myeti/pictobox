@@ -7,8 +7,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-2.png">
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="192x192" href="<?= self::url('/img/favicon-2.png') ?>">
+    <link rel="icon" type="image/x-icon" href="<?= self::url('/favicon.ico') ?>" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href="<?= self::url('/css/libs/font-awesome.min.css') ?>" rel="stylesheet">
@@ -38,7 +38,11 @@
             <?php endif; ?>
         <?php endif; ?>
 
-        <?= self::render('_modals/feedback') ?>
+        <?php if(isset($album)): ?>
+            <?= self::render('_modals/feedback', ['album' => $album]) ?>
+        <?php else: ?>
+            <?= self::render('_modals/feedback') ?>
+        <?php endif; ?>
     </div>
 
     <header>

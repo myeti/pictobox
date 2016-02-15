@@ -12,10 +12,10 @@ class Crons
     /**
      * Email newest albums
      *
-     * @param Context $self
+     * @param Context $ctx
      * @return int
      */
-    public function newest(Context $self)
+    public function newest(Context $ctx)
     {
         $yesterday = strtotime('-1 day');
         $newest = [];
@@ -35,8 +35,8 @@ class Crons
         if($newest) {
             $users = User::fetch();
             foreach ($users as $user) {
-                $email = new Mail(APP_NAME . ' - Nouveaux albums !');
-                $email->content = $self->templater->render('emails/new-albums', [
+                $email = new Mail(APP_NAME . ' - ' . text('email.newest.title'));
+                $email->content = $ctx->templater->render('emails/newest', [
                     'user' => $user,
                     'albums' => $newest
                 ]);
