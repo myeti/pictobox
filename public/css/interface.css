@@ -277,6 +277,13 @@ menu ul li a .fa {
     right: -20px;
 }
 
+.pswp__button--ban {
+    background: none !important;
+    width: auto !important;
+    color: #fff;
+    padding: 12px;
+}
+
 
 /**
  * Main

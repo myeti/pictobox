@@ -72,6 +72,7 @@ $(function()
 
     var thumbnails = $('a[data-thumbnail]');
     if(thumbnails.length) {
+
         var slidelist = [];
         var slideshow = document.querySelectorAll('.pswp')[0];
 
@@ -89,16 +90,34 @@ $(function()
 
         thumbnails.on('click', function(e)
         {
-            var photoswipe = new PhotoSwipe(slideshow, PhotoSwipeUI_Default, slidelist, {
+            window.Photoswipe = new PhotoSwipe(slideshow, PhotoSwipeUI_Default, slidelist, {
                 index: thumbnails.index(this)
             });
-            photoswipe.init();
+
+            window.Photoswipe.init();
 
             e.preventDefault();
             return false;
         });
 
-        return true;
-    }
+        $('a[data-report]').on('click', function(e)
+        {
+            e.preventDefault();
+
+            var url = $(this).attr('href');
+            var confirmMsg = $(this).attr('data-report-confirm');
+            var doneMsg = $(this).attr('data-report-done');
+
+            if(confirm(confirmMsg)) {
+                $.post(url, {picture: window.Photoswipe.currItem.src}).complete(function()
+                {
+                    alert(doneMsg);
+                });
+            }
+
+            return false;
+        })
+
+    };
 
 });

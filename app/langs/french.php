@@ -22,10 +22,14 @@ return [
     'modal.feedback.message' => 'Votre message, rapport d\'erreur...',
     'modal.feedback.submit' => 'Envoyer',
 
+    'modal.photoswipe.report' => 'Signaler',
+    'modal.photoswipe.report.confirm' => 'Confirmez-vous le signalement de cette photo ?',
+    'modal.photoswipe.report.done' => 'Signalement envoyé',
+
     'modal.upload.title' => 'Ajout de photos',
     'modal.upload.accept' => '.jpg / .jpeg uniquement',
 
-    'modal.profile.new' => '+ Nouvel utilisateur',
+    'modal.profile.new' => 'Nouvel utilisateur',
     'modal.profile.username' => 'Identifiant',
     'modal.profile.rank' => 'Niveau d\'accès',
     'modal.profile.email' => 'Adresse email',

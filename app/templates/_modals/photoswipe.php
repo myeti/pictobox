@@ -26,6 +26,11 @@
 
                 <button class="pswp__button pswp__button--close"></button>
                 <button class="pswp__button pswp__button--fs"></button>
+                <a href="<?= self::url('/user/report') ?>" class="pswp__button pswp__button--ban" data-report
+                        data-report-confirm="<?= text('modal.photoswipe.report.confirm') ?>"
+                        data-report-done="<?= text('modal.photoswipe.report.done') ?>">
+                    <?= text('modal.photoswipe.report') ?>
+                </a>
 
                 <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
                 <!-- element will get class pswp__preloader--active when preloader is running -->

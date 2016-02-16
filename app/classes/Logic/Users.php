@@ -172,6 +172,31 @@ class Users
 
 
     /**
+     * Send report to admin
+     *
+     * @access 1
+     *
+     * @param Context $ctx
+     * @return array
+     */
+    public function report(Context $ctx)
+    {
+        // get post data
+        $picture = $ctx->post('picture');
+
+        // send mail
+        $email = new Mail(APP_NAME . ' - Picture reporting');
+        $email->content = $ctx->user()->username . ' has reported the following picture : <br/>';
+        $email->content .= strip_tags($picture);
+        $email->send(ADMIN_EMAIL);
+
+        return [
+            'state' => true
+        ];
+    }
+
+
+    /**
      * Send feedback to admin
      *
      * @access 1
@@ -193,7 +218,7 @@ class Users
         // send mail
         $email = new Mail(APP_NAME . ' - Feedback ' . $ctx->user()->username);
         if($album) {
-            $email->content .= '--- <br/>';
+            $email->content = '--- <br/>';
             $email->content .= strip_tags($album) . '<br/>';
             $email->content .= '--- <br/><br/>';
         }

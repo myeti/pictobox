@@ -69,6 +69,7 @@ $router = new Router([
     'POST /user/auth'               => 'App\Logic\Users::auth',
     'POST /user/edit'               => 'App\Logic\Users::edit',
     'GET  /user/ping'               => 'App\Logic\Users::ping',
+    'POST /user/report'             => 'App\Logic\Users::report',
     'POST /user/feedback'           => 'App\Logic\Users::feedback',
 
     'POST /create'                  => 'App\Logic\Albums::create',
