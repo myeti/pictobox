@@ -112,6 +112,7 @@ $(function()
                 $.post(url, {picture: window.Photoswipe.currItem.src}).complete(function()
                 {
                     alert(doneMsg);
+                    window.Photoswipe.close();
                 });
             }
 
