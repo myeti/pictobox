@@ -35,7 +35,7 @@ $request = Http\Request::globals();
 
 $request->local[] = '10.0.2.2';
 if($request->local()) {
-//    require 'front/whoops.php';
+    require 'front/whoops.php';
 }
 
 

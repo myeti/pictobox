@@ -15,6 +15,7 @@
   "require": {
     "php": ">=5.6",
     "filp/whoops": "1.*",
+    "symfony/yaml": "3.*",
     "colorium/framework": "dev-master",
     "intervention/image": "^2.3"
   },

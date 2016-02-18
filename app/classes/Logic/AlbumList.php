@@ -5,6 +5,10 @@ namespace App\Logic;
 use App\Model\Album;
 use Colorium\Http\Error\NotFoundException;
 
+
+/**
+ * @access 1
+ */
 class AlbumList
 {
 
