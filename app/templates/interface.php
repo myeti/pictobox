@@ -28,9 +28,9 @@
     <?php endif; ?>
 
     <div id="modals">
-        <?= self::render('_modals/profile', ['user' => $user]) ?>
+        <?= self::render('_modals/profile', ['user' => $ctx->user]) ?>
 
-        <?php if($user->isUploader()): ?>
+        <?php if($ctx->user->isUploader()): ?>
             <?php if(isset($album)): ?>
                 <?= self::render('_modals/upload', ['album' => $album]) ?>
             <?php else: ?>
@@ -77,7 +77,7 @@
 
         <ul>
             <?php if(isset($album)): ?>
-                <?php if($user->isUploader()): ?>
+                <?php if($ctx->user->isUploader()): ?>
                 <li>
                     <a data-modal="#upload" href="#">
                         <span class="fa fa-image"></span> <?= text('menu.upload') ?>
@@ -89,7 +89,7 @@
                     <span class="fa fa-download"></span> <?= text('menu.download') ?>
                 </a>
             </li>
-            <?php elseif($user->isUploader()): ?>
+            <?php elseif($ctx->user->isUploader()): ?>
             <li>
                 <a data-modal="#create" href="#">
                     <span class="fa fa-plus"></span> <?= text('menu.create') ?>

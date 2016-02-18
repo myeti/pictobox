@@ -2,10 +2,10 @@
 
 namespace App\Logic;
 
-use Colorium\App\Context;
+use Colorium\Web\Context;
 use Colorium\Http\Response;
 
-class Errors
+class ErrorHandler
 {
 
     /**
@@ -13,7 +13,7 @@ class Errors
      *
      * @html errors/notfound
      */
-    public function notfound() {}
+    public function notFound() {}
 
 
     /**
@@ -22,7 +22,7 @@ class Errors
      * @param Context $ctx
      * @return Response\Redirect
      */
-    public function unauthorized(Context $ctx)
+    public function accessDenied(Context $ctx)
     {
         $from = $ctx->request->uri->path;
         if($from) {

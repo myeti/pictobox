@@ -24,10 +24,8 @@ chdir(__DIR__);
  * Specific context
  */
 
-use Colorium\App;
-
-$context = App\Front::context();
-$context->resource('App\Logic\Crons::newest');
+$context = $app->context();
+$context->forward('cron_lastalbums');
 
 
 

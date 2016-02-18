@@ -1,4 +1,4 @@
-<?php self::layout('interface', ['ariane' => $ariane, 'album' => $album, 'user' => $ctx->user()]); ?>
+<?php self::layout('interface', ['ariane' => $ariane, 'album' => $album, 'user' => $ctx->user]); ?>
 
 <?php if($authors = $album->authors()): ?>
     <ul class="grid pictures row">

@@ -6,7 +6,7 @@
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_NOTICE);
 
 require 'instance.php';
 
@@ -26,22 +26,16 @@ Auth::factory(function($id) {
 
 
 /**
- * Generate context
- */
-
-use Colorium\App;
-
-$context = App\Front::context();
-
-
-
-/**
  * Debug mode
  */
 
-$trusted = ['127.0.0.1', '::1', '10.0.2.2'];
-if(in_array($context->request->ip, $trusted)) {
-    require 'front/whoops.php';
+use Colorium\Http;
+
+$request = Http\Request::globals();
+
+$request->local[] = '10.0.2.2';
+if($request->local()) {
+//    require 'front/whoops.php';
 }
 
 
@@ -50,4 +44,4 @@ if(in_array($context->request->ip, $trusted)) {
  * Execute default context
  */
 
-$app->run($context)->end();
+$app->run()->end();

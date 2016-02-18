@@ -45,61 +45,111 @@ Orm\Hub::source($sqlite);
 
 
 /**
- * Template setup
- */
-
-use Colorium\Templating\Templater;
-
-$templater = new Templater(__DIR__ . '/templates/');
-
-
-
-/**
- * Router setup
- */
-
-use Colorium\Routing\Router;
-
-$router = new Router([
-    'GET  /admin/cache'             => 'App\Logic\Admin::cache',
-    'POST /admin/cache/clear'       => 'App\Logic\Admin::cacheclear',
-
-    'GET  /login'                   => 'App\Logic\Users::login',
-    'GET  /logout'                  => 'App\Logic\Users::logout',
-    'POST /user/auth'               => 'App\Logic\Users::auth',
-    'POST /user/edit'               => 'App\Logic\Users::edit',
-    'GET  /user/ping'               => 'App\Logic\Users::ping',
-    'POST /user/report'             => 'App\Logic\Users::report',
-    'POST /user/feedback'           => 'App\Logic\Users::feedback',
-
-    'POST /create'                  => 'App\Logic\Albums::create',
-    'GET  /'                        => 'App\Logic\Albums::listing',
-    'GET  /:y'                      => 'App\Logic\Albums::listingYear',
-    'GET  /:y/:m'                   => 'App\Logic\Albums::listingMonth',
-    'GET  /:y/:m/:d'                => 'App\Logic\Albums::listingDay',
-    'GET  /:y/:m/:d/:album'         => 'App\Logic\Albums::show',
-    'POST /:y/:m/:d/:album/upload'  => 'App\Logic\Albums::upload',
-    'GET  /:y/:m/:d/:album/download'=> 'App\Logic\Albums::download',
-]);
-
-
-
-/**
  * App instance
  */
 
-use Colorium\App;
+use Colorium\Web;
 
-$app = new App\Front($router, $templater);
+$app = new Web\App([
+    homepage => [
+        http => 'GET /',
+        method => 'App\Logic\AlbumList::all'
+    ],
+
+    login => [
+        http => 'GET /login',
+        method => 'App\Logic\UserManager::login'
+    ],
+    user_auth => [
+        http => 'POST /user/auth',
+        method => 'App\Logic\UserManager::auth'
+    ],
+    user_edit => [
+        http => 'POST /user/edit',
+        method => 'App\Logic\UserManager::edit'
+    ],
+    user_ping => [
+        http => 'GET /user/ping',
+        method => 'App\Logic\UserManager::ping'
+    ],
+    user_report => [
+        http => 'POST /user/report',
+        method => 'App\Logic\UserManager::report'
+    ],
+    user_feedback => [
+        http => 'POST /user/feedback',
+        method => 'App\Logic\UserManager::feedback'
+    ],
+
+    admin_cache => [
+        http => 'GET /admin/cache',
+        method => 'App\Logic\UserManager\AdminManager::cache'
+    ],
+    admin_cache_clear => [
+        http => 'POST /admin/cache/clear',
+        method => 'App\Logic\UserManager\AdminManager::cacheClear'
+    ],
+
+    album_create => [
+        http => 'GET /create',
+        method => 'App\Logic\AlbumEditor::create'
+    ],
+    album_show => [
+        http => 'GET /:y/:m/:d/:album',
+        method => 'App\Logic\AlbumEditor::show'
+    ],
+    album_upload => [
+        http => 'GET /:y/:m/:d/:album/upload',
+        method => 'App\Logic\AlbumEditor::upload'
+    ],
+    album_download => [
+        http => 'GET /:y/:m/:d/:album/download',
+        method => 'App\Logic\AlbumEditor::download'
+    ],
+
+    albumlist_year => [
+        http => 'GET /:y',
+        method => 'App\Logic\AlbumList::year'
+    ],
+    albumlist_month => [
+        http => 'GET /:y/:m',
+        method => 'App\Logic\AlbumList::month'
+    ],
+    albumlist_day => [
+        http => 'GET /:y/:m/:d',
+        method => 'App\Logic\AlbumList::day'
+    ],
+
+    cron_lastalbums => [
+        method => 'App\Logic\CronTask::lastAlbums'
+    ],
+]);
 
 
 
 /**
- * Http event
+ * Template folder
  */
 
-$app->events([
-    401 => 'App\Logic\Errors::unauthorized',
-    404 => 'App\Logic\Errors::notfound',
-    Exception::class => 'App\Logic\Errors::fatal'
-]);
+$app->templater->directory = __DIR__ . '/templates/';
+
+
+
+/**
+ * Http events
+ */
+
+$app->events = [
+    401 => 'App\Logic\ErrorHandler::accessDenied',
+    404 => 'App\Logic\ErrorHandler::notFound',
+];
+
+
+
+/**
+ * Error fallbacks
+ */
+
+$app->errors = [
+    Exception::class => 'App\Logic\ErrorHandler::fatal'
+];

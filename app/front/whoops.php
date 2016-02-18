@@ -6,7 +6,7 @@
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_NOTICE);
 
 
 
@@ -14,26 +14,9 @@ error_reporting(E_ALL);
  * Debug stacktrace using WHOOPS
  */
 
-$app->catch = false;
-
 $handler = new Whoops\Handler\PrettyPageHandler;
-$handler->addDataTableCallback('App Uri', function() use ($app) {
-    return (array)$app->context->request->uri;
-});
-$handler->addDataTableCallback('App Route', function() use ($app) {
-    return (array)$app->context->route;
-});
-$handler->addDataTableCallback('App Invokable', function() use ($app) {
-    $invokable = $app->context->invokable;
-    $params = (array)$invokable->params;
-    array_shift($params);
-    return (array)$invokable;
-});
-$handler->addDataTableCallback('App Access', function() use ($app) {
-    return (array)$app->context->access;
-});
-$handler->addDataTableCallback('App Response', function() use ($app) {
-    return (array)$app->context->response;
+$handler->addDataTableCallback('App Request', function() use ($request) {
+    return (array)$request;
 });
 
 $whoops = new Whoops\Run;

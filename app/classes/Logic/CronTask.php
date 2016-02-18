@@ -4,9 +4,9 @@ namespace App\Cli;
 use App\Model\Album;
 use App\Model\User;
 use App\Service\Mail;
-use Colorium\App\Context;
+use Colorium\Web\Context;
 
-class Crons
+class CronTask
 {
 
     /**
@@ -15,7 +15,7 @@ class Crons
      * @param Context $ctx
      * @return int
      */
-    public function newest(Context $ctx)
+    public function lastAlbums(Context $ctx)
     {
         $yesterday = strtotime('-1 day');
         $newest = [];

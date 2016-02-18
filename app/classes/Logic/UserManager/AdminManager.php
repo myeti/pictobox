@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Logic;
+namespace App\Logic\UserManager;
 
 use App\Model\Album;
-use App\Model\User;
-use App\Service\Mail;
-use Colorium\App\Context;
+use Colorium\Web\Context;
 use Colorium\Http\Response;
 
 
 /**
  * @access 9
  */
-class Admin
+class AdminManager
 {
 
     /**
@@ -46,7 +44,7 @@ class Admin
      * @param Context $ctx
      * @return array
      */
-    public function cacheclear(Context $ctx)
+    public function cacheClear(Context $ctx)
     {
         set_time_limit(300);
 

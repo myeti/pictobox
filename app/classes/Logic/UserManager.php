@@ -4,11 +4,11 @@ namespace App\Logic;
 
 use App\Model\User;
 use App\Service\Mail;
-use Colorium\App\Context;
+use Colorium\Web\Context;
 use Colorium\Http\Response;
 use Colorium\Stateful\Auth;
 
-class Users
+class UserManager
 {
 
 
@@ -23,7 +23,7 @@ class Users
     public function login(Context $ctx)
     {
         // already logged in
-        if($ctx->access->auth) {
+        if($ctx->user) {
             return Response::redirect('/');
         }
 
@@ -31,7 +31,7 @@ class Users
         $referer = $ctx->request->uri->param('from');
 
         return [
-            'redirect' => $referer ?: $ctx->uri('/')
+            'redirect' => $referer ?: $ctx->url('/')
         ];
     }
 
@@ -85,7 +85,7 @@ class Users
         list($email, $password, $id, $rank, $username) = $ctx->post('email', 'password', 'id', 'rank', 'username');
 
         // get user
-        $user = $ctx->user();
+        $user = $ctx->user;
         if($user->isAdmin()) {
             $user = $id ? User::one(['id' => $id]) : new User;
             if($username != $user->username) {
@@ -186,7 +186,7 @@ class Users
 
         // send mail
         $email = new Mail(APP_NAME . ' - Picture reporting');
-        $email->content = $ctx->user()->username . ' has reported the following picture : <br/>';
+        $email->content = $ctx->user->username . ' has reported the following picture : <br/>';
         $email->content .= strip_tags($picture);
         $email->send(ADMIN_EMAIL);
 
@@ -216,7 +216,7 @@ class Users
         }
 
         // send mail
-        $email = new Mail(APP_NAME . ' - Feedback ' . $ctx->user()->username);
+        $email = new Mail(APP_NAME . ' - Feedback ' . $ctx->user->username);
         if($album) {
             $email->content = '--- <br/>';
             $email->content .= strip_tags($album) . '<br/>';
@@ -224,7 +224,7 @@ class Users
         }
         $email->content .= strip_tags($message);
         $email->content .= '<br/><br/>';
-        $email->content .= $ctx->user()->username;
+        $email->content .= $ctx->user->username;
         $email->send(ADMIN_EMAIL);
 
         return [
