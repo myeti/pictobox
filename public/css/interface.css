@@ -1,5 +1,6 @@
 /**
  * Z-LEVEL
+ * page-loader: 8000 (must remain on top)
  * header: 500
  * header.before: 300
  * header.switch.upper: 1000
@@ -317,7 +318,19 @@ ul.grid li {
 ul.grid li .item {
     position: relative;
     overflow: hidden;
-    background: #333739;
+    background: rgba(255, 255, 255, 0.05);
+}
+ul.grid li:nth-child(even) .item {
+    background: rgba(255, 255, 255, 0.2);
+}
+ul.grid li:nth-child(3n+0) .item {
+    background: rgba(255, 255, 255, 0.1);
+}
+ul.grid li:nth-child(4n+0) .item {
+    background: rgba(255, 255, 255, 0.15);
+}
+ul.grid li:nth-child(5n+0) .item {
+    background: rgba(255, 255, 255, 0.25);
 }
 ul.grid li .item .image {
     position: absolute;
@@ -341,7 +354,7 @@ ul.grid li .item:hover .image {
 ul.grid li .item .title,
 ul.grid li .item .info {
     position: absolute;
-    bottom: 15px;
+    bottom: 20px;
     left: 20px;
     right: 20px;
     text-shadow: 0 0 6px rgba(0, 0, 0, 1);
@@ -444,6 +457,10 @@ ul.grid li .item .title {
     }
     #modals .modal#upload form.dropzone {
         min-height: calc(100vh - 330px);
+    }
+
+    ul.grid li .item .title {
+        bottom: 25px;
     }
     .grid.albums li .item {
         height: 220px;

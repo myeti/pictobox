@@ -39,7 +39,7 @@ class AlbumEditor
             'album' => $album,
             'ariane' => [
                 $day => $year . '/' . $month . '/' . $day,
-                Album::$months[(int)$month] => $year . '/' . $month,
+                text('date.month.' . (int)$month) => $year . '/' . $month,
                 $year => $year
             ]
         ];

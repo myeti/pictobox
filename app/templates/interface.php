@@ -23,6 +23,10 @@
 </head>
 <body>
 
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
     <?php if(isset($album)): ?>
         <?= self::render('_modals/photoswipe') ?>
     <?php endif; ?>
@@ -127,6 +131,7 @@
         <script src="<?= self::url('/js/libs/photoswipe.min.js') ?>"></script>
         <script src="<?= self::url('/js/libs/photoswipe-ui-default.min.js') ?>"></script>
     <?php endif; ?>
+    <script src="<?= self::url('/js/common.js') ?>"></script>
     <script src="<?= self::url('/js/pictobox-ui.js') ?>"></script>
     <script src="<?= self::url('/js/ajaxforms.js') ?>"></script>
     <script src="<?= self::url('/js/interface.js') ?>"></script>

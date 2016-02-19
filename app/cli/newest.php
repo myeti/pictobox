@@ -25,7 +25,7 @@ chdir(__DIR__);
  */
 
 $context = $app->context();
-$context->forward('cron_lastalbums');
+$context->logic = 'cron_lastalbums';
 
 
 

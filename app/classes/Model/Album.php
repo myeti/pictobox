@@ -43,22 +43,6 @@ class Album
     /** @var Author[] */
     protected $authors = [];
 
-    /** @var array */
-    public static $months = [
-        1 => 'Janvier',
-        2 => 'Février',
-        3 => 'Mars',
-        4 => 'Avril',
-        5 => 'Mai',
-        6 => 'Juin',
-        7 => 'Juillet',
-        8 => 'Août',
-        9 => 'Septembre',
-        10 => 'Octobre',
-        11 => 'Novembre',
-        12 => 'Décembre',
-    ];
-
 
     /**
      * Open album
@@ -93,7 +77,7 @@ class Album
         $this->month = $month;
         $this->day = $day;
         $this->flatname = Uri::sanitize($name);
-        $this->monthname = static::$months[(int)$month];
+        $this->monthname = text('date.month.' . (int)$month);
         $this->date = ltrim($this->day, 0) . ' ' . $this->monthname . ' ' . $this->year;
         $this->url = '/' . $this->year . '/' . $this->month . '/' . $this->day . '/' . $this->flatname;
 
@@ -319,7 +303,7 @@ class Album
         $month = str_pad($month, 2, '0', STR_PAD_LEFT);
         $day = str_pad($day, 2, '0', STR_PAD_LEFT);
 
-        return $year . $month . $day . ' - ' . $name;
+        return $year . $month . $day . ' - ' . ucfirst($name);
     }
 
 }

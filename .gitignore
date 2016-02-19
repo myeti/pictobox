@@ -1,7 +1,7 @@
 .idea
 vendor
-instance/albums/*
-instance/logs/*
-instance/database.sqlite
+files/albums/*
+files/logs/*
+files/database.sqlite
 public/img/cache/*
 composer.lock

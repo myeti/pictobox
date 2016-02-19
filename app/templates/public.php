@@ -18,6 +18,10 @@
 </head>
 <body class="<?= $class ?>">
 
+    <div id="page-loader">
+        <div class="spinner"></div>
+    </div>
+
     <header><?= APP_NAME ?></header>
 
     <main>
@@ -25,6 +29,7 @@
     </main>
 
     <script src="<?= self::url('/js/libs/jquery-2.2.0.min.js') ?>"></script>
+    <script src="<?= self::url('/js/common.js') ?>"></script>
     <script src="<?= self::url('/js/ajaxforms.js') ?>"></script>
     <script>
     $(function() {

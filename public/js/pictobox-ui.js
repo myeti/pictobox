@@ -12,14 +12,6 @@ function PictoboxUI()
     this.user = {
 
         /**
-         * Is mobile device
-         */
-        mobile: function()
-        {
-            return typeof window.orientation !== 'undefined';
-        },
-
-        /**
          * Weither user is still logged in
          */
         ping: function()
@@ -28,7 +20,7 @@ function PictoboxUI()
                 $.get(self.routes.ping).done(function(json)
                 {
                     if(json.state == false) {
-                        window.location.replace(self.routes.login);
+                        window.redirect(self.routes.login);
                     }
                 });
             }
@@ -43,7 +35,7 @@ function PictoboxUI()
         links: $('a[data-confirm]'),
         action: function(link)
         {
-            if(self.user.mobile()) {
+            if(window.isMobile) {
                 var message = link.attr('data-confirm');
                 return confirm(message);
             }

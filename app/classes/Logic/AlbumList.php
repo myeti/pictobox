@@ -41,9 +41,15 @@ class AlbumList
      */
     public function year($year)
     {
+        $year = (int)$year;
+
         $albums = Album::fetch($year);
         if(!$albums) {
-            throw new NotFoundException;
+            $message = null;
+            if(checkdate(1, 1, $year)) {
+                $message = text('logic.albumlist.year.empty', ['year' => $year]);
+            }
+            throw new NotFoundException($message);
         }
 
         return [
@@ -67,15 +73,25 @@ class AlbumList
      */
     public function month($year, $month)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+
         $albums = Album::fetch($year, $month);
         if(!$albums) {
-            throw new NotFoundException;
+            $message = null;
+            if(checkdate($month, 1, $year)) {
+                $message = text('logic.albumlist.month.empty', [
+                    'year' => $year,
+                    'month' => text('date.month.' . (int)$month)
+                ]);
+            }
+            throw new NotFoundException($message);
         }
 
         return [
             'albums' => $albums,
             'ariane' => [
-                Album::$months[(int)$month] => $year . '/' . $month,
+                text('date.month.' . $month) => $year . '/' . $month,
                 $year => $year
             ]
         ];
@@ -95,16 +111,28 @@ class AlbumList
      */
     public function day($year, $month, $day)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
         $albums = Album::fetch($year, $month, $day);
         if(!$albums) {
-            throw new NotFoundException;
+            $message = null;
+            if(checkdate($month, $day, $year)) {
+                $message = text('logic.albumlist.day.empty', [
+                    'year' => $year,
+                    'month' => text('date.month.' . (int)$month),
+                    'day' => $day
+                ]);
+            }
+            throw new NotFoundException($message);
         }
 
         return [
             'albums' => $albums,
             'ariane' => [
                 $day => $year . '/' . $month . '/' . $day,
-                Album::$months[(int)$month] => $year . '/' . $month,
+                text('date.month.' . $month) => $year . '/' . $month,
                 $year => $year
             ]
         ];

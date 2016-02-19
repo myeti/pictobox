@@ -57,29 +57,22 @@ function AjaxForms()
     this.done = function(json, form)
     {
         if(json.state == true) {
-            // hide loading icon
-            form.button.icon.fadeOut(function()
-            {
+            form.button.icon.fadeOut(function () {
                 // remove loading icon, show ok icon
-                form.button.icon.removeClass(self.css.loading).addClass(self.css.ok).fadeIn(function()
-                {
+                form.button.icon.removeClass(self.css.loading).addClass(self.css.ok).fadeIn(function () {
                     // redirect
                     if(json.redirect || form.redirect) {
-                        window.location.replace(json.redirect || form.redirect);
+                        window.redirect(json.redirect || form.redirect);
                     }
                     else {
-
                         // close modals if form is in
-                        if(window.PictoboxUI) {
+                        if (window.PictoboxUI) {
                             window.PictoboxUI.menu.toggle();
                             window.PictoboxUI.modals.close();
                         }
-
-                        // if not redirected, show former text
-                        setTimeout(function()
-                        {
-                            form.button.icon.fadeOut(function()
-                            {
+                        // show former text
+                        setTimeout(function () {
+                            form.button.icon.fadeOut(function () {
                                 form.button.html.empty().html(form.button.text);
                             });
                         }, 2000);
@@ -95,7 +88,7 @@ function AjaxForms()
 
 
     /**
-     * Not success
+     * Failure
      *
      * @param xhr
      * @param error

@@ -2,8 +2,11 @@
 
 ini_set('memory_limit', '512M');
 
-require dirname(__DIR__) . '/vendor/autoload.php';
-require dirname(__DIR__) . '/instance/config.php';
+define('__ROOT__', dirname(__DIR__));
+define('__APP__', __DIR__);
+
+require __ROOT__ . '/vendor/autoload.php';
+require __ROOT__ . '/files/config.php';
 
 
 
@@ -11,8 +14,6 @@ require dirname(__DIR__) . '/instance/config.php';
  * App constants
  */
 
-define('__ROOT__', dirname(__DIR__));
-define('__APP__', __DIR__);
 define('CACHE_URL', '/img/cache/');
 define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
 
@@ -23,9 +24,10 @@ define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
  */
 
 use Colorium\Text;
+use App\Service\Spyc;
 
 Text\Lang::load([
-    'fr' => require 'langs/french.php'
+    'fr' => Spyc::YAMLLoad(__DIR__ . '/langs/french.yml')
 ]);
 
 

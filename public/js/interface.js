@@ -26,7 +26,7 @@ $(function()
 
 
     /**
-     * BLazy image loading
+     * BeLazy image loading
      */
 
     window.beLazy = new Blazy();
@@ -51,7 +51,7 @@ $(function()
         {
             setTimeout(function()
             {
-                window.location.reload();
+                window.reload();
             }, 1000)
         });
 
@@ -96,6 +96,7 @@ $(function()
 
             window.Photoswipe.init();
 
+            window.isLeaving = false;
             e.preventDefault();
             return false;
         });
