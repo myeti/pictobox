@@ -62,6 +62,7 @@ class UserManager
 
         // log user in
         Auth::login($user->rank, $user->id);
+        $ctx->logger->info($user->username . ' logs in');
 
         return [
             'state' => true
@@ -136,6 +137,8 @@ class UserManager
                 'password' => $password
             ]);
             $email->send($user->email);
+
+            $ctx->logger->info($user->username . ' profile is updated', $_POST);
         }
 
         return [
@@ -162,11 +165,14 @@ class UserManager
     /**
      * Log out user
      *
+     * @param Context $ctx
      * @return Response\Redirect
      */
-    public function logout()
+    public function logout(Context $ctx)
     {
         Auth::logout();
+        $ctx->logger->info($ctx->user->username . ' logs out');
+
         return Response::redirect('/login');
     }
 

@@ -39,7 +39,7 @@
                 <a href="#" class="pswp-label" data-report="<?= self::url('/user/report') ?>"
                         data-report-confirm="<?= text('view.modal.photoswipe.report.confirm') ?>"
                         data-report-done="<?= text('view.modal.photoswipe.report.done') ?>">
-                    <?= text('view.modal.photoswipe.report') ?>
+                    <i class="fa fa-exclamation-triangle"></i>
                 </a>
 
                 <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->

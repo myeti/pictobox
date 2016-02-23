@@ -275,14 +275,22 @@ menu ul li .panel button[type=submit] {
 
 
 /**
- * Modale photoswipe
+ * Modal photoswipe
  */
-.pswp-label {
+
+.pswp .pswp-label {
     background: none !important;
     width: auto !important;
-    color: #fff;
-    padding: 12px;
+    color: #ddd;
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16px;
     float: right;
+}
+.pswp .pswp__caption__center {
+    text-align: center;
+    font-size: 11px;
+    color: #ddd;
 }
 
 
@@ -321,16 +329,16 @@ ul.grid li .item {
     overflow: hidden;
     background: rgba(255, 255, 255, 0.05);
 }
-ul.grid li:nth-child(even) .item {
-    background: rgba(255, 255, 255, 0.2);
-}
-ul.grid li:nth-child(3n+0) .item {
+ul.grid li:nth-child(5n+1) .item {
     background: rgba(255, 255, 255, 0.1);
 }
-ul.grid li:nth-child(4n+0) .item {
+ul.grid li:nth-child(5n+2) .item {
     background: rgba(255, 255, 255, 0.15);
 }
-ul.grid li:nth-child(5n+0) .item {
+ul.grid li:nth-child(5n+3) .item {
+    background: rgba(255, 255, 255, 0.2);
+}
+ul.grid li:nth-child(5n+4) .item {
     background: rgba(255, 255, 255, 0.25);
 }
 ul.grid li .item .image {

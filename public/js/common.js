@@ -14,7 +14,10 @@ $(function() {
     window.isLeaving = false;
     $('a').on('click', function()
     {
-        window.isLeaving = true;
+        var href = $(this).attr('href');
+        if(href && href != '#') {
+            window.isLeaving = true;
+        }
     });
 
 
@@ -59,7 +62,7 @@ $(function() {
     };
 
     if(window.isMobile) {
-        $(window).on('beforeunload', function ()
+        $(window).on('beforeunload', function()
         {
             if(window.isLeaving) {
                 window.loader.show();

@@ -42,6 +42,8 @@ class AlbumEditor
 
             // attempt creation
             $album = Album::create($year, $month, $day, $name);
+            $ctx->logger->info($ctx->user->username . ' creates "' . $album->fullname . '"', $_POST);
+
             return [
                 'state' => true,
                 'redirect' => (string)$ctx->url($album->url)
@@ -118,7 +120,9 @@ class AlbumEditor
             $month = (int)$month;
             $day = (int)$day;
             if($name != $album->name or $year != $album->year or $month != $album->month or $day != $album->day) {
+                $oldalbum = $album->fullname;
                 $album->edit($year, $month, $day, $name);
+                $ctx->logger->info($ctx->user->username . ' edits album "' . $oldalbum . '" to "' . $album->fullname . '"', $_POST);
             }
 
             return [
@@ -188,6 +192,7 @@ class AlbumEditor
             $author = $album->author($ctx->user->username);
             if(!$author) {
                 $author = Author::create($album, $ctx->user->username);
+                $ctx->logger->info($ctx->user->username . ' adds author "' . $author->name . '" in "' . $album->fullname . '"', $_POST);
             }
 
             // get uploaded file
@@ -197,7 +202,8 @@ class AlbumEditor
             }
 
             // add uploaded picture
-            Picture::create($author, $upload);
+            $picture = Picture::create($author, $upload);
+            $ctx->logger->info($ctx->user->username . ' adds picture "' . $picture->filename . '" to "' . $album->fullname . '"');
 
             return ['state' => true];
         }
@@ -257,6 +263,7 @@ class AlbumEditor
         try {
             // create zip file
             $zipname = $album->zip();
+            $ctx->logger->info($ctx->user->username . ' downloads "' . $album->fullname . '"');
             return Response::download($zipname)->header('Content-Type', 'application/zip');
         }
         catch(\Exception $e) {

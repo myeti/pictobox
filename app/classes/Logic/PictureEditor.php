@@ -47,6 +47,7 @@ class PictureEditor
             ];
         }
 
+        $ctx->logger->info($ctx->user->username . ' rotates picture "' . $picture->filename . '" to left in "' . $album->fullname . '"', $_POST);
         return [
             'state' => true
         ];
@@ -86,6 +87,7 @@ class PictureEditor
             ];
         }
 
+        $ctx->logger->info($ctx->user->username . ' rotates picture "' . $picture->filename . '" to right in "' . $album->fullname . '"', $_POST);
         return [
             'state' => true
         ];

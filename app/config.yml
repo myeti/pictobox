@@ -2,12 +2,14 @@ logics:
   homepage:
       http:   GET /
       method: App\Logic\AlbumList::all
+
   login:
       http:   GET /login
       method: App\Logic\UserManager::login
   logout:
       http:   GET /logout
       method: App\Logic\UserManager::logout
+
   user_auth:
       http:   POST /user/auth
       method: App\Logic\UserManager::auth
@@ -23,6 +25,7 @@ logics:
   user_feedback:
       http:   POST /user/feedback
       method: App\Logic\UserManager::feedback
+
   admin_cache:
       http:   GET /admin/cache
       method: App\Logic\UserManager\AdminManager::cache
@@ -32,6 +35,7 @@ logics:
   admin_error:
       http:   GET /admin/error
       method: App\Logic\UserManager\AdminManager::triggerError
+
   album_create:
       http:   POST /create
       method: App\Logic\AlbumEditor::create
@@ -47,12 +51,14 @@ logics:
   album_download:
       http:   GET /:y/:m/:d/:album/download
       method: App\Logic\AlbumEditor::download
+
   picture_rotateleft:
       http:   POST /:y/:m/:d/:album/rotateleft
       method: App\Logic\PictureEditor::rotateLeft
   picture_rotateright:
       http:   POST /:y/:m/:d/:album/rotateright
       method: App\Logic\PictureEditor::rotateRight
+
   albumlist_year:
       http:   GET /:y
       method: App\Logic\AlbumList::year
@@ -62,12 +68,20 @@ logics:
   albumlist_day:
       http:   GET /:y/:m/:d
       method: App\Logic\AlbumList::day
+
   cron_lastalbums:
       method: App\Logic\CronTask::lastAlbums
 
+  error_accessdenied:
+      method: App\Logic\ErrorHandler::accessDenied
+  error_notfound:
+      method: App\Logic\ErrorHandler::notFound
+  error_fatal:
+      method: App\Logic\ErrorHandler::fatal
+
 events:
-  401: App\Logic\ErrorHandler::accessDenied
-  404: App\Logic\ErrorHandler::notFound
+  401: error_accessdenied
+  404: error_notfound
 
 errors:
-  Exception: App\Logic\ErrorHandler::fatal
+  Exception: error_fatal

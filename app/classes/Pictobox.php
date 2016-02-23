@@ -36,25 +36,21 @@ class Pictobox extends Web\App
 
 
     /**
-     * Guard handler
+     * After handler
      *
      * @param Context $context
      */
-    protected function guard(Context $context)
+    protected function after(Context $context)
     {
-        $context = parent::guard($context);
-
         // log user navigation
         if($context->logic->name != 'user_ping') {
-            $http = null;
-            $user = $context->user ? $context->user->username : 'guest';
+            $user = $context->user ? $context->user->username : 'Guest';
+            $message = $user . ' hits #' . $context->logic->name;
             if($context->request->uri->path) {
-                $http = ' -> ' . $context->request->method . ' ' . $context->request->uri->path;
+                $message .= ' on ' . $context->request->method . ' ' . $context->request->uri->path;
             }
-            $this->logger->info($user . ' is browsing "' . $context->logic->name . '"' . $http);
+            $this->logger->info($message, $_POST);
         }
-
-        return $context;
     }
 
 }
