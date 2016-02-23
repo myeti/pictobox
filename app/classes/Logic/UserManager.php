@@ -156,6 +156,9 @@ class UserManager
      */
     public function ping()
     {
+        // keep session
+        session_regenerate_id();
+
         return [
             'state' => (bool)Auth::valid()
         ];
