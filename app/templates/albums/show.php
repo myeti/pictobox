@@ -19,6 +19,7 @@
 <?php self::rewrite('menu') ?>
     <?php if($ctx->user->isUploader()): ?>
         <?= self::render('_menu/upload-picture', ['album' => $album]) ?>
+        <?= self::render('_menu/edit-album', ['album' => $album]) ?>
     <?php endif; ?>
     <?= self::render('_menu/download-album', ['album' => $album]) ?>
 <?php self::end() ?>

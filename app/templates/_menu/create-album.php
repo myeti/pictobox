@@ -1,8 +1,8 @@
 <li>
-    <a data-panel="#create" href="#">
+    <a data-panel="#create-album" href="#">
         <span class="fa fa-plus"></span> <?= text('view.menu.create-album') ?>
     </a>
-    <div class="panel" id="create">
+    <div class="panel" id="create-album">
         <form action="<?= self::url('/create') ?>" method="post" data-ajax>
 
             <h4><?= text('view.panel.create-album.title') ?></h4>

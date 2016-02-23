@@ -101,12 +101,32 @@ class AlbumEditor
             // get form data
             list($name, $date) = $ctx->post('name', 'date');
             list($day, $month, $year) = explode('/', $date);
+            $newauthors = $ctx->post('authors');
+
+            // update author list
+            if($newauthors and $ctx->user->isAdmin()) {
+                $authors = $album->authors();
+                foreach($newauthors as $oldname => $newname) {
+                    if($oldname != $newname and isset($authors[$oldname])) {
+                        $authors[$oldname]->edit($newname);
+                    }
+                }
+            }
 
             // attempt update
-            $album->edit($year, $month, $day, $name);
+            if($name != $album->name) {
+                $album->edit($year, $month, $day, $name);
+            }
+
             return [
                 'state' => true,
                 'redirect' => (string)$ctx->url($album->url)
+            ];
+        }
+        catch(AuthorAlreadyExists $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.author.already-exists')
             ];
         }
         catch(AlbumAlreadyExists $e) {

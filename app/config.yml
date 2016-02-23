@@ -38,6 +38,9 @@ logics:
   album_show:
       http:   GET /:y/:m/:d/:album
       method: App\Logic\AlbumList::show
+  album_edit:
+      http:   POST /:y/:m/:d/:album/edit
+      method: App\Logic\AlbumEditor::edit
   album_upload:
       http:   POST /:y/:m/:d/:album/upload
       method: App\Logic\AlbumEditor::upload

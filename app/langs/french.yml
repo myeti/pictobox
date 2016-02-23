@@ -28,6 +28,7 @@ view.menu.upload: Ajouter des photos
 view.menu.download: Télécharger l'album
 view.menu.download.confirm: Attention, le téléchargement d'un album photo entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile ! Continuer ?
 view.menu.create-album: Créer un nouvel album
+view.menu.edit-album: Modifier l'album
 view.menu.feedback: Écrire une suggestion
 view.menu.logout: Se déconnecter
 
@@ -36,6 +37,13 @@ view.panel.create-album.title: Nouvel album
 view.panel.create-album.name: Titre
 view.panel.create-album.date: jj/mm/aaaa
 view.panel.create-album.submit: Créer
+
+# edit album panel
+view.panel.edit-album.title: Modifier l'album
+view.panel.edit-album.name: Titre
+view.panel.edit-album.date: jj/mm/aaaa
+view.panel.edit-album.authors: Contributeurs
+view.panel.edit-album.submit: Modifier
 
 # feedback panel
 view.panel.feedback.title: Suggestion
