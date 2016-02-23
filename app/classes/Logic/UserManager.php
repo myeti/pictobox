@@ -223,6 +223,7 @@ class UserManager
 
         // send mail
         $email = new Mail(APP_NAME . ' - Feedback ' . $ctx->user->username);
+        $email->from($ctx->user);
         if($album) {
             $email->content = '--- <br/>';
             $email->content .= strip_tags($album) . '<br/>';

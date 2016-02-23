@@ -23,9 +23,9 @@ class Pictobox extends Web\App
         $this->templater->directory = __APP__ . '/templates/';
 
         // set logger instance
-        $this->logger = (new Logger('pictobox'))
-            ->pushHandler(new FingersCrossedHandler(new StreamHandler(LOGS_DIR . 'errors.log'), Logger::ERROR))
-            ->pushHandler(new FilterHandler(new StreamHandler(LOGS_DIR . 'info.log', Logger::INFO), [Logger::INFO]));
+        $this->logger = new Logger('pictobox');
+        $this->logger->pushHandler(new FingersCrossedHandler(new StreamHandler(LOGS_DIR . 'errors.log'), Logger::ERROR));
+        $this->logger->pushHandler(new FilterHandler(new StreamHandler(LOGS_DIR . 'info.log', Logger::INFO), [Logger::INFO]));
 
         // load config file
         $config = Spyc::YAMLLoad(__APP__ . '/config.yml');
@@ -40,7 +40,7 @@ class Pictobox extends Web\App
      *
      * @param Context $context
      */
-    protected function after(Context $context)
+    protected function after(Context $context = null)
     {
         // log user navigation
         if($context->logic->name != 'user_ping') {

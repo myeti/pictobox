@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Model\User;
+
 class Mail
 {
 
@@ -25,6 +27,17 @@ class Mail
         $this->from = APP_NAME . ' <' . APP_EMAIL . '>';
         $this->subject = $subject;
         $this->content = $content;
+    }
+
+
+    /**
+     * Set from user
+     *
+     * @param User $user
+     */
+    public function from(User $user)
+    {
+        $this->from = $user->username . ' <' . $user->email . '>';
     }
 
 
