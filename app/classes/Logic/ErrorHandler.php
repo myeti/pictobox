@@ -16,10 +16,12 @@ class ErrorHandler
      * @html errors/notfound
      *
      * @param NotFoundException $event
+     * @param Context $ctx
      * @return array
      */
-    public function notFound(NotFoundException $event)
+    public function notFound(NotFoundException $event, Context $ctx)
     {
+        $ctx->response->code = 404;
         return ['message' => $event->getMessage()];
     }
 

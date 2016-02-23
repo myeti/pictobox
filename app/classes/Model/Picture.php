@@ -2,11 +2,22 @@
 
 namespace App\Model;
 
+use App\Error\InvalidAlbumName;
+use App\Error\InvalidImageFile;
+use App\Error\InvalidPictureFile;
+use App\Error\PictureAlreadyExists;
+use Colorium\Http\Request;
 use Intervention\Image\Constraint;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class Picture
 {
+
+    /** @var Author */
+    public $author;
+
+    /** @var string */
+    public $filename;
 
     /** @var string */
     public $path;
@@ -18,22 +29,16 @@ class Picture
     public $cachepath_small;
 
     /** @var string */
-    public $name;
-
-    /** @var Author */
-    public $author;
+    public $url;
 
     /** @var string */
-    public $cacheurl;
-
-    /** @var string */
-    public $cacheurl_small;
+    public $url_small;
 
     /** @var int */
-    public $width;
+    protected $width;
 
     /** @var int */
-    public $height;
+    protected $height;
 
     /** @var int */
     protected $ctime;
@@ -43,73 +48,70 @@ class Picture
      * Open picture
      *
      * @param Author $author
-     * @param string $path
+     * @param string $filename
      */
-    public function __construct(Author $author, $path)
+    public function __construct(Author $author, $filename)
     {
         $this->author = $author;
-
-        $this->path = $path;
-        $this->name = basename($path);
-        $this->cachepath = $author->cachepath . DIRECTORY_SEPARATOR . $this->name;
-        $this->cachepath_small = $author->cachepath . DIRECTORY_SEPARATOR . 'small_' . $this->name;
-
-        $this->cacheurl = CACHE_URL . $author->album->basename . '/' . $author->name . '/' . $this->name;
-        $this->cacheurl_small = CACHE_URL . $author->album->basename . '/' . $author->name . '/small_' . $this->name;
-
-        list($width, $height) = file_exists($this->cachepath)
-            ? getimagesize($this->cachepath)
-            : getimagesize($this->path);
-
-        $this->width = $width;
-        $this->height = $height;
+        $this->open($filename);
     }
 
 
     /**
-     * Create cache
+     * Open picture data
      *
-     * @return bool
+     * @param string $filename
      */
-    public function cache()
+    public function open($filename)
     {
-        // already cached
-        if(file_exists($this->cachepath) and file_exists($this->cachepath_small)) {
-            return null;
+        $this->filename = $filename;
+
+        $this->path = $this->author->path . DIRECTORY_SEPARATOR . $this->filename;
+        $this->cachepath = $this->author->cachepath . DIRECTORY_SEPARATOR . $this->filename;
+        $this->cachepath_small = $this->author->cachepath . DIRECTORY_SEPARATOR . 'small_' . $this->filename;
+
+        $this->url = CACHE_URL . $this->author->album->fullname . '/' . $this->author->name . '/' . $this->filename;
+        $this->url_small = CACHE_URL . $this->author->album->fullname . '/' . $this->author->name . '/small_' . $this->filename;
+    }
+
+
+    /**
+     * Get width
+     *
+     * @return int
+     */
+    public function width()
+    {
+        if(!$this->width) {
+            list($width, $height) = getimagesize($this->path);
+            $this->width = $width;
+            $this->height = $height;
         }
 
-        // error
-        if(!$cache = Image::make($this->path)) {
-            return false;
+        return $this->width;
+    }
+
+
+    /**
+     * Get height
+     *
+     * @return int
+     */
+    public function height()
+    {
+        if(!$this->height) {
+            list($width, $height) = getimagesize($this->path);
+            $this->width = $width;
+            $this->height = $height;
         }
 
-        // create folders
-        $dirname = dirname($this->cachepath);
-        if(!is_dir($dirname)) {
-            mkdir($dirname, 0777, true);
-        }
-
-        // create cache picture
-        $width = ($this->width >= $this->height) ? 1280 : null;
-        $height = ($this->width >= $this->height) ? null : 1080;
-        $cache->resize($width, $height, function(Constraint $constraint) {
-            $constraint->aspectRatio();
-        });
-        $cache->save($this->cachepath, 75);
-
-        // create small cache picture
-        $cache = Image::make($this->path);
-        $cache->resize(500, null, function(Constraint $constraint) {
-            $constraint->aspectRatio();
-        });
-        $cache->save($this->cachepath_small, 75);
-
-        return true;
+        return $this->height;
     }
 
 
     /**
      * Get last modified date
+     *
      * @return int
      */
     public function ctime()
@@ -119,6 +121,155 @@ class Picture
         }
 
         return $this->ctime;
+    }
+
+
+    /**
+     * Create cache
+     *
+     * @return bool
+     *
+     * @throws InvalidPictureFile
+     */
+    public function cache()
+    {
+        // already cached
+        if(file_exists($this->cachepath) and file_exists($this->cachepath_small)) {
+            return true;
+        }
+
+        // error
+        if(!$cache = Image::make($this->path)) {
+            throw new InvalidPictureFile;
+        }
+
+        // create folders
+        $dirname = dirname($this->cachepath);
+        if(!is_dir($dirname)) {
+            mkdir($dirname, 0777, true);
+        }
+
+        // create cache picture
+        $width = ($this->width() >= $this->height()) ? 1280 : null;
+        $height = ($this->width() >= $this->height()) ? null : 1080;
+        $cache->resize($width, $height, function(Constraint $constraint) {
+            $constraint->aspectRatio();
+        });
+        $cache->save($this->cachepath, 75);
+
+        // create small cache picture
+        $cache = Image::make($this->cachepath);
+        $cache->resize(500, null, function(Constraint $constraint) {
+            $constraint->aspectRatio();
+        });
+        $cache->save($this->cachepath_small, 100);
+
+        return true;
+    }
+
+
+    /**
+     * Rotate image to the right
+     *
+     * @return bool
+     */
+    public function rotateRight()
+    {
+        $img = Image::make($this->path);
+        $img->rotate(-90);
+        $done = $img->save();
+
+        $cache = Image::make($this->cachepath);
+        $cache->rotate(-90);
+        $done &= $cache->save();
+
+        $cache_small = Image::make($this->cachepath_small);
+        $cache_small->rotate(-90);
+        $done &= $cache_small->save();
+
+        return $done;
+    }
+
+
+    /**
+     * Rotate image to the left
+     *
+     * @return bool
+     */
+    public function rotateLeft()
+    {
+        $img = Image::make($this->path);
+        $img->rotate(90);
+        $done = $img->save();
+
+        $cache = Image::make($this->cachepath);
+        $cache->rotate(90);
+        $done &= $cache->save();
+
+        $cache_small = Image::make($this->cachepath_small);
+        $cache_small->rotate(90);
+        $done &= $cache_small->save();
+
+        return $done;
+    }
+
+
+    /**
+     * Create picture from source
+     *
+     * @param Author $author
+     * @param Request\File $source
+     * @return static
+     *
+     * @throws PictureAlreadyExists
+     * @throws \Exception
+     */
+    public static function create(Author &$author, Request\File $source)
+    {
+        // invalid picture
+        if(!static::valid($source->tmp)) {
+            throw new InvalidPictureFile;
+        }
+
+        // picture already exists
+        if(file_exists($author->path . DIRECTORY_SEPARATOR . $source->name)) {
+            throw new PictureAlreadyExists;
+        }
+
+        // attempt saving
+        if(!$source->save($author->path)){
+            throw new \Exception;
+        }
+
+        // get instance
+        $picture = new static($author, $source->name);
+
+        // generate cache
+        $picture->cache();
+
+        // update author
+        $author->pics[] = $picture;
+        return $picture;
+
+    }
+
+
+    /**
+     * Fetch author's pictures
+     *
+     * @param Author $author
+     * @return static[]
+     */
+    public static function fetch(Author $author)
+    {
+        $pics = [];
+        foreach(glob($author->path . DIRECTORY_SEPARATOR . '*.{jpg,JPG,jpeg,JPEG}', GLOB_BRACE) as $file) {
+            $basename = basename($file);
+            $pic = new Picture($author, $basename);
+            $pics[$pic->filename] = $pic;
+        }
+
+        return $pics;
     }
 
 

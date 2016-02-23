@@ -37,13 +37,19 @@ logics:
       method: App\Logic\AlbumEditor::create
   album_show:
       http:   GET /:y/:m/:d/:album
-      method: App\Logic\AlbumEditor::show
+      method: App\Logic\AlbumList::show
   album_upload:
       http:   POST /:y/:m/:d/:album/upload
       method: App\Logic\AlbumEditor::upload
   album_download:
       http:   GET /:y/:m/:d/:album/download
       method: App\Logic\AlbumEditor::download
+  picture_rotateleft:
+      http:   POST /:y/:m/:d/:album/rotateleft
+      method: App\Logic\PictureEditor::rotateLeft
+  picture_rotateright:
+      http:   POST /:y/:m/:d/:album/rotateright
+      method: App\Logic\PictureEditor::rotateRight
   albumlist_year:
       http:   GET /:y
       method: App\Logic\AlbumList::year

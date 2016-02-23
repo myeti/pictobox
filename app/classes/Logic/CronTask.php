@@ -1,5 +1,5 @@
 <?php
-namespace App\Cli;
+namespace App\Logic;
 
 use App\Model\Album;
 use App\Model\User;

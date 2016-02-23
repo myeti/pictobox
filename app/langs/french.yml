@@ -13,72 +13,78 @@ date.month.11: Novembre
 date.month.12: Décembre
 
 # login form
-login.username: Identifiant
-login.password: Mot de passe
-login.submit: Login
+view.login.username: Identifiant
+view.login.password: Mot de passe
+view.login.submit: Login
 
-# menu links
-menu.profile: Modifier mon profil
-menu.upload: Ajouter des photos
-menu.download: Télécharger l'album
-menu.download.confirm: Attention, le téléchargement d'un album photo entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile ! Continuer ?
-menu.create: Créer un nouvel album
-menu.feedback: Écrire une suggestion
-menu.logout: Se déconnecter
+# photoswipe modal
+view.modal.photoswipe.report: Signaler
+view.modal.photoswipe.report.confirm: Confirmez-vous le signalement de cette photo ?
+view.modal.photoswipe.report.done: Signalement envoyé
 
-# create album modal
-modal.create.title: Nouvel album
-modal.create.name: Titre
-modal.create.date: jj/mm/aaaa
-modal.create.submit: Créer
+# menu
+view.menu.profile: Modifier mon profil
+view.menu.upload: Ajouter des photos
+view.menu.download: Télécharger l'album
+view.menu.download.confirm: Attention, le téléchargement d'un album photo entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile ! Continuer ?
+view.menu.create-album: Créer un nouvel album
+view.menu.feedback: Écrire une suggestion
+view.menu.logout: Se déconnecter
 
-# send feedback modal
-modal.feedback.title: Suggestion
-modal.feedback.message: Votre message, rapport d'erreur...
-modal.feedback.submit: Envoyer
+# create album panel
+view.panel.create-album.title: Nouvel album
+view.panel.create-album.name: Titre
+view.panel.create-album.date: jj/mm/aaaa
+view.panel.create-album.submit: Créer
 
-# report image modal
-modal.photoswipe.report: Signaler
-modal.photoswipe.report.confirm: Confirmez-vous le signalement de cette photo ?
-modal.photoswipe.report.done: Signalement envoyé
+# feedback panel
+view.panel.feedback.title: Suggestion
+view.panel.feedback.message: Votre message, rapport d'erreur...
+view.panel.feedback.submit: Envoyer
 
-# upload images modal
-modal.upload.title: Ajout de photos
-modal.upload.accept: .jpg / .jpeg uniquement
-js.ajax.error: La requête a échouée, veuillez notifier l'administrateur et ré-essayer plus tard.
-js.upload.leave: Si vous changez de page, l'envoi des photos en cours sera annulé.
+# upload panel
+view.panel.upload.title: Ajout de photos
+view.panel.upload.accept: .jpg / .jpeg uniquement
+view.js.ajax.error: La requête a échouée, veuillez notifier l'administrateur et ré-essayer plus tard.
+view.js.upload.leave: Si vous changez de page, l'envoi des photos en cours sera annulé.
 
-# edit profile modal
-modal.profile.new: Nouvel utilisateur
-modal.profile.username: Identifiant
-modal.profile.rank: Niveau d'accès
-modal.profile.email: Adresse email
-modal.profile.password: Mot de passe
-modal.profile.password.tooltip: 5 caractères minimum
-modal.profile.submit: Sauvegarder
+# profile panel
+view.panel.profile.new: Nouvel utilisateur
+view.panel.profile.username: Identifiant
+view.panel.profile.rank: Niveau d'accès
+view.panel.profile.email: Adresse email
+view.panel.profile.password: Mot de passe
+view.panel.profile.password.tooltip: 5 caractères minimum
+view.panel.profile.submit: Sauvegarder
 
 # albums grid
-album.none: Aucun album pour le moment !
+view.albums.none: Aucun album pour le moment !
 
 # pics grid
-pics.none: Aucune photo pour le moment !
-pics.author: Photos prises <br/> par {author}
-pic.author: photo prise par {author}
+view.pics.none: Aucune photo pour le moment !
+view.pics.author: Photos prises <br/> par {author}
+view.pic.author: photo prise par {author}
 
-# album editor logic
-logic.album.error.exists: L'album existe déja
-logic.album.error.create: Impossible de créer l'album
-logic.album.error.update: Impossible de modifier l'album
+# album logic
+logic.album.already-exists: L'album existe déja
+logic.album.invalid-date: Date de l'album invalide
+logic.album.invalid-name: Nom de l'album invalide
+logic.album.cannot-create: Impossible de créer l'album
+logic.album.cannot-edit: Impossible de modifier l'album
 
-# pic upload logic
-logic.album.upload.empty: Echec de l'envoi
-logic.album.upload.denied: Mauvais format
-logic.album.upload.failed: Echec de l'envoi
+# author logic
+logic.author.already-exists: L'auteur existe déjà
+
+# picture logic
+logic.picture.already-exists: L'image existe déjà
+logic.picture.upload.empty: Echec de l'envoi
+logic.picture.upload.denied: Mauvais format d'image (jpg seulement)
+logic.picture.upload.failed: Echec de l'envoi
 
 # album list logic
-logic.albumlist.year.empty: Aucun album pour l'année {year}
-logic.albumlist.month.empty: Aucun album pour le mois de {month} {year}
-logic.albumlist.day.empty: Aucun album pour le {day} {month} {year}
+logic.albumlist.year.empty: Aucun album cette année
+logic.albumlist.month.empty: Aucun album pour ce mois
+logic.albumlist.day.empty: Aucun album pour ce jour là
 
 # user edit logic
 logic.user.username.invalid: Identifiants incorrects
@@ -90,11 +96,11 @@ logic.feedback.empty: Message vide
 
 # new albums email
 email.newest.title: Nouveaux albums !
-email.newest.body: Bonjour {username}, de nouveaux albums ont été ajoutés :
+email.newest.body: "Bonjour {username}, de nouveaux albums ont été ajoutés :"
 
 # profile edited email
 email.profile.title: Mise à jour de votre profil
-email.profile.body: Bonjour {username}, votre compte a été mis à jours :
+email.profile.body: "Bonjour {username}, votre compte a été mis à jours :"
 email.profile.username: Identifiant
 email.profile.password: Mot de passe
 email.profile.email: Adresse email

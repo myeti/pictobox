@@ -2,12 +2,19 @@
 
 namespace App\Logic;
 
+use App\Error\AlbumAlreadyExists;
+use App\Error\AuthorAlreadyExists;
+use App\Error\InvalidAlbumDate;
+use App\Error\InvalidAlbumName;
+use App\Error\InvalidPictureFile;
+use App\Error\InvalidPictureUpload;
+use App\Error\PictureAlreadyExists;
 use App\Model\Album;
+use App\Model\Author;
 use App\Model\Picture;
 use Colorium\Web\Context;
 use Colorium\Http\Error\HttpException;
 use Colorium\Http\Error\NotFoundException;
-use Colorium\Http\Uri;
 use Colorium\Http\Response;
 
 /**
@@ -15,36 +22,6 @@ use Colorium\Http\Response;
  */
 class AlbumEditor
 {
-
-    /**
-     * Render a specific album
-     *
-     * @html albums/show
-     *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param string $flatname
-     * @return array
-     * @throws NotFoundException
-     */
-    public function show($year, $month, $day, $flatname)
-    {
-        $album = Album::one($year, $month, $day, $flatname);
-        if(!$album) {
-            throw new NotFoundException;
-        }
-
-        return [
-            'album' => $album,
-            'ariane' => [
-                $day => $year . '/' . $month . '/' . $day,
-                text('date.month.' . (int)$month) => $year . '/' . $month,
-                $year => $year
-            ]
-        ];
-    }
-
 
     /**
      * Create new album
@@ -57,33 +34,43 @@ class AlbumEditor
      */
     public function create(Context $ctx)
     {
-        list($name, $date) = $ctx->post('name', 'date');
+        try {
 
-        // check date
-        list($day, $month, $year) = explode('/', $date);
+            // get form data
+            list($name, $date) = $ctx->post('name', 'date');
+            list($day, $month, $year) = explode('/', $date);
 
-        // check if folder already exists
-        $flatname = Uri::sanitize($name);
-        if(Album::one($year, $month, $day, $flatname)) {
+            // attempt creation
+            $album = Album::create($year, $month, $day, $name);
             return [
-                'state' => false,
-                'message' => text('logic.album.error.exists')
+                'state' => true,
+                'redirect' => (string)$ctx->url($album->url)
             ];
         }
-
-        // create album folder
-        $album = Album::create($year, $month, $day, $name);
-        if(!$album) {
+        catch(AlbumAlreadyExists $e) {
             return [
                 'state' => false,
-                'message' => text('logic.album.error.create')
+                'message' => text('logic.album.already-exists')
             ];
         }
-
-        return [
-            'state' => true,
-            'redirect' => (string)$ctx->url($album->url)
-        ];
+        catch(InvalidAlbumDate $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.album.invalid-date')
+            ];
+        }
+        catch(InvalidAlbumName $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.album.invalid-name')
+            ];
+        }
+        catch(\Exception $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.album.cannot-create')
+            ];
+        }
     }
 
 
@@ -109,33 +96,43 @@ class AlbumEditor
             throw new NotFoundException;
         }
 
-        // get form data
-        list($name, $date) = $ctx->post('name', 'date');
+        try {
 
-        // check date
-        list($newday, $newmonth, $newyear) = explode('/', $date);
+            // get form data
+            list($name, $date) = $ctx->post('name', 'date');
+            list($day, $month, $year) = explode('/', $date);
 
-        // check if folder already exists
-        $flatname = Uri::sanitize($name);
-        if(Album::one($newday, $newmonth, $newyear, $flatname)) {
+            // attempt update
+            $album->edit($year, $month, $day, $name);
             return [
-                'state' => false,
-                'message' => text('logic.album.error.exists')
+                'state' => true,
+                'redirect' => (string)$ctx->url($album->url)
             ];
         }
-
-        // rename
-        if(!$album->rename($newday, $newmonth, $newyear, $name)) {
+        catch(AlbumAlreadyExists $e) {
             return [
                 'state' => false,
-                'message' => text('logic.album.error.update')
+                'message' => text('logic.album.already-exists')
             ];
         }
-
-        return [
-            'state' => true,
-            'redirect' => (string)$ctx->url($album->url)
-        ];
+        catch(InvalidAlbumDate $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.album.invalid-date')
+            ];
+        }
+        catch(InvalidAlbumName $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.album.invalid-name')
+            ];
+        }
+        catch(\Exception $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.album.cannot-edit')
+            ];
+        }
     }
 
 
@@ -151,6 +148,7 @@ class AlbumEditor
      * @param string $flatname
      * @param Context $ctx
      * @return Response\Json
+     *
      * @throws NotFoundException
      */
     public function upload($year, $month, $day, $flatname, Context $ctx)
@@ -161,35 +159,55 @@ class AlbumEditor
             throw new NotFoundException;
         }
 
-        // get uploaded file
-        $file = $ctx->request->file('file');
-        if(!$file) {
+        try {
+
+            // get author (or create it)
+            $author = $album->author($ctx->user->username);
+            if(!$author) {
+                $author = Author::create($album, $ctx->user->username);
+            }
+
+            // get uploaded file
+            $upload = $ctx->request->file('file');
+            if(!$upload) {
+                throw new InvalidPictureUpload;
+            }
+
+            // add uploaded picture
+            Picture::create($author, $upload);
+
+            return ['state' => true];
+        }
+        catch(AuthorAlreadyExists $e) {
             return [
                 'state' => false,
-                'message' => text('logic.album.upload.empty')
+                'message' => text('logic.author.already-exists')
             ];
         }
-
-        // bad format
-        if(!Picture::valid($file->tmp)) {
+        catch(PictureAlreadyExists $e) {
             return [
                 'state' => false,
-                'message' => text('logic.album.upload.denied')
+                'message' => text('logic.picture.already-exists')
             ];
         }
-
-        // save and create cache
-        $picture = $album->add($file->tmp, $file->name, $ctx->user->username);
-        if(!$picture) {
+        catch(InvalidPictureUpload $e) {
             return [
                 'state' => false,
-                'message' => text('logic.album.upload.failed')
+                'message' => text('logic.picture.upload.empty')
             ];
         }
-
-        return [
-            'state' => true
-        ];
+        catch(InvalidPictureFile $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.picture.upload.denied')
+            ];
+        }
+        catch(\Exception $e) {
+            return [
+                'state' => false,
+                'message' => text('logic.picture.upload.failed')
+            ];
+        }
     }
 
 
@@ -213,24 +231,14 @@ class AlbumEditor
             throw new NotFoundException;
         }
 
-        $zipname = sys_get_temp_dir() . '/' . $album->basename . ' - ' . uniqid() . '.zip';
-
-        $zip = new \ZipArchive;
-        $code = $zip->open($zipname, \ZipArchive::CREATE);
-        if($code !== true) {
+        try {
+            // create zip file
+            $zipname = $album->zip();
+            return Response::download($zipname)->header('Content-Type', 'application/zip');
+        }
+        catch(\Exception $e) {
             throw new HttpException;
         }
-
-        $zip->addEmptyDir($album->basename);
-        foreach($album->authors() as $author) {
-            $zip->addEmptyDir($album->basename . '/' . $author->name);
-            foreach($author->pics() as $pic) {
-                $zip->addFile($pic->path, $album->basename . '/' . $author->name . '/' . $pic->name);
-            }
-        }
-        $zip->close();
-
-        return Response::download($zipname)->header('Content-Type', 'application/zip');
     }
 
 }

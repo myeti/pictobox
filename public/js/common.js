@@ -44,16 +44,27 @@ $(function() {
      * Page loader
      */
 
+    window.loader = {
+        html: $('#page-loader'),
+        show: function()
+        {
+            $('body').addClass('fixed');
+            window.loader.html.addClass('active');
+        },
+        hide: function()
+        {
+            $('body').removeClass('fixed');
+            window.loader.html.removeClass('active');
+        }
+    };
+
     if(window.isMobile) {
         $(window).on('beforeunload', function ()
         {
             if(window.isLeaving) {
-                $('#page-loader').addClass('active');
+                window.loader.show();
             }
         });
-    }
-    else {
-        $('#page-loader').remove();
     }
 
 });

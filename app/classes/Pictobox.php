@@ -51,7 +51,7 @@ class Pictobox extends Web\App
             if($context->request->uri->path) {
                 $http = ' -> ' . $context->request->method . ' ' . $context->request->uri->path;
             }
-            $this->logger->info($user . ' is browsing logic "' . $context->logic->name . '"' . $http);
+            $this->logger->info($user . ' is browsing "' . $context->logic->name . '"' . $http);
         }
 
         return $context;

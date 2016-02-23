@@ -6,7 +6,7 @@
  * header.switch.upper: 1000
  * header.switch.lower: 900
  * menu: 400
- * modals: 450
+ * menu.panels: 450
  */
 
 
@@ -144,39 +144,35 @@ menu ul li a .fa {
     margin-bottom: 6px;
 }
 
-
-/**
- * Modals
- */
-
-#modals {
-    position: fixed;
-    top: 59px;
+menu ul li .panel {
+    position: absolute;
+    top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 450;
+    padding: 20px;
     background: #D95A48;
     overflow: auto;
     opacity: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     transform: translateX(100vw);
     transition: transform 0.2s, opacity 0.2s;
 }
-#modals .modal {
+menu ul li .panel form {
+    display: block;
     margin: auto;
     width: 100%;
-    max-width: 300px;
-    min-width: 300px;
+    max-width: 280px;
+    min-width: 280px;
     padding: 20px;
-    display: none;
 }
-#modals.open,
-#modals .modal.open {
+menu ul li .panel.open {
     display: block;
     opacity: 1;
     transform: translateX(0);
 }
-#modals .modal h4 {
+menu ul li .panel h4 {
     margin: 0;
     margin-bottom: 20px;
     font-weight: bold;
@@ -185,40 +181,37 @@ menu ul li a .fa {
     text-transform: uppercase;
     font-family: Montserrat, Helvetica, Arial, sans-serif;
 }
-#modals .modal button[type=submit] {
+menu ul li .panel button[type=submit] {
     background: rgba(255, 255, 255, 0.2);
     margin: auto;
     margin-top: 20px;
 }
 
-/* Profile modal */
-.modal#profile #user-switch,
-.modal#profile #user-name,
-.modal#profile #user-rank {
+/* Profile panel */
+.panel#profile #user-switch,
+.panel#profile #user-name,
+.panel#profile #user-rank {
     background: #ccc;
 }
-.modal#profile #user-name,
-.modal#profile #user-rank {
+.panel#profile #user-name,
+.panel#profile #user-rank {
     display: inline-block;
 }
-.modal#profile #user-name {
-    width: 180px;
+.panel#profile #user-name {
+    width: 160px;
 }
-.modal#profile #user-rank {
+.panel#profile #user-rank {
     width: 68px;
     margin-left: 8px;
 }
 
-/* Feedback modal */
-.modal#feedback {
+/* Feedback panel */
+.panel#feedback form {
     max-width: 600px;
 }
 
-/* Upload modal */
-.modal#upload {
-    max-width: none;
-}
-.modal#upload form.dropzone {
+/* Upload panel */
+.panel#upload form.dropzone {
     border: 2px dashed #fff;
     width: 100%;
     min-height: calc(100vh - 145px);
@@ -226,8 +219,9 @@ menu ul li a .fa {
     text-align: center;
     background: none;
     position: relative;
+    max-width: none;
 }
-.modal#upload form.dropzone .dz-message {
+.panel#upload form.dropzone .dz-message {
     position: absolute;
     top: 50%;
     left: 0;
@@ -235,32 +229,32 @@ menu ul li a .fa {
     margin-top: -20px;
     font-size: 14px;
 }
-.modal#upload form.dropzone .dz-message span {
+.panel#upload form.dropzone .dz-message span {
     display: block;
     font-size: 40px;
 }
-.modal#upload form.dropzone .dz-preview {
+.panel#upload form.dropzone .dz-preview {
     margin: 14px;
     background: none;
 }
-.modal#upload form.dropzone .dz-preview .dz-image {
+.panel#upload form.dropzone .dz-preview .dz-image {
     height: 100px;
     width: 100px;
     border-radius: 0;
 }
-.modal#upload form.dropzone .dz-preview .dz-image img {
+.panel#upload form.dropzone .dz-preview .dz-image img {
     filter: grayscale(1);
     -moz-filter: grayscale(1);
     -webkit-filter: grayscale(1);
     opacity: 0.65;
 }
-.modal#upload form.dropzone .dz-preview.dz-complete .dz-image img {
+.panel#upload form.dropzone .dz-preview.dz-complete .dz-image img {
     filter: none;
     -moz-filter: none;
     -webkit-filter: none;
     opacity: 1;
 }
-.modal#upload form.dropzone .dz-progress {
+.panel#upload form.dropzone .dz-progress {
     position: absolute;
     top: 0;
     left: 0;
@@ -270,20 +264,27 @@ menu ul li a .fa {
     border-radius: 0;
     margin: 0;
 }
-.modal#upload form.dropzone .dz-progress .dz-upload {
+.panel#upload form.dropzone .dz-progress .dz-upload {
     background: none;
 }
-.modal#upload button[type=reset] {
+.panel#upload button[type=reset] {
     top: -55px;
     right: -20px;
 }
 
-.pswp__button--ban {
+
+
+/**
+ * Modale photoswipe
+ */
+.pswp-label {
     background: none !important;
     width: auto !important;
     color: #fff;
     padding: 12px;
+    float: right;
 }
+
 
 
 /**
@@ -448,15 +449,14 @@ ul.grid li .item .title {
     menu ul li a .fa {
         margin-bottom: 20px;
     }
-    #modals .modal {
-        margin-top: 100px;
+    menu ul li .panel {
+        padding: 50px;
+        padding-top: 100px;
     }
-    #modals .modal#upload {
-        padding: 100px;
-        padding-top: 20px;
+    menu ul li .panel#upload {
     }
-    #modals .modal#upload form.dropzone {
-        min-height: calc(100vh - 330px);
+    menu ul li .panel#upload form.dropzone {
+        min-height: calc(100vh - 255px);
     }
 
     ul.grid li .item .title {

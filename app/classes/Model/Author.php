@@ -2,8 +2,16 @@
 
 namespace App\Model;
 
+use App\Error\AuthorAlreadyExists;
+
 class Author
 {
+
+    /** @var Album */
+    public $album;
+
+    /** @var string */
+    public $name;
 
     /** @var string */
     public $path;
@@ -11,48 +19,45 @@ class Author
     /** @var string */
     public $cachepath;
 
-    /** @var string */
-    public $name;
-
-    /** @var Album */
-    public $album;
-
     /** @var Picture[] */
-    protected $pics = [];
-
-    /** @var int */
-    protected $count;
+    public $pics = [];
 
 
     /**
-     * Get author
+     * Open album author
      *
      * @param Album $album
-     * @param string $path
+     * @param string $name
      */
-    public function __construct(Album $album, $path)
+    public function __construct(Album $album, $name)
     {
         $this->album = $album;
-        $this->path = $path;
-        $this->name = basename($path);
-
-        $this->cachepath = $album->cachepath . DIRECTORY_SEPARATOR . $this->name;
+        $this->open($name);
     }
 
 
     /**
-     * Get pics
+     * Open author's folder
+     *
+     * @param string $name
+     */
+    protected function open($name)
+    {
+        $this->name = $name;
+        $this->path = $this->album->path . DIRECTORY_SEPARATOR . $name;
+        $this->cachepath = $this->album->cachepath . DIRECTORY_SEPARATOR . $name;
+    }
+
+
+    /**
+     * Get author's pictures
      *
      * @return Picture[]
      */
     public function pics()
     {
         if(!$this->pics) {
-            $folder = $this->album->path . DIRECTORY_SEPARATOR . $this->name . DIRECTORY_SEPARATOR;
-            foreach(glob($folder . '*.{jpg,JPG,jpeg,JPEG}', GLOB_BRACE) as $file) {
-                $pic = new Picture($this, $file);
-                $this->pics[$pic->name] = $pic;
-            }
+            $this->pics = Picture::fetch($this);
         }
 
         return $this->pics;
@@ -60,46 +65,142 @@ class Author
 
 
     /**
-     * Get pic
+     * Get specific picture
      *
-     * @param string $name
+     * @param $filename
      * @return Picture
      */
-    public function pic($name)
+    public function pic($filename)
     {
         $this->pics();
-
-        return isset($this->pics[$name])
-            ? $this->pics[$name]
-            : null;
+        if(isset($this->pics[$filename])){
+            return $this->pics[$filename];
+        }
     }
 
 
     /**
-     * Get random pic
+     * Get random picture
      *
      * @return Picture
      */
     public function random()
     {
-        $this->pics();
-        $random = array_rand($this->pics);
-        return $this->pics[$random];
+        $random = array_rand($this->pics());
+        if($random) {
+            return $this->pics[$random];
+        }
     }
 
 
     /**
-     * Total of pics
+     * Edit author's name
      *
-     * @return int
+     * @param string $name
+     * @return bool
+     *
+     * @throws AuthorAlreadyExists
+     * @throws \Exception
      */
-    public function count()
+    public function edit($name)
     {
-        if(!$this->count) {
-            $this->count = count($this->pics());
+        // format name
+        $newname = ucfirst($name);
+
+        // author already exists
+        if(file_exists($this->album->path . DIRECTORY_SEPARATOR . $newname)) {
+            throw new AuthorAlreadyExists;
         }
 
-        return $this->count;
+        // rename
+        $done = rename($this->path, $this->album->path . DIRECTORY_SEPARATOR .  $newname);
+        $done &= rename($this->cachepath, $this->album->cachepath . DIRECTORY_SEPARATOR . $newname);
+        if(!$done) {
+            throw new \Exception;
+        }
+
+        // update this author
+        $this->name = $newname;
+
+        return true;
+    }
+
+
+    /**
+     * Delete author
+     */
+    public function delete()
+    {
+        unlink($this->path);
+        unlink($this->cachepath);
+    }
+
+
+    /**
+     * Create new author
+     *
+     * @param Album $album
+     * @param string $name
+     * @return static
+     *
+     * @throws AuthorAlreadyExists
+     * @throws \Exception
+     */
+    public static function create(Album &$album, $name)
+    {
+        // format name
+        $newname = ucfirst($name);
+
+        // author already exists
+        if(file_exists($album->path . DIRECTORY_SEPARATOR . $newname)) {
+            throw new AuthorAlreadyExists;
+        }
+
+        // rename
+        $done = mkdir($album->path . DIRECTORY_SEPARATOR .  $newname, 0777, true);
+        $done &= mkdir($album->cachepath . DIRECTORY_SEPARATOR . $newname, 0777, true);
+        if(!$done) {
+            throw new \Exception;
+        }
+
+        $author = new static($album, $newname);
+        $album->authors[$author->name] = $author;
+
+        return $author;
+    }
+
+
+    /**
+     * Fetch album's authors
+     *
+     * @param Album $album
+     * @return static[]
+     */
+    public static function fetch(Album $album)
+    {
+        $authors = [];
+        foreach(glob($album->path . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR) as $folder) {
+            $basename = basename($folder);
+            $authors[$basename] = new static($album, $basename);
+        }
+
+        return $authors;
+    }
+
+
+    /**
+     * Fetch one author
+     *
+     * @param Album $album
+     * @param string $name
+     * @return static
+     */
+    public static function one(Album $album, $name)
+    {
+        $folders = glob($album->path . DIRECTORY_SEPARATOR . $name, GLOB_ONLYDIR);
+        if($folders) {
+            return new static($album, $name);
+        }
     }
 
 }

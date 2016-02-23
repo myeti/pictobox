@@ -66,9 +66,8 @@ function AjaxForms()
                     }
                     else {
                         // close modals if form is in
-                        if (window.PictoboxUI) {
-                            window.PictoboxUI.menu.toggle();
-                            window.PictoboxUI.modals.close();
+                        if(window.PictoboxUI) {
+                            window.PictoboxUI.menu.close();
                         }
                         // show former text
                         setTimeout(function () {

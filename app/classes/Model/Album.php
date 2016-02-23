@@ -2,25 +2,22 @@
 
 namespace App\Model;
 
+use App\Error\AlbumAlreadyExists;
+use App\Error\InvalidAlbumDate;
+use App\Error\InvalidAlbumName;
 use Colorium\Http\Uri;
 
 class Album
 {
 
     /** @var string */
-    public $path;
-
-    /** @var string */
-    public $cachepath;
-
-    /** @var string */
-    public $basename;
-
-    /** @var string */
-    public $name;
+    public $fullname;
 
     /** @var string */
     public $flatname;
+
+    /** @var string */
+    public $name;
 
     /** @var string */
     public $date;
@@ -31,55 +28,64 @@ class Album
     /** @var int */
     public $month;
 
-    /** @var string */
-    public $monthname;
-
     /** @var int */
     public $day;
 
-    /** @var int */
+    /** @var string */
     public $url;
 
+    /** @var string */
+    public $path;
+
+    /** @var string */
+    public $cachepath;
+
     /** @var Author[] */
-    protected $authors = [];
+    public $authors = [];
 
 
     /**
      * Open album
      *
-     * @param string $path
+     * @param string $fullname
      */
-    public function __construct($path)
+    public function __construct($fullname)
     {
-        $this->open($path);
+        $this->open($fullname);
     }
 
 
     /**
-     * Reload data
+     * Parse fullname
      *
-     * @param string $path
+     * @param string $fullname
+     *
+     * @throws InvalidAlbumName
      */
-    protected function open($path)
+    protected function open($fullname)
     {
-        if(!preg_match('/([0-9]{4})([0-9]{2})([0-9]{2}) - (.+)/', $path, $extracted)) {
-            throw new \InvalidArgumentException('Invalid album path');
+        // remove path from fullname
+        $fullname = basename($fullname);
+
+        // extract info from fullname
+        if(!preg_match('/^([0-9]{4})([0-9]{2})([0-9]{2}) - (.+)$/', $fullname, $extracted)) {
+            throw new InvalidAlbumName;
         }
 
-        $this->path = $path;
-        $this->basename = basename($path);
-        $this->cachepath = CACHE_DIR . $this->basename;
-
+        // set basic info
         list(, $year, $month, $day, $name) = $extracted;
-
+        $this->fullname = $fullname;
         $this->name = $name;
-        $this->year = $year;
-        $this->month = $month;
-        $this->day = $day;
+        $this->year = (int)$year;
+        $this->month = (int)$month;
+        $this->day = (int)$day;
+
+        // set computed info
         $this->flatname = Uri::sanitize($name);
-        $this->monthname = text('date.month.' . (int)$month);
-        $this->date = ltrim($this->day, 0) . ' ' . $this->monthname . ' ' . $this->year;
-        $this->url = '/' . $this->year . '/' . $this->month . '/' . $this->day . '/' . $this->flatname;
+        $this->date = ltrim($this->day, 0) . ' ' . text('date.month.' . (int)$month) . ' ' . $this->year;
+        $this->url = '/' . $this->year . '/' . str_pad($this->month, 2, '0', STR_PAD_LEFT) . '/' . str_pad($this->day, 2, '0', STR_PAD_LEFT) . '/' . $this->flatname;
+        $this->path = ALBUMS_DIR . $this->fullname;
+        $this->cachepath = CACHE_DIR . $this->fullname;
 
         $this->authors = [];
     }
@@ -93,11 +99,7 @@ class Album
     public function authors()
     {
         if(!$this->authors) {
-            $path = ALBUMS_DIR . $this->basename . DIRECTORY_SEPARATOR;
-            foreach(glob($path . '*', GLOB_ONLYDIR) as $folder) {
-                $author = new Author($this, $folder);
-                $this->authors[$author->name] = $author;
-            }
+            $this->authors = Author::fetch($this);
         }
 
         return $this->authors;
@@ -105,116 +107,147 @@ class Album
 
 
     /**
-     * Get author
+     * Get specific author
      *
-     * @param string $name
+     * @param $name
      * @return Author
      */
     public function author($name)
     {
         $this->authors();
-
-        return isset($this->authors[$name])
-            ? $this->authors[$name]
-            : null;
+        if(isset($this->authors[$name])) {
+            return $this->authors[$name];
+        }
     }
 
 
     /**
-     * Get random author
+     * Get random picture
      *
-     * @return Author
+     * @return Picture
      */
     public function random()
     {
-        $this->authors();
-        $random = array_rand($this->authors);
-        return $this->authors[$random];
-    }
-
-
-    /**
-     * Get random pic
-     *
-     * @param Author $author
-     * @return Picture
-     */
-    public function thumbnail(Author $author = null)
-    {
-        $author = $author ?: $this->random();
-
-        if($author) {
-            return $author->random();
+        $random = array_rand($this->authors());
+        if($random) {
+            return $this->authors[$random]->random();
         }
     }
 
 
     /**
-     * Rename album
+     * Edit album
      *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param string $name
+     * @param $year
+     * @param $month
+     * @param $day
+     * @param $name
      * @return bool
+     *
+     * @throws AlbumAlreadyExists
+     * @throws InvalidAlbumDate
+     * @throws InvalidAlbumName
+     * @throws \Exception
      */
-    public function rename($year, $month, $day, $name)
+    public function edit($year, $month, $day, $name)
     {
-        $folder = static::format($year, $month, $day, $name);
-        if(!rename($this->path, ALBUMS_DIR . $folder)
-            or rename($this->cachepath, CACHE_DIR . $folder)) {
-            return false;
+        // format name
+        $newname = static::format($year, $month, $day, $name);
+
+        // album already exists
+        if(file_exists(ALBUMS_DIR . $newname)) {
+            throw new AlbumAlreadyExists;
         }
 
-        $this->open($folder);
+        // rename
+        $done = rename($this->path, ALBUMS_DIR . $newname);
+        $done &= rename($this->cachepath, CACHE_DIR . $newname);
+        if(!$done) {
+            throw new \Exception;
+        }
+
+        // update this album
+        $this->open($newname);
+
         return true;
     }
 
 
     /**
-     * Add picture to author
-     *
-     * @param string $source
-     * @param string $file
-     * @param string $in
-     * @return Picture
+     * Delete album
      */
-    public function add($source, $file, $in)
+    public function delete()
     {
-        $this->authors();
-
-        // create author folder
-        $author = $this->author($in);
-        if(!$author) {
-            $author = new Author($this, $this->path . DIRECTORY_SEPARATOR . $in);
-            mkdir($author->path, 0777);
-            mkdir($author->cachepath, 0777);
-            $this->authors[$author->name] = $author;
-        }
-
-        // create picture
-        $path = $author->path . DIRECTORY_SEPARATOR . $file;
-        if(!file_exists($path)) {
-            copy($source, $path);
-        }
-
-        $pic = new Picture($author, $path);
-        if(!$pic->cache()) {
-            return false;
-        }
-
-        return $pic;
+        unlink($this->path);
+        unlink($this->cachepath);
     }
 
 
     /**
-     * Delete album
+     * Make downloadable archive
      *
-     * @return bool
+     * @return string
+     *
+     * @throws \Exception
      */
-    public function delete()
+    public function zip()
     {
-        return false;
+        // generate random filename
+        $zipname = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $this->fullname . ' - ' . uniqid() . '.zip';
+
+        // create empty zip
+        $zip = new \ZipArchive;
+        $code = $zip->open($zipname, \ZipArchive::CREATE);
+        if($code !== true) {
+            throw new \Exception;
+        }
+
+        // add all files to zip
+        $zip->addEmptyDir($this->fullname);
+        foreach($this->authors() as $author) {
+            $zip->addEmptyDir($this->fullname . DIRECTORY_SEPARATOR . $author->name);
+            foreach($author->pics() as $pic) {
+                $zip->addFile($pic->path, $this->fullname . DIRECTORY_SEPARATOR . $author->name . DIRECTORY_SEPARATOR . $pic->filename);
+            }
+        }
+
+        $zip->close();
+        return $zipname;
+    }
+
+
+    /**
+     * Create new album
+     *
+     * @param $year
+     * @param $month
+     * @param $day
+     * @param $name
+     * @return Album
+     *
+     * @throws AlbumAlreadyExists
+     * @throws InvalidAlbumDate
+     * @throws InvalidAlbumName
+     * @throws \Exception
+     */
+    public static function create($year, $month, $day, $name)
+    {
+        // format name
+        $fullname = static::format($year, $month, $day, $name);
+
+        // album already exists
+        if(file_exists(ALBUMS_DIR . $fullname)) {
+            throw new AlbumAlreadyExists;
+        }
+
+        // create
+        $done = mkdir(ALBUMS_DIR . $fullname, 0777, true);
+        $done &= mkdir(CACHE_DIR . $fullname, 0777, true);
+        if(!$done) {
+            throw new \Exception;
+        }
+
+        return new static($fullname);
     }
 
 
@@ -239,7 +272,9 @@ class Album
         $albums = [];
         $folders = glob(ALBUMS_DIR . $year . $month . $day . '*', GLOB_ONLYDIR);
         foreach($folders as $folder) {
-            $albums[] = new Album($folder);
+            $album = new Album($folder);
+            $index = $album->year . $album->month . $album->day . $album->flatname;
+            $albums[$index] = $album;
         }
 
         return array_reverse($albums);
@@ -258,48 +293,47 @@ class Album
     public static function one($year, $month, $day, $flatname)
     {
         $albums = static::fetch($year, $month, $day);
-        foreach($albums as $album) {
-            if($album->flatname == $flatname) {
-                return $album;
-            }
+        $index = $year . $month . $day . $flatname;
+
+        if(isset($albums[$index])) {
+            return $albums[$index];
         }
     }
 
 
     /**
-     * Create album
-     *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param string $name
-     *
-     * @return Album
-     */
-    public static function create($year, $month, $day, $name)
-    {
-        $folder = static::format($year, $month, $day, $name);
-        if(is_dir(ALBUMS_DIR . $folder) or !mkdir(ALBUMS_DIR . $folder, 0777)
-            or is_dir(CACHE_DIR . $folder) or !mkdir(CACHE_DIR . $folder, 0777)) {
-            return false;
-        }
-
-        return new Album($folder);
-    }
-
-
-    /**
-     * Format name
+     * Format album fullname
      *
      * @param int $year
      * @param int $month
      * @param int $day
      * @param string $name
      * @return string
+     *
+     * @throws InvalidAlbumDate
+     * @throws InvalidAlbumName
      */
-    public static function format($year, $month, $day, $name)
+    protected static function format($year, $month, $day, $name)
     {
-        $name = preg_replace('/[^a-zA-Z0-9-\'áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ ]*/', null, $name);
+        // cast integer
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
+        // invalid date
+        if(!checkdate($month, $day, $year)) {
+            throw new InvalidAlbumDate;
+        }
+
+        // format name (note: keep space)
+        $name = preg_replace('/[^a-zA-Z0-9-\' áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]*/', null, $name);
+
+        // invalid name
+        if(!$name) {
+            throw new InvalidAlbumName;
+        }
+
+        // format date
         $month = str_pad($month, 2, '0', STR_PAD_LEFT);
         $day = str_pad($day, 2, '0', STR_PAD_LEFT);
 

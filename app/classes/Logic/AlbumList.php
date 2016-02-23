@@ -45,10 +45,7 @@ class AlbumList
 
         $albums = Album::fetch($year);
         if(!$albums) {
-            $message = null;
-            if(checkdate(1, 1, $year)) {
-                $message = text('logic.albumlist.year.empty', ['year' => $year]);
-            }
+            $message = checkdate(1, 1, $year) ? text('logic.albumlist.year.empty') : null;
             throw new NotFoundException($message);
         }
 
@@ -78,13 +75,7 @@ class AlbumList
 
         $albums = Album::fetch($year, $month);
         if(!$albums) {
-            $message = null;
-            if(checkdate($month, 1, $year)) {
-                $message = text('logic.albumlist.month.empty', [
-                    'year' => $year,
-                    'month' => text('date.month.' . (int)$month)
-                ]);
-            }
+            $message = checkdate($month, 1, $year) ? text('logic.albumlist.month.empty') : null;
             throw new NotFoundException($message);
         }
 
@@ -117,19 +108,46 @@ class AlbumList
 
         $albums = Album::fetch($year, $month, $day);
         if(!$albums) {
-            $message = null;
-            if(checkdate($month, $day, $year)) {
-                $message = text('logic.albumlist.day.empty', [
-                    'year' => $year,
-                    'month' => text('date.month.' . (int)$month),
-                    'day' => $day
-                ]);
-            }
+            $message = checkdate($month, $day, $year) ? text('logic.albumlist.day.empty') : null;
             throw new NotFoundException($message);
         }
 
         return [
             'albums' => $albums,
+            'ariane' => [
+                $day => $year . '/' . $month . '/' . $day,
+                text('date.month.' . $month) => $year . '/' . $month,
+                $year => $year
+            ]
+        ];
+    }
+
+
+    /**
+     * Render a specific album
+     *
+     * @html albums/show
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param string $flatname
+     * @return array
+     * @throws NotFoundException
+     */
+    public function show($year, $month, $day, $flatname)
+    {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
+        $album = Album::one($year, $month, $day, $flatname);
+        if(!$album) {
+            throw new NotFoundException;
+        }
+
+        return [
+            'album' => $album,
             'ariane' => [
                 $day => $year . '/' . $month . '/' . $day,
                 text('date.month.' . $month) => $year . '/' . $month,

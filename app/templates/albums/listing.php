@@ -1,4 +1,10 @@
-<?php self::layout('interface', ['ariane' => $ariane, 'user' => $ctx->user]); ?>
+<?php self::layout('private', ['ariane' => $ariane]); ?>
+
+<?php self::rewrite('menu') ?>
+    <?php if($ctx->user->isUploader()): ?>
+        <?= self::render('_menu/create-album') ?>
+    <?php endif; ?>
+<?php self::end() ?>
 
 <?php if($albums): ?>
 <ul class="grid albums row">
@@ -6,7 +12,7 @@
     <li>
         <a href="<?= self::url($album->url) ?>">
             <div class="item">
-                <div class="image b-lazy" data-src="<?= self::url($album->thumbnail()->cacheurl_small) ?>"></div>
+                <div class="image b-lazy" data-src="<?= self::url($album->random()->url_small) ?>"></div>
                 <h2 class="title"><?= $album->name ?></h2>
                 <em class="info"><?= $album->date ?></em>
             </div>
@@ -15,5 +21,5 @@
     <?php endforeach; ?>
 </ul>
 <?php else: ?>
-<p class="empty"><?= text('album.none') ?></p>
+<p class="empty"><?= text('view.albums.none') ?></p>
 <?php endif; ?>

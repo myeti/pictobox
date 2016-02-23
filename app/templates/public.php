@@ -33,7 +33,7 @@
     <script src="<?= self::url('/js/ajaxforms.js') ?>"></script>
     <script>
     $(function() {
-        window.AjaxForms.text.error = "<?= text('js.ajax.error') ?>";
+        window.AjaxForms.text.error = "<?= text('view.js.ajax.error') ?>";
     });
     </script>
 

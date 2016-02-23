@@ -26,10 +26,20 @@
 
                 <button class="pswp__button pswp__button--close"></button>
                 <button class="pswp__button pswp__button--fs"></button>
-                <a href="<?= self::url('/user/report') ?>" class="pswp__button pswp__button--ban" data-report
-                        data-report-confirm="<?= text('modal.photoswipe.report.confirm') ?>"
-                        data-report-done="<?= text('modal.photoswipe.report.done') ?>">
-                    <?= text('modal.photoswipe.report') ?>
+
+                <?php if($ctx->user->isUploader()): ?>
+                <a href="#" class="pswp-label" data-rotate="<?= self::url($album->url, 'rotateright') ?>">
+                    <i class="fa fa-rotate-right"></i>
+                </a>
+                <a href="#" class="pswp-label" data-rotate="<?= self::url($album->url, 'rotateleft') ?>">
+                    <i class="fa fa-rotate-left"></i>
+                </a>
+                <?php endif; ?>
+
+                <a href="#" class="pswp-label" data-report="<?= self::url('/user/report') ?>"
+                        data-report-confirm="<?= text('view.modal.photoswipe.report.confirm') ?>"
+                        data-report-done="<?= text('view.modal.photoswipe.report.done') ?>">
+                    <?= text('view.modal.photoswipe.report') ?>
                 </a>
 
                 <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->

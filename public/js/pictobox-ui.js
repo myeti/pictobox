@@ -50,64 +50,49 @@ function PictoboxUI()
 
         switcher: $('header .switch'),
         container: $('menu'),
+        links: $('menu').find('a[data-panel]'),
+        panels: $('menu').find('.panel'),
+        controllers: {},
 
         /**
          * Toggle menu
          */
         toggle: function()
         {
-            if(self.menu.switcher.hasClass('open')) {
-                self.modals.close();
-            }
             self.menu.container.toggleClass('open');
             self.menu.switcher.toggleClass('open');
+            self.menu.panels.removeClass('open').find('form').trigger('reset');
             self.body.toggleClass('fixed');
-        }
-    };
-
-
-    /**
-     * Modals manager
-     */
-    this.modals = {
-
-        overlay: $('#modals'),
-        list: $('#modals').find('.modal'),
-        links: $('a[data-modal]'),
-        controller: {},
+        },
 
         /**
-         * Open specific modal
-         * @param id
+         * Open specific panel
          */
         open: function(id)
         {
+            self.menu.panels.removeClass('open');
 
-            self.modals.list.removeClass('open');
-            self.modals.links.removeClass('open');
-            self.modals.overlay.addClass('open');
+            var panel = self.menu.panels.filter(id);
+            panel.addClass('open');
 
-            var modal = self.modals.list.filter(id);
-            modal.addClass('open');
-
-            id = modal.attr('id');
-            var controller = self.modals.controller[id];
+            id = panel.attr('id');
+            var controller = self.menu.controllers[id];
             if(typeof controller == 'function') {
-                if(controller(modal) === true) {
-                    self.modals.controller[id] = null;
+                if(controller(panel) === true) {
+                    self.menu.controllers[id] = null;
                 }
             }
         },
 
         /**
-         * Close all modals
+         * Close all
          */
         close: function()
         {
-            self.modals.overlay.removeClass('open');
-            self.modals.list.removeClass('open');
-            self.modals.links.removeClass('open');
-            self.modals.list.find('form').trigger('reset');
+            self.menu.container.removeClass('open');
+            self.menu.switcher.removeClass('open');
+            self.menu.panels.removeClass('open').find('form').trigger('reset');
+            self.body.removeClass('fixed');
         }
     };
 
@@ -135,22 +120,19 @@ function PictoboxUI()
         self.menu.toggle();
     });
 
-    this.modals.links.on('click', function(e)
+    this.menu.links.on('click', function(e)
     {
         var link = $(this);
-        var id = link.attr('data-modal');
-
-        self.modals.open(id);
-        link.addClass('open');
+        var id = link.attr('data-panel');
+        self.menu.open(id);
 
         e.preventDefault();
         return false;
     });
 
-    this.modals.list.find('.cancel').on('click', function()
+    this.menu.panels.find('.cancel').on('click', function()
     {
-        self.modals.close();
-        self.menu.toggle();
+        self.menu.close();
     });
 }
 
