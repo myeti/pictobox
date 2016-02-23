@@ -114,7 +114,10 @@ class AlbumEditor
             }
 
             // attempt update
-            if($name != $album->name) {
+            $year = (int)$year;
+            $month = (int)$month;
+            $day = (int)$day;
+            if($name != $album->name or $year != $album->year or $month != $album->month or $day != $album->day) {
                 $album->edit($year, $month, $day, $name);
             }
 
