@@ -1,6 +1,7 @@
 <?php self::layout('private', ['ariane' => $ariane]); ?>
 
 <?php self::rewrite('menu') ?>
+    <?= self::render('_menu/albums-map') ?>
     <?php if($ctx->user->isUploader()): ?>
         <?= self::render('_menu/create-album') ?>
     <?php endif; ?>

@@ -13,6 +13,8 @@
                    pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])/(0?[1-9]|1[012])/(19|20)[0-9]{2}" required
                    value="<?= $album->day ?>/<?= $album->month ?>/<?= $album->year ?>">
 
+            <input type="text" id="meta-place" name="meta[place]" placeholder="<?= text('view.panel.create-album.meta.place') ?>" value="<?= $album->meta('place') ?>">
+
             <?php if($ctx->user->isAdmin()): ?>
                 <br><h4><?= text('view.panel.edit-album.authors') ?></h4>
                 <?php foreach($album->authors() as $author): ?>

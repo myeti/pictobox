@@ -59,6 +59,9 @@ logics:
       http:   POST /:y/:m/:d/:album/rotateright
       method: App\Logic\PictureEditor::rotateRight
 
+  albumlist_map:
+      http:   GET /map
+      method: App\Logic\AlbumList::map
   albumlist_year:
       http:   GET /:y
       method: App\Logic\AlbumList::year

@@ -156,4 +156,27 @@ class AlbumList
         ];
     }
 
+
+    /**
+     * Display map of all albums
+     *
+     * @html albums/map
+     */
+    public function map()
+    {
+        $albums = Album::fetch();
+
+        // keep only album with meta place
+        foreach($albums as $index => $album) {
+            if(!$album->meta('place')) {
+                unset($albums[$index]);
+            }
+        }
+
+        return [
+            'albums' => $albums,
+            'ariane' => []
+        ];
+    }
+
 }

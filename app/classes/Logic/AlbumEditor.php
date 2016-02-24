@@ -37,11 +37,14 @@ class AlbumEditor
         try {
 
             // get form data
-            list($name, $date) = $ctx->post('name', 'date');
+            list($name, $date, $meta) = $ctx->post('name', 'date', 'meta');
             list($day, $month, $year) = explode('/', $date);
+            $year = (int)$year;
+            $month = (int)$month;
+            $day = (int)$day;
 
             // attempt creation
-            $album = Album::create($year, $month, $day, $name);
+            $album = Album::create($year, $month, $day, $name, $meta);
             $ctx->logger->info($ctx->user->username . ' creates "' . $album->fullname . '"', $_POST);
 
             return [
@@ -92,6 +95,10 @@ class AlbumEditor
      */
     public function edit($year, $month, $day, $flatname, Context $ctx)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
         // get album
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
@@ -101,7 +108,7 @@ class AlbumEditor
         try {
 
             // get form data
-            list($name, $date) = $ctx->post('name', 'date');
+            list($name, $date, $meta) = $ctx->post('name', 'date', 'meta');
             list($day, $month, $year) = explode('/', $date);
             $newauthors = $ctx->post('authors');
 
@@ -110,10 +117,13 @@ class AlbumEditor
                 $authors = $album->authors();
                 foreach($newauthors as $oldname => $newname) {
                     if($oldname != $newname and isset($authors[$oldname])) {
-                        $authors[$oldname]->edit($newname);
+                        $authors[$oldname]->rename($newname);
                     }
                 }
             }
+
+            // update meta
+            $album->edit($meta);
 
             // attempt update
             $year = (int)$year;
@@ -121,7 +131,7 @@ class AlbumEditor
             $day = (int)$day;
             if($name != $album->name or $year != $album->year or $month != $album->month or $day != $album->day) {
                 $oldalbum = $album->fullname;
-                $album->edit($year, $month, $day, $name);
+                $album->rename($year, $month, $day, $name);
                 $ctx->logger->info($ctx->user->username . ' edits album "' . $oldalbum . '" to "' . $album->fullname . '"', $_POST);
             }
 
@@ -180,6 +190,10 @@ class AlbumEditor
      */
     public function upload($year, $month, $day, $flatname, Context $ctx)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
         // get album
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {
@@ -254,6 +268,10 @@ class AlbumEditor
      */
     public function download($year, $month, $day, $flatname)
     {
+        $year = (int)$year;
+        $month = (int)$month;
+        $day = (int)$day;
+
         // get album
         $album = Album::one($year, $month, $day, $flatname);
         if(!$album) {

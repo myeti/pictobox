@@ -102,7 +102,7 @@ class Author
      * @throws AuthorAlreadyExists
      * @throws \Exception
      */
-    public function edit($name)
+    public function rename($name)
     {
         // format name
         $newname = ucfirst($name);
@@ -120,7 +120,7 @@ class Author
         }
 
         // update this author
-        $this->name = $newname;
+        $this->open($newname);
 
         return true;
     }

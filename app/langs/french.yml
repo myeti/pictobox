@@ -18,12 +18,12 @@ view.login.password: Mot de passe
 view.login.submit: Login
 
 # photoswipe modal
-view.modal.photoswipe.report: Signaler
 view.modal.photoswipe.report.confirm: Confirmez-vous le signalement de cette photo ?
 view.modal.photoswipe.report.done: Signalement envoyé
 
 # menu
 view.menu.profile: Modifier mon profil
+view.menu.map: Cartographie
 view.menu.upload: Ajouter des photos
 view.menu.download: Télécharger l'album
 view.menu.download.confirm: Attention, le téléchargement d'un album photo entier est lourd, long et peut entrainer un surcoût si vous êtes sur le réseau mobile ! Continuer ?
@@ -36,12 +36,14 @@ view.menu.logout: Se déconnecter
 view.panel.create-album.title: Nouvel album
 view.panel.create-album.name: Titre
 view.panel.create-album.date: jj/mm/aaaa
+view.panel.create-album.meta.place: Lieu (adresse, ville, coordonnées...)
 view.panel.create-album.submit: Créer
 
 # edit album panel
 view.panel.edit-album.title: Modifier l'album
 view.panel.edit-album.name: Titre
 view.panel.edit-album.date: jj/mm/aaaa
+view.panel.edit-album.meta.place: Lieu (adresse, ville, coordonnées...)
 view.panel.edit-album.authors: Contributeurs
 view.panel.edit-album.submit: Modifier
 
@@ -54,7 +56,7 @@ view.panel.feedback.submit: Envoyer
 view.panel.upload.title: Ajout de photos
 view.panel.upload.accept: .jpg / .jpeg uniquement
 view.js.ajax.error: La requête a échouée, veuillez notifier l'administrateur et ré-essayer plus tard.
-view.js.upload.leave: Si vous changez de page, l'envoi des photos en cours sera annulé.
+view.js.upload.leave: Des photos sont en attente d'envoi, voulez-vous les annuler ?
 
 # profile panel
 view.panel.profile.new: Nouvel utilisateur
@@ -115,4 +117,4 @@ email.profile.email: Adresse email
 
 # http errors
 error.404: La page que vous recherchez n'existe pas.
-error.fatal: Aïe aïe aïe ! Une erreur est survenue !
+error.fatal: Une erreur est survenue, un rapport a été envoyé à l'administrateur.

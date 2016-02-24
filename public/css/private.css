@@ -1,12 +1,11 @@
 /**
  * Z-LEVEL
- * page-loader: 8000 (must remain on top)
- * header: 500
- * header.before: 300
- * header.switch.upper: 1000
- * header.switch.lower: 900
- * menu: 400
- * menu.panels: 450
+ * page-loader: 8000
+ * header: 2000
+ * menu.panels: 1800
+ * menu: 1600
+ * header.bg: 1400
+ * map: 1000
  */
 
 
@@ -17,7 +16,7 @@
 
 header,
 .header-bg {
-    z-index: 500;
+    z-index: 2000;
     position: fixed;
     top: 0;
     left: 0;
@@ -25,7 +24,7 @@ header,
     height: 60px;
 }
 .header-bg {
-    z-index: 300;
+    z-index: 1400;
     background: #1F2224;
 }
 
@@ -103,7 +102,7 @@ menu {
     margin: 0;
     padding: 0;
     padding-top: 60px;
-    z-index: 400;
+    z-index: 1600;
     opacity: 0;
     transform: translateX(100vw);
     transition: transform 0.2s, opacity 0.2s;
@@ -150,7 +149,7 @@ menu ul li .panel {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 450;
+    z-index: 1800;
     padding: 20px;
     background: #D95A48;
     overflow: auto;
@@ -414,6 +413,15 @@ ul.grid li .item .title {
 
 
 /**
+ * Map
+ */
+#map {
+    height: calc(100vh - 60px);
+    width: 100%;
+}
+
+
+/**
  * Responsive
  */
 
@@ -436,37 +444,6 @@ ul.grid li .item .title {
     header nav .xs-hide {
         display: inline-block;
     }
-    menu ul {
-        border: none;
-        text-align: center;
-        padding-top: 100px;
-    }
-    menu ul li {
-        display: inline-block;
-        margin: 0 10px;
-        margin-bottom: 22px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    menu ul li a {
-        padding: 40px 10px;
-        min-width: 200px;
-    }
-    menu ul li a:hover {
-        background: rgba(255, 255, 255, 0.15);
-    }
-    menu ul li a .fa {
-        margin-bottom: 20px;
-    }
-    menu ul li .panel {
-        padding: 50px;
-        padding-top: 100px;
-    }
-    menu ul li .panel#upload {
-    }
-    menu ul li .panel#upload form.dropzone {
-        min-height: calc(100vh - 255px);
-    }
-
     ul.grid li .item .title {
         bottom: 25px;
     }
@@ -479,6 +456,14 @@ ul.grid li .item .title {
 }
 
 @media screen and (min-width: 992px) {
+    menu {
+        left: auto;
+        width: 400px;
+        transform: translateX(400px);
+    }
+    menu.open {
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    }
     .grid.albums li {
         width: 33.333333%;
     }

@@ -44,11 +44,15 @@ class Pictobox extends Web\App
     {
         // log user navigation
         if($context->logic->name != 'user_ping') {
+
             $user = $context->user ? $context->user->username : 'Guest';
             $message = $user . ' hits #' . $context->logic->name;
             if($context->request->uri->path) {
                 $message .= ' on ' . $context->request->method . ' ' . $context->request->uri->path;
             }
+
+            $post = $_POST;
+            unset($post['password']);
             $this->logger->info($message, $_POST);
         }
     }

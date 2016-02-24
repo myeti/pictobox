@@ -11,6 +11,8 @@
             <input type="text" id="album-date" name="date" placeholder="<?= date('d/m/Y') ?>" title="<?= text('view.panel.create-album.date') ?>"
                    pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])/(0?[1-9]|1[012])/(19|20)[0-9]{2}" required>
 
+            <input type="text" id="meta-place" name="meta[place]" placeholder="<?= text('view.panel.create-album.meta.place') ?>">
+
             <button type="submit"><?= text('view.panel.create-album.submit') ?></button>
 
         </form>

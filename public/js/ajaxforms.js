@@ -95,7 +95,7 @@ function AjaxForms()
      */
     this.fail = function(xhr, error, form)
     {
-        form.button.html.empty().html(text);
+        form.button.html.empty().html(form.button.text);
         alert(self.text.error);
     };
 

@@ -22,6 +22,7 @@
         <?= self::render('_menu/edit-album', ['album' => $album]) ?>
     <?php endif; ?>
     <?= self::render('_menu/download-album', ['album' => $album]) ?>
+    <?= self::render('_menu/albums-map') ?>
 <?php self::end() ?>
 
 

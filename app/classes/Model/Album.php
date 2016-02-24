@@ -5,6 +5,7 @@ namespace App\Model;
 use App\Error\AlbumAlreadyExists;
 use App\Error\InvalidAlbumDate;
 use App\Error\InvalidAlbumName;
+use App\Service\Spyc;
 use Colorium\Http\Uri;
 
 class Album
@@ -42,6 +43,9 @@ class Album
 
     /** @var Author[] */
     public $authors = [];
+
+    /** @var array */
+    public $meta = [];
 
 
     /**
@@ -136,6 +140,32 @@ class Album
 
 
     /**
+     * Get meta
+     *
+     * @param null $key
+     * @return mixed
+     */
+    public function meta($key = null)
+    {
+        // read meta file
+        $metafile = $this->path . DIRECTORY_SEPARATOR . 'meta.yml';
+        if(!$this->meta and file_exists($metafile)) {
+            $this->meta = Spyc::YAMLLoad($metafile);
+        }
+
+        // get meta key
+        if($key) {
+            return isset($this->meta[$key])
+                ? $this->meta[$key]
+                : null;
+        }
+
+        // get all meta
+        return $this->meta;
+    }
+
+
+    /**
      * Edit album
      *
      * @param $year
@@ -149,7 +179,7 @@ class Album
      * @throws InvalidAlbumName
      * @throws \Exception
      */
-    public function edit($year, $month, $day, $name)
+    public function rename($year, $month, $day, $name)
     {
         // format name
         $newname = static::format($year, $month, $day, $name);
@@ -168,6 +198,39 @@ class Album
 
         // update this album
         $this->open($newname);
+
+        return true;
+    }
+
+
+    /**
+     * Edit meta data
+     *
+     * @param array $meta
+     * @param bool $replace
+     * @return bool
+     */
+    public function edit(array $meta, $replace = false)
+    {
+        // delete file
+        $metafile = $this->path . DIRECTORY_SEPARATOR . 'meta.yml';
+        if(!$meta and $replace and file_exists($metafile)) {
+            return unlink($metafile);
+        }
+        // update file
+        elseif($meta) {
+
+            if(!$replace) {
+                $meta += $this->meta;
+            }
+
+            foreach($meta as $key => $value){
+                $meta[$key] = strip_tags($value);
+            }
+
+            $yaml = Spyc::YAMLDump($meta);
+            return (bool)file_put_contents($metafile, $yaml);
+        }
 
         return true;
     }
@@ -223,6 +286,7 @@ class Album
      * @param $month
      * @param $day
      * @param $name
+     * @param array $meta
      * @return Album
      *
      * @throws AlbumAlreadyExists
@@ -230,7 +294,7 @@ class Album
      * @throws InvalidAlbumName
      * @throws \Exception
      */
-    public static function create($year, $month, $day, $name)
+    public static function create($year, $month, $day, $name, array $meta = [])
     {
         // format name
         $fullname = static::format($year, $month, $day, $name);
@@ -247,7 +311,15 @@ class Album
             throw new \Exception;
         }
 
-        return new static($fullname);
+        // generate instance
+        $album = new static($fullname);
+
+        // add meta
+        if($meta) {
+            $album->edit($meta);
+        }
+
+        return $album;
     }
 
 
