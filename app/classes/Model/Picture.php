@@ -158,11 +158,11 @@ class Picture
         $cache->save($this->cachepath, 75);
 
         // create small cache picture
-        $cache = Image::make($this->cachepath);
+        $cache = Image::make($this->path);
         $cache->resize(500, null, function(Constraint $constraint) {
             $constraint->aspectRatio();
         });
-        $cache->save($this->cachepath_small, 65);
+        $cache->save($this->cachepath_small, 75);
 
         return true;
     }
