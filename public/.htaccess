@@ -2,12 +2,16 @@ Options -Indexes
 
 RewriteEngine on
 
-# hotlink protection
+# deny hot link
 #RewriteCond %{HTTP_REFERER} !^$
 #RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?yourdomain\.tld [NC]
-#RewriteRule \.(jpg|jpeg)$ - [NC,F,L]
+#RewriteRule .*/cache/.*\.(jpg|jpeg)$ - [NC,F,L]
 
-# rewrite request to front controller
+# direct access, redirect to login
+RewriteCond %{HTTP_COOKIE} !2nUNboXgKuCr4cn4flvD3YrmodNb1=85MS4wx [NC]
+RewriteRule (.*/cache/.*\.(jpg|jpeg))$ /login?from=/$1 [L,R=302]
+
+# forward all request to front controller
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]

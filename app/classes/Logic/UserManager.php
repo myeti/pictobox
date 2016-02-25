@@ -61,7 +61,7 @@ class UserManager
         }
 
         // log user in
-        Auth::login($user->rank, $user->id);
+        $ctx->user = Auth::login($user->rank, $user->id);
         $ctx->logger->info($user->username . ' logs in');
 
         return [

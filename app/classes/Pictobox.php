@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Colorium\Stateful\Auth;
 use Colorium\Web;
 use Colorium\Web\Context;
 use Monolog\Logger;
@@ -43,14 +44,12 @@ class Pictobox extends Web\App
 
 
     /**
-     * Route handler
+     * Execute handler
      *
      * @param Context $context
      */
-    protected function route(Context $context)
+    protected function execute(Context $context)
     {
-        $context = parent::route($context);
-
         // log user navigation
         if($context->logic->name != 'user_ping') {
 
@@ -63,6 +62,17 @@ class Pictobox extends Web\App
             $post = $_POST;
             unset($post['password']);
             $this->logger->info($message, $_POST);
+        }
+
+        // execute context
+        $context = parent::execute($context);
+
+        // set http cookie for image direct access
+        if($context->user) {
+            setrawcookie(COOKIE_SALT_KEY, COOKIE_SALT_VALUE, time()+3600*24*30, '/');
+        }
+        else {
+            setrawcookie(COOKIE_SALT_KEY, null, -1, '/');
         }
 
         return $context;

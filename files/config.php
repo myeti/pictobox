@@ -21,3 +21,5 @@ define('MAPBOX_PROJECT', null);
 define('MAPBOX_COORD', null);
 
 define('PWD_SALT', '%oeSnF#HUdKc1Thimca8ZOcA58ojIqh_H$LGrB-&');
+define('COOKIE_SALT_KEY', '2nUNboXgKuCr4cn4flvD3YrmodNb1'); // copy in ./public/.htaccess
+define('COOKIE_SALT_VALUE', '85MS4wx'); // copy in ./public/.htaccess
