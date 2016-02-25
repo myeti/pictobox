@@ -16,12 +16,17 @@
 
 header,
 .header-bg {
-    z-index: 2000;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 60px;
+}
+header {
+    z-index: 2000;
+    width: 100%;
+    display: table;
+    vertical-align: middle;
 }
 .header-bg {
     z-index: 1400;
@@ -29,7 +34,9 @@ header,
 }
 
 header nav {
-    padding: 21px 20px 0 20px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 50px 0 20px;
 }
 header nav a {
     font-size: 13px;
@@ -60,12 +67,12 @@ header nav .xs-hide {
 }
 
 header .switch {
-    float: right;
+    position: absolute;
+    right: 0;
     cursor: pointer;
     text-align: center;
     height: 60px;
     width: 60px;
-    position: relative;
 }
 header .switch .fa {
     position: absolute;
