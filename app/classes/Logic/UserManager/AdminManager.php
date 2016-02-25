@@ -17,22 +17,26 @@ class AdminManager
      * Generate albums cache
      *
      * @html admin/cache
+     * @param Context $ctx
+     * @return array
      */
-    public function cache()
+    public function cache(Context $ctx)
     {
         $files = [];
         $albums = Album::fetch();
+        $force = (bool)$ctx->request->uri->param('force');
+
         foreach($albums as $album) {
             foreach($album->authors() as $author) {
                 foreach($author->pics() as $pic) {
-                    if(!file_exists($pic->cachepath)) {
+                    if($force or !file_exists($pic->cachepath)) {
                         $files[] = $pic->path;
                     }
                 }
             }
         }
 
-        return ['files' => $files];
+        return ['files' => $files, 'force' => $force];
     }
 
 
@@ -60,7 +64,7 @@ class AdminManager
             $author = $album->author(basename($author));
             $pic = $author->pic(basename($file));
 
-            $state = $pic->cache();
+            $state = $pic->cache(true);
             if($state === null) {
                 $states[] = [str_replace(ALBUMS_DIR, null, $file), 'skipped'];
             }

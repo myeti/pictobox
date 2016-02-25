@@ -127,14 +127,14 @@ class Picture
     /**
      * Create cache
      *
+     * @param bool $force
      * @return bool
-     *
      * @throws InvalidPictureFile
      */
-    public function cache()
+    public function cache($force = false)
     {
         // already cached
-        if(file_exists($this->cachepath) and file_exists($this->cachepath_small)) {
+        if(!$force and file_exists($this->cachepath) and file_exists($this->cachepath_small)) {
             return true;
         }
 
@@ -162,7 +162,7 @@ class Picture
         $cache->resize(500, null, function(Constraint $constraint) {
             $constraint->aspectRatio();
         });
-        $cache->save($this->cachepath_small, 100);
+        $cache->save($this->cachepath_small, 65);
 
         return true;
     }
