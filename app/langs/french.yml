@@ -36,14 +36,14 @@ view.menu.logout: Se déconnecter
 view.panel.create-album.title: Nouvel album
 view.panel.create-album.name: Titre
 view.panel.create-album.date: jj/mm/aaaa
-view.panel.create-album.meta.place: Lieu (adresse, ville, coordonnées...)
+view.panel.create-album.meta.place: Coordonnées géographiques
 view.panel.create-album.submit: Créer
 
 # edit album panel
 view.panel.edit-album.title: Modifier l'album
 view.panel.edit-album.name: Titre
 view.panel.edit-album.date: jj/mm/aaaa
-view.panel.edit-album.meta.place: Lieu (adresse, ville, coordonnées...)
+view.panel.edit-album.meta.place: Coordonnées géographiques
 view.panel.edit-album.authors: Contributeurs
 view.panel.edit-album.submit: Modifier
 

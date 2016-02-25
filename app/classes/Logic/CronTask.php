@@ -46,7 +46,7 @@ class CronTask
             return count($newest) . ' new album(s), ' . count($users) . ' emails sent' . "\n";
         }
 
-        return 'No new album' . "\n";
+        echo 'No new album' . "\n";
     }
 
 }

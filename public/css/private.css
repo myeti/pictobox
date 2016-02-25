@@ -276,7 +276,9 @@ menu ul li .panel button[type=submit] {
 /**
  * Modal photoswipe
  */
-
+.pswp {
+    z-index: 2400;
+}
 .pswp .pswp-label {
     background: none !important;
     width: auto !important;
@@ -418,6 +420,19 @@ ul.grid li .item .title {
 #map {
     height: calc(100vh - 60px);
     width: 100%;
+}
+#map .leaflet-popup-content-wrapper {
+    border-radius: 2px;
+}
+#map .leaflet-popup-content-wrapper .leaflet-popup-content {
+    margin: 20px;
+    margin-bottom: 10px;
+}
+#map .leaflet-popup-content-wrapper .leaflet-popup-content img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 8px;
 }
 
 

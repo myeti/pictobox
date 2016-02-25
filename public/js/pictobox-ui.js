@@ -62,7 +62,9 @@ function PictoboxUI()
             self.menu.container.toggleClass('open');
             self.menu.switcher.toggleClass('open');
             self.menu.panels.removeClass('open').find('form').trigger('reset');
-            self.body.toggleClass('fixed');
+            if(window.isMobile) {
+                self.body.toggleClass('fixed');
+            }
         },
 
         /**

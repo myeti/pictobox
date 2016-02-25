@@ -164,6 +164,10 @@ class AlbumList
      */
     public function map()
     {
+        if(!MAPBOX_TOKEN or !MAPBOX_PROJECT) {
+            throw new NotFoundException;
+        }
+
         $albums = Album::fetch();
 
         // keep only album with meta place

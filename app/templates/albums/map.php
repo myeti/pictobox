@@ -25,9 +25,11 @@ $(function() {
         coord: [<?= MAPBOX_COORD ?>],
         locations: [
             <?php foreach($albums as $album): ?>
+            <?php $place = trim($album->meta('place'), '[]') ?>
             {
-                name: "<?= $album->name ?>", date: "<?= $album->date ?>", year: <?= $album->year ?>,
-                place: "<?= $album->meta('place') ?>", link: "<?= self::url($album->url) ?>"
+                name: "<?= $album->name ?>", date: "<?= $album->date ?>", year: <?= $album->year ?>, link: "<?= self::url($album->url) ?>",
+                place: <?= $place ? '[' . $place . ']' : 'null' ?>,
+                pic: "<?= self::url($album->random()->url_small) ?>"
             },
             <?php endforeach; ?>
         ]
