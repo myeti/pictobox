@@ -12,6 +12,10 @@ define('ADMIN_NAME', 'Admin');
 define('ADMIN_PWD', 'admin');
 define('ADMIN_EMAIL', 'admin@domain.tld');
 
+define('SLACK_WEBHOOK', null);
+define('SLACK_CHANNEL', null);
+define('SLACK_BOTNAME', null);
+
 define('MAPBOX_TOKEN', null);
 define('MAPBOX_PROJECT', null);
 define('MAPBOX_COORD', null);

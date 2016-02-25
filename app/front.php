@@ -36,9 +36,7 @@ $request = Http\Request::globals();
 $request->local[] = '10.0.2.2';
 if($request->local()) {
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL & ~E_NOTICE);
+    $app->catch = false;
 
     $handler = new Whoops\Handler\PrettyPageHandler;
     $handler->addDataTableCallback('App Request', function() use ($request) {
@@ -47,9 +45,7 @@ if($request->local()) {
 
     $whoops = new Whoops\Run;
     $whoops->pushHandler($handler)->register();
-
 }
-
 
 
 /**

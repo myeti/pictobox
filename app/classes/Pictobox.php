@@ -4,12 +4,12 @@ namespace App;
 
 use Colorium\Web;
 use Colorium\Web\Context;
-use Monolog\Handler\SlackHandler;
 use Monolog\Logger;
 use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FilterHandler;
 use App\Service\Spyc;
+use App\Service\SlackLogger;
 
 class Pictobox extends Web\App
 {
@@ -19,6 +19,8 @@ class Pictobox extends Web\App
      */
     public function setup()
     {
+        parent::setup();
+
         // set template directory
         $this->templater->directory = __APP__ . '/templates/';
 
@@ -26,6 +28,11 @@ class Pictobox extends Web\App
         $this->logger = new Logger('pictobox');
         $this->logger->pushHandler(new FingersCrossedHandler(new StreamHandler(LOGS_DIR . 'errors.log'), Logger::ERROR));
         $this->logger->pushHandler(new FilterHandler(new StreamHandler(LOGS_DIR . 'info.log', Logger::INFO), [Logger::INFO]));
+
+        // set slack logger handler
+        if(SLACK_WEBHOOK and SLACK_CHANNEL and SLACK_BOTNAME) {
+            $this->logger->pushHandler(new FingersCrossedHandler(new SlackLogger(SLACK_WEBHOOK, SLACK_CHANNEL, SLACK_BOTNAME), Logger::ERROR));
+        }
 
         // load config file
         $config = Spyc::YAMLLoad(__APP__ . '/config.yml');
@@ -36,12 +43,14 @@ class Pictobox extends Web\App
 
 
     /**
-     * After handler
+     * Route handler
      *
      * @param Context $context
      */
-    protected function after(Context $context = null)
+    protected function route(Context $context)
     {
+        $context = parent::route($context);
+
         // log user navigation
         if($context->logic->name != 'user_ping') {
 
@@ -55,6 +64,8 @@ class Pictobox extends Web\App
             unset($post['password']);
             $this->logger->info($message, $_POST);
         }
+
+        return $context;
     }
 
 }
