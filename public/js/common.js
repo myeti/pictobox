@@ -5,7 +5,6 @@ $(function() {
      */
 
     window.isMobile = (typeof window.orientation !== 'undefined');
-    window.isMobile = true;
 
 
     /**
