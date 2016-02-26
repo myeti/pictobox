@@ -79,12 +79,15 @@ logics:
       method: App\Logic\ErrorHandler::accessDenied
   error_notfound:
       method: App\Logic\ErrorHandler::notFound
+  error_maintenance:
+      method: App\Logic\ErrorHandler::maintenance
   error_fatal:
       method: App\Logic\ErrorHandler::fatal
 
 events:
   401: error_accessdenied
   404: error_notfound
+  503: error_maintenance
 
 errors:
   Exception: error_fatal

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Colorium\Http\Error\ServiceUnavailableException;
 use Colorium\Stateful\Auth;
 use Colorium\Web;
 use Colorium\Web\Context;
@@ -26,17 +27,35 @@ class Pictobox extends Web\App
         $this->templater->directory = __APP__ . '/templates/';
 
         // set logger instance
-        $this->logger = new Logger('pictobox');
+        $this->setupLogger();
+
+        // load config file
+        $this->loadConfigFile();
+    }
+
+
+    /**
+     * Setup logger
+     */
+    protected function setupLogger()
+    {
+        $this->logger = new Logger(APP_NAME);
         $this->logger->pushHandler(new FingersCrossedHandler(new StreamHandler(LOGS_DIR . 'errors.log'), Logger::ERROR));
         $this->logger->pushHandler(new FilterHandler(new StreamHandler(LOGS_DIR . 'info.log', Logger::INFO), [Logger::INFO]));
 
-        // set slack logger handler
         if(SLACK_WEBHOOK and SLACK_CHANNEL and SLACK_BOTNAME) {
             $this->logger->pushHandler(new FingersCrossedHandler(new SlackLogger(SLACK_WEBHOOK, SLACK_CHANNEL, SLACK_BOTNAME), Logger::ERROR));
         }
+    }
 
-        // load config file
+
+    /**
+     * Open config file
+     */
+    protected function loadConfigFile()
+    {
         $config = Spyc::YAMLLoad(__APP__ . '/config.yml');
+
         $this->merge($config['logics']);
         $this->events = $config['events'];
         $this->errors = $config['errors'];
@@ -50,32 +69,78 @@ class Pictobox extends Web\App
      */
     protected function execute(Context $context)
     {
-        // log user navigation
-        if($context->logic->name != 'user_ping') {
+        // log user nav
+        $this->logUser($context);
 
-            $user = $context->user ? $context->user->username : 'Guest';
-            $message = $user . ' hits #' . $context->logic->name;
-            if($context->request->uri->path) {
-                $message .= ' on ' . $context->request->method . ' ' . $context->request->uri->path;
-            }
-
-            $post = $_POST;
-            unset($post['password']);
-            $this->logger->info($message, $_POST);
-        }
+        // site under maintenance
+        $this->checkMaintenance($context);
 
         // execute context
         $context = parent::execute($context);
 
-        // set http cookie for image direct access
-        if($context->user) {
-            setrawcookie(COOKIE_SALT_KEY, COOKIE_SALT_VALUE, time()+3600*24*30, '/');
+        // set http cookie for htaccess
+        $this->setHttpCookie($context);
+
+        return $context;
+    }
+
+
+    /**
+     * Log user navigation
+     *
+     * @param Context $context
+     */
+    protected function logUser(Context $context)
+    {
+        // do not log user_ping route
+        if($context->logic->name == 'user_ping') {
+            return;
         }
+
+        // format message
+        $user = $context->user ? $context->user->username : 'Guest';
+        $message = $user . ' hits #' . $context->logic->name;
+        if($context->request->uri->path) {
+            $message .= ' on ' . $context->request->method . ' ' . $context->request->uri->path;
+        }
+
+        // write log with POST data
+        $post = $_POST;
+        unset($post['password']);
+        $this->logger->info($message, $post);
+    }
+
+
+    /**
+     * Raise maintenance
+     *
+     * @param Context $context
+     */
+    protected function checkMaintenance(Context $context)
+    {
+        $isNotAdmin = $context->user && !$context->user->isAdmin();
+        if(!APP_LIVE and $context->logic->access and $isNotAdmin and $context->logic->name != 'error_maintenance') {
+            throw new ServiceUnavailableException;
+        }
+    }
+
+
+    /**
+     * Set HTTP cookie for direct pic access
+     *
+     * @param Context $context
+     */
+    protected function setHttpCookie(Context $context)
+    {
+        // set cookie if user is authenticated
+        if($context->user) {
+            $ttl = time() + 3600 * 24 * 30;
+            setrawcookie(COOKIE_SALT_KEY, COOKIE_SALT_VALUE, $ttl, '/');
+        }
+        // destroy cookie
         else {
             setrawcookie(COOKIE_SALT_KEY, null, -1, '/');
         }
-
-        return $context;
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Logic;
 
 use Colorium\Http\Error\AccessDeniedException;
+use Colorium\Http\Error\ServiceUnavailableException;
 use Colorium\Web\Context;
 use Colorium\Http\Response;
 use Colorium\Http\Error\NotFoundException;
@@ -21,7 +22,7 @@ class ErrorHandler
      */
     public function notFound(NotFoundException $event, Context $ctx)
     {
-        $ctx->response->code = 404;
+        $ctx->response->code = $event->getCode();
         return ['message' => $event->getMessage()];
     }
 
@@ -35,12 +36,25 @@ class ErrorHandler
      */
     public function accessDenied(AccessDeniedException $event, Context $ctx)
     {
-        $from = $ctx->request->uri->path;
-        if($from) {
-            $from = '?from=' . $from;
-        }
+        $path = $ctx->request->uri->path;
+        $from = ($path and $path != '/') ? '?from=' . $path : null;
 
         return Response::redirect('/login' . $from);
+    }
+
+
+    /**
+     * 503
+     *
+     * @html errors/maintenance
+     *
+     * @param ServiceUnavailableException $event
+     * @param Context $ctx
+     * @return Response\Redirect
+     */
+    public function maintenance(ServiceUnavailableException $event, Context $ctx)
+    {
+        $ctx->response->code = $event->getCode();
     }
 
 
@@ -48,7 +62,12 @@ class ErrorHandler
      * Fatal error
      *
      * @html errors/fatal
+     *
+     * @param Context $ctx
      */
-    public function fatal() {}
+    public function fatal(Context $ctx)
+    {
+        $ctx->response->code = 500;
+    }
 
 }

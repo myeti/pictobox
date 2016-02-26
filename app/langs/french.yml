@@ -117,4 +117,5 @@ email.profile.email: Adresse email
 
 # http errors
 error.404: La page que vous recherchez n'existe pas.
-error.fatal: Une erreur est survenue, un rapport a été envoyé à l'administrateur.
+error.503: Le site est actuellement en maintenance.
+error.500: Une erreur est survenue, un rapport a été envoyé à l'administrateur.
