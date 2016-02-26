@@ -78,6 +78,9 @@ class Pictobox extends Web\App
         // execute context
         $context = parent::execute($context);
 
+        // renew session
+        $this->renewSession();
+
         // set http cookie for htaccess
         $this->setHttpCookie($context);
 
@@ -121,6 +124,17 @@ class Pictobox extends Web\App
         $isNotAdmin = $context->user && !$context->user->isAdmin();
         if(!APP_LIVE and $context->logic->access and $isNotAdmin and $context->logic->name != 'error_maintenance') {
             throw new ServiceUnavailableException;
+        }
+    }
+
+
+    /**
+     * Renew user session if still logged in
+     */
+    protected function renewSession()
+    {
+        if(Auth::valid()) {
+            session_regenerate_id();
         }
     }
 

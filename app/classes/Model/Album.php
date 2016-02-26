@@ -166,6 +166,21 @@ class Album
 
 
     /**
+     * Cache all authors's pictures
+     *
+     * @param bool $force
+     *
+     * @throws \App\Error\InvalidPictureFile
+     */
+    public function cache($force = false)
+    {
+        foreach($this->authors() as $author) {
+            $author->cache($force);
+        }
+    }
+
+
+    /**
      * Edit album
      *
      * @param $year
@@ -221,7 +236,7 @@ class Album
         elseif($meta) {
 
             if(!$replace) {
-                $meta += $this->meta;
+                $meta += $this->meta();
             }
 
             foreach($meta as $key => $value){

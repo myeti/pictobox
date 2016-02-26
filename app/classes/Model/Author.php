@@ -58,6 +58,9 @@ class Author
     {
         if(!$this->pics) {
             $this->pics = Picture::fetch($this);
+            if($blacklist = $this->album->meta('blacklist') and isset($blacklist[$this->name])) {
+                $this->pics = array_diff_key($this->pics, array_flip($blacklist[$this->name]));
+            }
         }
 
         return $this->pics;
@@ -89,6 +92,21 @@ class Author
         $random = array_rand($this->pics());
         if($random) {
             return $this->pics[$random];
+        }
+    }
+
+
+    /**
+     * Cache all pictures
+     *
+     * @param bool $force
+     *
+     * @throws \App\Error\InvalidPictureFile
+     */
+    public function cache($force = false)
+    {
+        foreach($this->pics() as $pic) {
+            $pic->cache($force);
         }
     }
 
