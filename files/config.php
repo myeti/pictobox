@@ -1,6 +1,6 @@
 <?php
 
-define('APP_LIVE', false);
+define('APP_LIVE', true);
 
 define('APP_NAME', 'Pictobox');
 define('APP_EMAIL', 'noreply@domain.tld');

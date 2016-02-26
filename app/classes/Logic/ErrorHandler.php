@@ -17,12 +17,10 @@ class ErrorHandler
      * @html errors/notfound
      *
      * @param NotFoundException $event
-     * @param Context $ctx
      * @return array
      */
-    public function notFound(NotFoundException $event, Context $ctx)
+    public function notFound(NotFoundException $event)
     {
-        $ctx->response->code = $event->getCode();
         return ['message' => $event->getMessage()];
     }
 
@@ -30,16 +28,20 @@ class ErrorHandler
     /**
      * 401
      *
+     * @html errors/accessdenied
+     *
      * @param AccessDeniedException $event
      * @param Context $ctx
      * @return Response\Redirect
      */
     public function accessDenied(AccessDeniedException $event, Context $ctx)
     {
-        $path = $ctx->request->uri->path;
-        $from = ($path and $path != '/') ? '?from=' . $path : null;
-
-        return Response::redirect('/login' . $from);
+        // not logged in
+        if(!$ctx->user) {
+            $path = $ctx->request->uri->path;
+            $from = ($path and $path != '/') ? '?from=' . $path : null;
+            return Response::redirect('/login' . $from);
+        }
     }
 
 
@@ -49,13 +51,9 @@ class ErrorHandler
      * @html errors/maintenance
      *
      * @param ServiceUnavailableException $event
-     * @param Context $ctx
      * @return Response\Redirect
      */
-    public function maintenance(ServiceUnavailableException $event, Context $ctx)
-    {
-        $ctx->response->code = $event->getCode();
-    }
+    public function maintenance(ServiceUnavailableException $event) {}
 
 
     /**

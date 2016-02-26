@@ -116,6 +116,7 @@ email.profile.password: Mot de passe
 email.profile.email: Adresse email
 
 # http errors
+error.401: Vous n'êtes pas autorisé à executer cette page.
 error.404: La page que vous recherchez n'existe pas.
 error.503: Le site est actuellement en maintenance.
 error.500: Une erreur est survenue, un rapport a été envoyé à l'administrateur.
