@@ -32,9 +32,6 @@ logics:
   admin_cache_clear:
       http:   POST /admin/cache/clear
       method: App\Logic\UserManager\AdminManager::cacheClear
-  admin_error:
-      http:   GET /admin/error
-      method: App\Logic\UserManager\AdminManager::triggerError
 
   album_create:
       http:   POST /create

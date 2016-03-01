@@ -100,8 +100,13 @@ class Pictobox extends Web\App
             return;
         }
 
+        // define user name
+        $user = $context->request->cli ? 'Cli' : 'Guest';
+        if($context->user) {
+            $user = $context->user->username;
+        }
+
         // format message
-        $user = $context->user ? $context->user->username : 'Guest';
         $message = $user . ' hits #' . $context->logic->name;
         if($context->request->uri->path) {
             $message .= ' on ' . $context->request->method . ' ' . $context->request->uri->path;

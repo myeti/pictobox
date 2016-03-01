@@ -79,15 +79,4 @@ class AdminManager
         return $states;
     }
 
-
-    /**
-     * Trigger error for test prupose
-     *
-     * @throws \Exception
-     */
-    public function triggerError()
-    {
-        throw new \Exception;
-    }
-
 }
