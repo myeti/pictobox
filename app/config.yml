@@ -1,82 +1,82 @@
 logics:
   homepage:
       http:   GET /
-      method: App\Logic\AlbumList::all
+      method: Pictobox\Logic\AlbumList::all
 
   login:
       http:   GET /login
-      method: App\Logic\UserManager::login
+      method: Pictobox\Logic\UserManager::login
   logout:
       http:   GET /logout
-      method: App\Logic\UserManager::logout
+      method: Pictobox\Logic\UserManager::logout
 
   user_auth:
       http:   POST /user/auth
-      method: App\Logic\UserManager::auth
+      method: Pictobox\Logic\UserManager::auth
   user_edit:
       http:   POST /user/edit
-      method: App\Logic\UserManager::edit
+      method: Pictobox\Logic\UserManager::edit
   user_ping:
       http:   GET /user/ping
-      method: App\Logic\UserManager::ping
+      method: Pictobox\Logic\UserManager::ping
   user_report:
       http:   POST /user/report
-      method: App\Logic\UserManager::report
+      method: Pictobox\Logic\UserManager::report
   user_feedback:
       http:   POST /user/feedback
-      method: App\Logic\UserManager::feedback
+      method: Pictobox\Logic\UserManager::feedback
 
   admin_cache:
       http:   GET /admin/cache
-      method: App\Logic\UserManager\AdminManager::cache
+      method: Pictobox\Logic\UserManager\AdminManager::cache
   admin_cache_clear:
       http:   POST /admin/cache/clear
-      method: App\Logic\UserManager\AdminManager::cacheClear
+      method: Pictobox\Logic\UserManager\AdminManager::cacheClear
 
   album_create:
       http:   POST /create
-      method: App\Logic\AlbumEditor::create
+      method: Pictobox\Logic\AlbumEditor::create
   album_show:
       http:   GET /:y/:m/:d/:album
-      method: App\Logic\AlbumList::show
+      method: Pictobox\Logic\AlbumList::show
   album_edit:
       http:   POST /:y/:m/:d/:album/edit
-      method: App\Logic\AlbumEditor::edit
+      method: Pictobox\Logic\AlbumEditor::edit
   album_upload:
       http:   POST /:y/:m/:d/:album/upload
-      method: App\Logic\AlbumEditor::upload
+      method: Pictobox\Logic\AlbumEditor::upload
   album_download:
       http:   GET /:y/:m/:d/:album/download
-      method: App\Logic\AlbumEditor::download
+      method: Pictobox\Logic\AlbumEditor::download
 
   picture_rotateleft:
       http:   POST /:y/:m/:d/:album/rotateleft
-      method: App\Logic\PictureEditor::rotateLeft
+      method: Pictobox\Logic\PictureEditor::rotateLeft
   picture_rotateright:
       http:   POST /:y/:m/:d/:album/rotateright
-      method: App\Logic\PictureEditor::rotateRight
+      method: Pictobox\Logic\PictureEditor::rotateRight
 
   albumlist_map:
       http:   GET /map
-      method: App\Logic\AlbumList::map
+      method: Pictobox\Logic\AlbumList::map
   albumlist_year:
       http:   GET /:y
-      method: App\Logic\AlbumList::year
+      method: Pictobox\Logic\AlbumList::year
   albumlist_month:
       http:   GET /:y/:m
-      method: App\Logic\AlbumList::month
+      method: Pictobox\Logic\AlbumList::month
   albumlist_day:
       http:   GET /:y/:m/:d
-      method: App\Logic\AlbumList::day
+      method: Pictobox\Logic\AlbumList::day
 
   error_accessdenied:
-      method: App\Logic\ErrorHandler::accessDenied
+      method: Pictobox\Logic\ErrorHandler::accessDenied
   error_notfound:
-      method: App\Logic\ErrorHandler::notFound
+      method: Pictobox\Logic\ErrorHandler::notFound
   error_maintenance:
-      method: App\Logic\ErrorHandler::maintenance
+      method: Pictobox\Logic\ErrorHandler::maintenance
   error_fatal:
-      method: App\Logic\ErrorHandler::fatal
+      method: Pictobox\Logic\ErrorHandler::fatal
 
 events:
   401: error_accessdenied
