@@ -77,8 +77,7 @@ form button {
     width: 100%;
     padding: 12px 16px;
     outline: none;
-    font-size: 12px;
-    letter-spacing: 1px;
+    font-size: 13px;
 }
 form label,
 form select,
@@ -87,6 +86,7 @@ form input {
     color: #000;
     background: #fff;
     margin-bottom: 10px;
+    border-radius: 3px;
 }
 form select option {
     padding: 0;
@@ -98,10 +98,10 @@ form label .fa {
     float: left;
     display: inline-block;
     font-size: 18px;
-    color: #444;
+    color: #666;
     width: 30px;
     text-align: center;
-    padding: 10px 12px;
+    padding: 12px;
     padding-right: 0;
 }
 form label select,
@@ -113,10 +113,10 @@ form label input {
 form button {
     text-transform: uppercase;
     text-align: center;
-    letter-spacing: 1px;
+    border-radius: 3px;
 }
 form button[type=submit] {
-    background: #E14938;
+    background: #E84855;
     color: #fff;
     font-weight: bold;
 }
