@@ -133,7 +133,7 @@ menu ul li {
     float: left;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
-menu ul li:nth-last-child(even) {
+menu ul li:nth-child(odd) {
     border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
 menu ul li a {
@@ -315,6 +315,10 @@ menu ul li .panel button[type=submit] {
 main {
     margin-top: 60px;
     transition: margin-top 0.2s;
+}
+main.fixed {
+    overflow: hidden;
+    height: calc(100vh - 60px);
 }
 main .empty {
     font-size: 18px;

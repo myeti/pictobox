@@ -1,6 +1,12 @@
 $(function() {
 
     /**
+     * Main accessor
+     */
+
+    window.main = $('main');
+
+    /**
      * Is mobile device
      */
 
@@ -16,12 +22,12 @@ $(function() {
         html: $('#page-loader'),
         show: function()
         {
-            $('body').addClass('fixed');
+            window.main.addClass('fixed');
             window.loader.html.addClass('active');
         },
         hide: function()
         {
-            $('body').removeClass('fixed');
+            window.main.removeClass('fixed');
             window.loader.html.removeClass('active');
         }
     };

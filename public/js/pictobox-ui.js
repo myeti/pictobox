@@ -63,7 +63,7 @@ function PictoboxUI()
             self.menu.switcher.toggleClass('open');
             self.menu.panels.removeClass('open').find('form').trigger('reset');
             if(window.isMobile) {
-                self.body.toggleClass('fixed');
+                window.main.toggleClass('fixed');
             }
         },
 
@@ -94,7 +94,7 @@ function PictoboxUI()
             self.menu.container.removeClass('open');
             self.menu.switcher.removeClass('open');
             self.menu.panels.removeClass('open').find('form').trigger('reset');
-            self.body.removeClass('fixed');
+            window.main.removeClass('fixed');
         }
     };
 

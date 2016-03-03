@@ -12,9 +12,6 @@ body {
     background: #1F2224;
     color: #FFF;
 }
-body.fixed {
-    overflow: hidden;
-}
 
 a, a:hover, a:active {
     color: inherit;
