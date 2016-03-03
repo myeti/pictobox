@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Logic;
+namespace Pictobox\Logic;
 
-use App\Model\User;
-use App\Service\Mail;
+use Pictobox\Model\User;
+use Pictobox\Service\Mail;
 use Colorium\Web\Context;
 use Colorium\Http\Response;
 use Colorium\Stateful\Auth;

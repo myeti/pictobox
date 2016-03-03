@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Pictobox;
 
 use Colorium\Http\Error\ServiceUnavailableException;
 use Colorium\Stateful\Auth;
@@ -10,10 +10,10 @@ use Monolog\Logger;
 use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FilterHandler;
-use App\Service\Spyc;
-use App\Service\SlackLogger;
+use Pictobox\Service\Spyc;
+use Pictobox\Service\SlackLogger;
 
-class Pictobox extends Web\App
+class Instance extends Web\App
 {
 
     /**

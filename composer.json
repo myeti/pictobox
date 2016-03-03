@@ -1,7 +1,7 @@
 {
   "name": "myeti/pictobox",
   "type": "project",
-  "description": "Pictobox Application",
+  "description": "Collaborative photo albums",
   "homepage": "https://github.com/myeti/pictobox",
   "license": "MIT",
   "authors": [
@@ -21,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app/classes/"
+      "Pictobox\\": "app/classes/"
     }
   }
 }

@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Model;
+namespace Pictobox\Model;
 
-use App\Error\InvalidAlbumName;
-use App\Error\InvalidImageFile;
-use App\Error\InvalidPictureFile;
-use App\Error\PictureAlreadyExists;
+use Pictobox\Error\InvalidPictureFile;
+use Pictobox\Error\PictureAlreadyExists;
 use Colorium\Http\Request;
 use Intervention\Image\Constraint;
 use Intervention\Image\ImageManagerStatic as Image;

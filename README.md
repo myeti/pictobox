@@ -1,3 +1,3 @@
 # PictoBox
 
-Collaborative photo album
+Collaborative photo albums

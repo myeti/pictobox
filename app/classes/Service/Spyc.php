@@ -10,7 +10,7 @@
  * @package Spyc
  */
 
-namespace App\Service;
+namespace Pictobox\Service;
 
 /**
  * The Simple PHP YAML Class.

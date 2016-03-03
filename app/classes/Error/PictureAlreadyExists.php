@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Error;
+namespace Pictobox\Error;
 
 class PictureAlreadyExists extends \Exception
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Logic;
+namespace Pictobox\Logic;
 
 use Colorium\Http\Error\AccessDeniedException;
 use Colorium\Http\Error\ServiceUnavailableException;

@@ -24,7 +24,7 @@ define('CACHE_DIR', __ROOT__ . '/public/img/cache/');
  */
 
 use Colorium\Text;
-use App\Service\Spyc;
+use Pictobox\Service\Spyc;
 
 Text\Lang::load([
     'fr' => Spyc::YAMLLoad(__DIR__ . '/langs/french.yml')
@@ -37,7 +37,7 @@ Text\Lang::load([
  */
 
 use Colorium\Orm;
-use App\Model\User;
+use Pictobox\Model\User;
 
 $sqlite = new Orm\SQLite(DB_FILE, [
     'user' => User::class
@@ -51,4 +51,4 @@ Orm\Hub::source($sqlite);
  * Pictobox instance
  */
 
-$app = new App\Pictobox;
+$app = new Pictobox\Instance;

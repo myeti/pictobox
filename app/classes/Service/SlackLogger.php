@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace Pictobox\Service;
 
 use Monolog\Handler\AbstractHandler;
 use Monolog\Logger;

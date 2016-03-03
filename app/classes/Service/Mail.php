@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Service;
+namespace Pictobox\Service;
 
-use App\Model\User;
+use Pictobox\Model\User;
 
 class Mail
 {

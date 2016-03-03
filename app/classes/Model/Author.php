@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+namespace Pictobox\Model;
 
-use App\Error\AuthorAlreadyExists;
+use Pictobox\Error\AuthorAlreadyExists;
 
 class Author
 {
@@ -101,7 +101,7 @@ class Author
      *
      * @param bool $force
      *
-     * @throws \App\Error\InvalidPictureFile
+     * @throws \Pictobox\Error\InvalidPictureFile
      */
     public function cache($force = false)
     {

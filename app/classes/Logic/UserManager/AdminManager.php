@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Logic\UserManager;
+namespace Pictobox\Logic\UserManager;
 
-use App\Model\Album;
+use Pictobox\Model\Album;
 use Colorium\Web\Context;
 use Colorium\Http\Response;
 

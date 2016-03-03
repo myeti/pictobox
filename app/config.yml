@@ -69,9 +69,6 @@ logics:
       http:   GET /:y/:m/:d
       method: App\Logic\AlbumList::day
 
-  cron_lastalbums:
-      method: App\Logic\CronTask::lastAlbums
-
   error_accessdenied:
       method: App\Logic\ErrorHandler::accessDenied
   error_notfound:

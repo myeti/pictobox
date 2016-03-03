@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Logic;
+namespace Pictobox\Logic;
 
-use App\Model\Album;
+use Pictobox\Model\Album;
 use Colorium\Http\Error\NotFoundException;
 
 

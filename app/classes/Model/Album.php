@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace Pictobox\Model;
 
-use App\Error\AlbumAlreadyExists;
-use App\Error\InvalidAlbumDate;
-use App\Error\InvalidAlbumName;
-use App\Service\Spyc;
+use Pictobox\Error\AlbumAlreadyExists;
+use Pictobox\Error\InvalidAlbumDate;
+use Pictobox\Error\InvalidAlbumName;
+use Pictobox\Service\Spyc;
 use Colorium\Http\Uri;
 
 class Album
@@ -170,7 +170,7 @@ class Album
      *
      * @param bool $force
      *
-     * @throws \App\Error\InvalidPictureFile
+     * @throws \Pictobox\Error\InvalidPictureFile
      */
     public function cache($force = false)
     {

@@ -17,7 +17,7 @@ require 'instance.php';
  */
 
 use Colorium\Stateful\Auth;
-use App\Model\User;
+use Pictobox\Model\User;
 
 Auth::factory(function($id) {
     return User::one(['id' => $id]);

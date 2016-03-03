@@ -22,7 +22,7 @@ echo (string)is_writable(CACHE_DIR);
  * Database reset
  */
 
-use App\Model\User;
+use Pictobox\Model\User;
 
 User::builder()->wipe();
 User::builder()->create();

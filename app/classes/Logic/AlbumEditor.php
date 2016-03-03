@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Logic;
+namespace Pictobox\Logic;
 
-use App\Error\AlbumAlreadyExists;
-use App\Error\AuthorAlreadyExists;
-use App\Error\InvalidAlbumDate;
-use App\Error\InvalidAlbumName;
-use App\Error\InvalidPictureFile;
-use App\Error\InvalidPictureUpload;
-use App\Error\PictureAlreadyExists;
-use App\Model\Album;
-use App\Model\Author;
-use App\Model\Picture;
+use Pictobox\Error\AlbumAlreadyExists;
+use Pictobox\Error\AuthorAlreadyExists;
+use Pictobox\Error\InvalidAlbumDate;
+use Pictobox\Error\InvalidAlbumName;
+use Pictobox\Error\InvalidPictureFile;
+use Pictobox\Error\InvalidPictureUpload;
+use Pictobox\Error\PictureAlreadyExists;
+use Pictobox\Model\Album;
+use Pictobox\Model\Author;
+use Pictobox\Model\Picture;
 use Colorium\Web\Context;
 use Colorium\Http\Error\HttpException;
 use Colorium\Http\Error\NotFoundException;

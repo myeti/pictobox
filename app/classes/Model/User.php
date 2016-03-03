@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace Pictobox\Model;
 
 use Colorium\Orm;
 
